@@ -17,7 +17,8 @@ namespace ClashTheCube
         [SerializeField] private FloatReference cubeMergeForceMin;
         [SerializeField] private FloatReference cubeMergeForceMax;
         [SerializeField] private FloatReference cubeMergeAngle;
-        [SerializeField] private FloatReference cubeMergeTorque;
+        [SerializeField] private FloatReference cubeMergeTorqueMin;
+        [SerializeField] private FloatReference cubeMergeTorqueMax;
 
         private void Start()
         {
@@ -44,7 +45,7 @@ namespace ClashTheCube
             var quaternion = Quaternion.identity;
             // var force = Vector3.up;
             var force = Vector3.zero;
-            var torque = (new Vector3(Random.Range(-cubeMergeAngle, cubeMergeAngle), 0f, Random.Range(-cubeMergeAngle, cubeMergeAngle))).normalized;
+            var torque = -(new Vector3(Random.Range(-cubeMergeAngle, cubeMergeAngle), 0f, Random.Range(-cubeMergeAngle, cubeMergeAngle))).normalized;
 
             var nearestCube = GetNearestMatchingCube();
             if (nearestCube != null)
@@ -62,7 +63,7 @@ namespace ClashTheCube
 
             cube.Body.AddForce(force * Random.Range(cubeMergeForceMin, cubeMergeForceMax));
             // cube.Body.AddTorque(Vector.Vector3RandomNormal() * cubeMergeTorque, ForceMode.Impulse);
-            cube.Body.AddTorque(torque * cubeMergeTorque, ForceMode.Impulse);
+            cube.Body.AddTorque(torque * Random.Range(cubeMergeTorqueMin, cubeMergeTorqueMax), ForceMode.Impulse);
         }
 
         private CubeController GetNearestMatchingCube()
