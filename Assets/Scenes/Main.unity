@@ -123,6 +123,78 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &26261508
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 26261511}
+  - component: {fileID: 26261510}
+  - component: {fileID: 26261509}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &26261509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26261508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 286aa3dbc77aa4a9997c673f8098a890, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 26261510}
+        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
+        m_MethodName: Vibrate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  Event: {fileID: 11400000, guid: 83fa76346461f49bc92a7a636018466c, type: 2}
+--- !u!114 &26261510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26261508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acc1c7e567b854b6dadf8eb03499e5c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &26261511
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26261508}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &27425904
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1269,7 +1341,7 @@ Transform:
   - {fileID: 1284217594}
   - {fileID: 60627823}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &513357618
 PrefabInstance:
@@ -1438,7 +1510,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22457152, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 22457152, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
       propertyPath: m_AnchorMax.x
@@ -3238,7 +3310,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3734,7 +3806,7 @@ Transform:
   - {fileID: 153533087}
   - {fileID: 1387347676}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 19.81, y: 11.21, z: 5.2}
 --- !u!1 &1837498919
 GameObject:
@@ -3777,11 +3849,11 @@ MonoBehaviour:
     Variable: {fileID: 0}
   cubeMergeUpForceMultiplier:
     UseConstant: 1
-    ConstantValue: 2
+    ConstantValue: 1.5
     Variable: {fileID: 0}
   cubeMergeMinDistanceToApplyForce:
     UseConstant: 1
-    ConstantValue: 1.3
+    ConstantValue: 1.2
     Variable: {fileID: 0}
   cubeMergeMaxBackDistanceToApplyForce:
     UseConstant: 1
@@ -3789,11 +3861,11 @@ MonoBehaviour:
     Variable: {fileID: 0}
   cubeMergeForceMin:
     UseConstant: 1
-    ConstantValue: 200
+    ConstantValue: 250
     Variable: {fileID: 0}
   cubeMergeForceMax:
     UseConstant: 1
-    ConstantValue: 250
+    ConstantValue: 300
     Variable: {fileID: 0}
   cubeMergeAngle:
     UseConstant: 1
@@ -3801,11 +3873,11 @@ MonoBehaviour:
     Variable: {fileID: 0}
   cubeMergeTorqueMin:
     UseConstant: 1
-    ConstantValue: 50
+    ConstantValue: 0
     Variable: {fileID: 0}
   cubeMergeTorqueMax:
     UseConstant: 1
-    ConstantValue: 200
+    ConstantValue: 2
     Variable: {fileID: 0}
 --- !u!4 &1837498921
 Transform:

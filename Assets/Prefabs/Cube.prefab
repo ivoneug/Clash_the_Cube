@@ -829,7 +829,7 @@ MonoBehaviour:
     Variable: {fileID: 0}
   force:
     UseConstant: 1
-    ConstantValue: 1500
+    ConstantValue: 1300
     Variable: {fileID: 0}
   cubeMergeEvent: {fileID: 11400000, guid: 83fa76346461f49bc92a7a636018466c, type: 2}
   labels:
