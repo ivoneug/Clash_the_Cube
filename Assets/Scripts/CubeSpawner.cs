@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using Framework.Variables;
 using Framework.Utils;
+using Databox;
 
 namespace ClashTheCube
 {
     public class CubeSpawner : MonoBehaviour
     {
+        [SerializeField] private DataboxObject databox;
+
         [SerializeField] private GameObject cubePrefab;
 
         [SerializeField] private IntVariable nextCubeNumber;
@@ -22,7 +25,31 @@ namespace ClashTheCube
 
         private void Start()
         {
+            if (MetaLoad())
+            {
+                return;
+            }
+
             Spawn();
+        }
+
+        public bool MetaLoad()
+        {
+            bool hasInitial = false;
+
+            var entries = databox.GetEntriesFromTable(CubeController.Table);
+            foreach (var entry in entries)
+            {
+                var cube = Instantiate(cubePrefab, transform.position, Quaternion.identity).GetComponent<CubeController>();
+                cube.MetaLoad(entry.Key);
+
+                if (cube.State == CubeController.CubeState.Initial)
+                {
+                    hasInitial = true;
+                }
+            }
+
+            return hasInitial;
         }
 
         public void Spawn()

@@ -852,6 +852,7 @@ MonoBehaviour:
   - {r: 0, g: 0.8773585, b: 0.8686755, a: 0}
   nextCubeNumber: {fileID: 11400000, guid: 0d0620078eb204bffb130c01055b2168, type: 2}
   nextCubePosition: {fileID: 11400000, guid: 3dc548cf0517d4329a376879ab1980c0, type: 2}
+  databox: {fileID: 11400000, guid: 74695ae3ec05c4ffa93bac3e5d6d9cb8, type: 2}
 --- !u!114 &3753591815582623414
 MonoBehaviour:
   m_ObjectHideFlags: 0

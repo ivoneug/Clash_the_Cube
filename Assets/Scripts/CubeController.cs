@@ -4,6 +4,7 @@ using Framework.Events;
 using Framework.Utils;
 using DG.Tweening;
 using TMPro;
+using Databox;
 
 public class CubeController : MonoBehaviour
 {
@@ -36,11 +37,24 @@ public class CubeController : MonoBehaviour
 
     public int Number { get; private set; }
 
+    [SerializeField] private DataboxObject databox;
+
+    public static string Table = "Field";
+    private static string StateField = "StateField";
+    private static string NumberField = "Number";
+    private static string PositionField = "PositionField";
+    private static string RotationField = "RotationField";
+    private int _identifier;
+    private bool _sleeping;
+
     private void Awake()
     {
         boxRenderer = GetComponent<Renderer>();
         boxCollider = GetComponent<BoxCollider>();
         Body = GetComponent<Rigidbody>();
+
+        _identifier = GetInstanceID();
+        _sleeping = true;
     }
 
     private void Start()
@@ -56,6 +70,11 @@ public class CubeController : MonoBehaviour
         }
 
         transform.position = Vector3.Lerp(transform.position, destPosition, velocity * Time.deltaTime);
+    }
+
+    private void FixedUpdate()
+    {
+        UpdateMeta();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -107,10 +126,7 @@ public class CubeController : MonoBehaviour
 
     public void InitNew(int number)
     {
-        State = CubeState.Initial;
-        Body.constraints = RigidbodyConstraints.FreezeRotation;
-
-        SetNumber(number);
+        Init(number, CubeState.Initial);
 
         transform.localScale = Vector3.zero;
         transform.DOScale(1f, 0.5f).SetEase(Ease.OutQuad).Play();
@@ -118,8 +134,23 @@ public class CubeController : MonoBehaviour
 
     public void InitMerged(int number)
     {
-        State = CubeState.Transition;
-        Body.constraints = RigidbodyConstraints.None;
+        Init(number, CubeState.Transition);
+    }
+
+    private void Init(int number, CubeState state)
+    {
+        switch (state)
+        {
+            case CubeState.Initial:
+                State = CubeState.Initial;
+                Body.constraints = RigidbodyConstraints.FreezeRotation;
+                break;
+
+            case CubeState.Transition:
+                State = CubeState.Transition;
+                Body.constraints = RigidbodyConstraints.None;
+                break;
+        }
 
         SetNumber(number);
     }
@@ -155,6 +186,7 @@ public class CubeController : MonoBehaviour
         boxCollider.enabled = false;
         Body.velocity = Vector3.zero;
 
+        MetaRemove();
         Destroy(gameObject);
     }
 
@@ -188,4 +220,70 @@ public class CubeController : MonoBehaviour
 
         State = CubeState.Transition;
     }
+
+    #region Database
+
+    private void UpdateMeta()
+    {
+        bool sleeping = Body.velocity.magnitude < 0.1f;
+        if (_sleeping == sleeping)
+        {
+            return;
+        }
+
+        _sleeping = sleeping;
+        MetaSave();
+    }
+
+    private void MetaSave()
+    {
+        IntType state = new IntType((int)State);
+        IntType num = new IntType(Number);
+        Vector3Type pos = new Vector3Type(transform.position);
+        QuaternionType rot = new QuaternionType(transform.rotation);
+
+        if (!databox.EntryExists(Table, _identifier.ToString()))
+        {
+            databox.AddData(Table, _identifier.ToString(), StateField, state);
+            databox.AddData(Table, _identifier.ToString(), NumberField, num);
+            databox.AddData(Table, _identifier.ToString(), PositionField, pos);
+            databox.AddData(Table, _identifier.ToString(), RotationField, rot);
+        }
+        else
+        {
+            databox.SetData<IntType>(Table, _identifier.ToString(), StateField, state);
+            databox.SetData<IntType>(Table, _identifier.ToString(), NumberField, num);
+            databox.SetData<Vector3Type>(Table, _identifier.ToString(), PositionField, pos);
+            databox.SetData<QuaternionType>(Table, _identifier.ToString(), RotationField, rot);
+        }
+
+        databox.SaveDatabase();
+    }
+
+    public void MetaLoad(string key)
+    {
+        _identifier = int.Parse(key);
+        _sleeping = true;
+
+        if (!databox.EntryExists(Table, _identifier.ToString()))
+        {
+            return;
+        }
+
+        IntType state = databox.GetData<IntType>(Table, _identifier.ToString(), StateField);
+        IntType num = databox.GetData<IntType>(Table, _identifier.ToString(), NumberField);
+        Vector3Type pos = databox.GetData<Vector3Type>(Table, _identifier.ToString(), PositionField);
+        QuaternionType rot = databox.GetData<QuaternionType>(Table, _identifier.ToString(), RotationField);
+
+        Init(num.Value, (CubeState)state.Value);
+        transform.position = pos.Value;
+        transform.rotation = rot.Value;
+    }
+
+    private void MetaRemove()
+    {
+        databox.RemoveEntry(Table, _identifier.ToString());
+    }
+
+#endregion
 }

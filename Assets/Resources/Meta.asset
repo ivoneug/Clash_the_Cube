@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3fc1e56f11d7a24f9aa059d599df6c9, type: 3}
+  m_Name: Meta
+  m_EditorClassIdentifier: 
+  databoxCloudService: {fileID: 0}
+  cloudVersion: 
+  oldCloudVersion: 
+  cloudId: 
+  cloudServer: 
+  cloudStatus: 
+  cloudProgress: 0
+  savePath: /Users/ivoneug/Library/Application Support/Ivon Games/Clash the Cube/Meta
+  fileName: Meta
+  selectedApplicationPath: 0
+  debugMode: 0
+  showFieldTypes: 0
+  showInitValues: 0
+  automaticSave: 1
+  encryption: 0
+  encryptionKey: 123456
+  compressJson: 1
+  dataFormat: 0
+  collapsedView: 0
+  showInspector: 0
+  entriesPerPage: 99
+  googleSheetUrl: 
+  googleWorksheets: []
+  serializer: 0
+  errors: 0
+  cloudWarnings: 0
+  cloudCheck: 0
