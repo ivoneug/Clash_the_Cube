@@ -3842,7 +3842,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   databox: {fileID: 11400000, guid: 74695ae3ec05c4ffa93bac3e5d6d9cb8, type: 2}
   cubePrefab: {fileID: 6603198564425383881, guid: 8309ddb9a0f174dc9a6c2746ff462ff9, type: 3}
-  nextCubeNumber: {fileID: 11400000, guid: 0d0620078eb204bffb130c01055b2168, type: 2}
+  maxPowNumberForCube:
+    UseConstant: 1
+    ConstantValue: 5
+    Variable: {fileID: 0}
+  nextCubeNumber:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 0d0620078eb204bffb130c01055b2168, type: 2}
   nextCubePosition: {fileID: 11400000, guid: 3dc548cf0517d4329a376879ab1980c0, type: 2}
   cubeMergeSideForceMultiplier:
     UseConstant: 1
@@ -3880,6 +3887,11 @@ MonoBehaviour:
     UseConstant: 1
     ConstantValue: 2
     Variable: {fileID: 0}
+  nearestCubesCountToGenerateNumber:
+    UseConstant: 1
+    ConstantValue: 5
+    Variable: {fileID: 0}
+  randomNumberGenerationChance: 0.7
 --- !u!4 &1837498921
 Transform:
   m_ObjectHideFlags: 0

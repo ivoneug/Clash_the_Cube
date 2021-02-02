@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using Framework.Variables;
 using Framework.Utils;
 using Databox;
@@ -11,7 +12,8 @@ namespace ClashTheCube
 
         [SerializeField] private GameObject cubePrefab;
 
-        [SerializeField] private IntVariable nextCubeNumber;
+        [SerializeField] private IntReference maxPowNumberForCube;
+        [SerializeField] private IntReference nextCubeNumber;
         [SerializeField] private Vector3Variable nextCubePosition;
         [SerializeField] private FloatReference cubeMergeSideForceMultiplier;
         [SerializeField] private FloatReference cubeMergeUpForceMultiplier;
@@ -23,8 +25,15 @@ namespace ClashTheCube
         [SerializeField] private FloatReference cubeMergeTorqueMin;
         [SerializeField] private FloatReference cubeMergeTorqueMax;
 
+        [SerializeField] private IntReference nearestCubesCountToGenerateNumber;
+        [SerializeField][Range(0f, 1f)] private float randomNumberGenerationChance = 0.25f;
+
+        private int previousGeneratedNumber = -1;
+
         private void Start()
         {
+            previousGeneratedNumber = -1;
+
             if (MetaLoad())
             {
                 return;
@@ -62,7 +71,7 @@ namespace ClashTheCube
         private void _Spawn()
         {
             var cube = Instantiate(cubePrefab, transform.position, Quaternion.identity).GetComponent<CubeController>();
-            cube.InitNew((int)Mathf.Pow(2, Random.Range(1, 7)));
+            cube.InitNew(GenerateCubeNumber());
             // cube.InitNew((int)Mathf.Pow(2, 12));
         }
 
@@ -136,6 +145,72 @@ namespace ClashTheCube
             }
 
             return nearest;
+        }
+
+        private int GenerateCubeNumber()
+        {
+            int random = -1;
+            do
+            {
+                random = (int)Mathf.Pow(2, Random.Range(1, maxPowNumberForCube + 1));
+            } while (random == previousGeneratedNumber);
+
+            if (Random.Range(0f, 1f) <= randomNumberGenerationChance || nearestCubesCountToGenerateNumber == 0)
+            {
+                Debug.Log("Random Chance, generated: " + random);
+                
+                previousGeneratedNumber = random;
+                return random;
+            }
+
+            var maxNumber = (int)Mathf.Pow(2, maxPowNumberForCube);
+
+            // get all cubes and filter out all cubes with inappropreate numbers
+            var objs = GameObject.FindGameObjectsWithTag("Cube");
+            var objects = new List<CubeController>();
+
+            foreach (var obj in objs)
+            {
+                var cube = obj.GetComponent<CubeController>();
+                if (cube.Number > maxNumber || cube.State != CubeController.CubeState.Transition)
+                {
+                    continue;
+                }
+
+                objects.Add(cube);
+            }
+
+            // check that we have enough cubes
+            if (objects.Count < nearestCubesCountToGenerateNumber)
+            {
+                Debug.Log("Not enough cubes, generated: " + random);
+
+                previousGeneratedNumber = random;
+                return random;
+            }
+
+            var position = transform.position;
+
+            // sort all cubes by distance to spawner
+            objects.Sort((CubeController x, CubeController y) =>
+            {
+                var xDistance = Vector.DistanceTo(position, x.transform.position);
+                var yDistance = Vector.DistanceTo(position, y.transform.position);
+
+                return xDistance < yDistance ? -1 : 1;
+            });
+
+            // remove all extra cubes
+            if (objects.Count > nearestCubesCountToGenerateNumber)
+            {
+                objects.RemoveRange(nearestCubesCountToGenerateNumber, objects.Count - nearestCubesCountToGenerateNumber);
+            }
+
+            Shuffle.List<CubeController>(objects);
+            Debug.Log("Cubes count: " + objects.Count + ", generated: " + objects[0].Number);
+
+            previousGeneratedNumber = objects[0].Number;
+            return objects[0].Number;
         }
     }
 }
