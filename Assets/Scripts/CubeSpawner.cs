@@ -30,7 +30,7 @@ namespace ClashTheCube
 
         private int previousGeneratedNumber = -1;
 
-        private void Start()
+        public void LoadSavedFieldState()
         {
             previousGeneratedNumber = -1;
 
@@ -46,7 +46,7 @@ namespace ClashTheCube
         {
             bool hasInitial = false;
 
-            var entries = databox.GetEntriesFromTable(CubeController.Table);
+            var entries = databox.GetEntriesFromTable(DataBaseController.Cubes_Table);
             foreach (var entry in entries)
             {
                 var cube = Instantiate(cubePrefab, transform.position, Quaternion.identity).GetComponent<CubeController>();
@@ -158,7 +158,7 @@ namespace ClashTheCube
             if (Random.Range(0f, 1f) <= randomNumberGenerationChance || nearestCubesCountToGenerateNumber == 0)
             {
                 Debug.Log("Random Chance, generated: " + random);
-                
+
                 previousGeneratedNumber = random;
                 return random;
             }

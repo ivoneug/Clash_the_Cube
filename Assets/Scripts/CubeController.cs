@@ -6,284 +6,294 @@ using DG.Tweening;
 using TMPro;
 using Databox;
 
-public class CubeController : MonoBehaviour
+namespace ClashTheCube
 {
-    public enum CubeState
+    public class CubeController : MonoBehaviour
     {
-        Initial,
-        Transition,
-        Final
-    }
-
-    [SerializeField] private Vector2Variable swipeDelta;
-    [SerializeField] private FloatReference swipeDeltaMultiplier;
-    [SerializeField] private FloatReference xConstraint;
-    [SerializeField] private FloatReference velocity;
-    [SerializeField] private FloatReference force;
-    [SerializeField] private GameEvent cubeMergeEvent;
-
-    [SerializeField] private TextMeshPro[] labels;
-
-    [SerializeField] private Color[] colors;
-
-    [SerializeField] private IntVariable nextCubeNumber;
-    [SerializeField] private Vector3Variable nextCubePosition;
-
-    public CubeState State { get; private set; }
-    public Rigidbody Body { get; private set; }
-    private BoxCollider boxCollider;
-    private Renderer boxRenderer;
-    private Vector3 destPosition;
-
-    public int Number { get; private set; }
-
-    [SerializeField] private DataboxObject databox;
-
-    public static string Table = "Field";
-    private static string StateField = "StateField";
-    private static string NumberField = "Number";
-    private static string PositionField = "PositionField";
-    private static string RotationField = "RotationField";
-    private int _identifier;
-    private bool _sleeping;
-
-    private void Awake()
-    {
-        boxRenderer = GetComponent<Renderer>();
-        boxCollider = GetComponent<BoxCollider>();
-        Body = GetComponent<Rigidbody>();
-
-        _identifier = GetInstanceID();
-        _sleeping = true;
-    }
-
-    private void Start()
-    {
-        destPosition = transform.position;
-    }
-
-    private void Update()
-    {
-        if (State != CubeState.Initial)
+        public enum CubeState
         {
-            return;
+            Initial,
+            Transition,
+            Final
         }
 
-        transform.position = Vector3.Lerp(transform.position, destPosition, velocity * Time.deltaTime);
-    }
+        [SerializeField] private Vector2Variable swipeDelta;
+        [SerializeField] private FloatReference swipeDeltaMultiplier;
+        [SerializeField] private FloatReference xConstraint;
+        [SerializeField] private FloatReference velocity;
+        [SerializeField] private FloatReference force;
+        [SerializeField] private GameEvent cubeMergeEvent;
 
-    private void FixedUpdate()
-    {
-        UpdateMeta();
-    }
+        [SerializeField] private TextMeshPro[] labels;
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Platform")
+        [SerializeField] private Color[] colors;
+
+        [SerializeField] private IntVariable nextCubeNumber;
+        [SerializeField] private Vector3Variable nextCubePosition;
+
+        public CubeState State { get; private set; }
+        public Rigidbody Body { get; private set; }
+        private BoxCollider boxCollider;
+        private Renderer boxRenderer;
+        private Vector3 destPosition;
+
+        public int Number { get; private set; }
+
+        [SerializeField] private DataboxObject databox;
+
+        private int _identifier;
+        private bool _sleeping;
+
+        private void Awake()
         {
-            return;
+            boxRenderer = GetComponent<Renderer>();
+            boxCollider = GetComponent<BoxCollider>();
+            Body = GetComponent<Rigidbody>();
+
+            _identifier = GetInstanceID();
+            _sleeping = true;
         }
-        if (State == CubeState.Final)
+
+        private void Start()
         {
-            return;
+            destPosition = transform.position;
         }
 
-        Body.constraints = RigidbodyConstraints.None;
-
-        if (collision.gameObject.tag == "Cube")
+        private void Update()
         {
-            var cube = collision.gameObject.GetComponent<CubeController>();
-            if (cube.State == CubeState.Final)
+            if (State != CubeState.Initial)
             {
                 return;
             }
 
-            CheckCollision(cube);
-        }
-    }
-
-    private void CheckCollision(CubeController cube)
-    {
-        if (cube == null)
-        {
-            return;
+            transform.position = Vector3.Lerp(transform.position, destPosition, velocity * Time.deltaTime);
         }
 
-        if (cube.Number == Number)
+        private void FixedUpdate()
         {
-            cube.SetFinalState();
-            SetFinalState();
+            UpdateMeta();
+        }
 
-            nextCubeNumber.SetValue(Number * 2);
-            nextCubePosition.SetValue(Vector.Midpoint(transform.position, cube.transform.position));
-
-            if (cubeMergeEvent)
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.tag == "Platform")
             {
-                cubeMergeEvent.Raise();
+                return;
+            }
+            if (State == CubeState.Final)
+            {
+                return;
+            }
+
+            Body.constraints = RigidbodyConstraints.None;
+
+            if (collision.gameObject.tag == "Cube")
+            {
+                var cube = collision.gameObject.GetComponent<CubeController>();
+                if (cube.State == CubeState.Final)
+                {
+                    return;
+                }
+
+                CheckCollision(cube);
             }
         }
-    }
 
-    public void InitNew(int number)
-    {
-        Init(number, CubeState.Initial);
-
-        transform.localScale = Vector3.zero;
-        transform.DOScale(1f, 0.5f).SetEase(Ease.OutQuad).Play();
-    }
-
-    public void InitMerged(int number)
-    {
-        Init(number, CubeState.Transition);
-    }
-
-    private void Init(int number, CubeState state)
-    {
-        switch (state)
+        private void CheckCollision(CubeController cube)
         {
-            case CubeState.Initial:
-                State = CubeState.Initial;
-                Body.constraints = RigidbodyConstraints.FreezeRotation;
-                break;
+            if (cube == null)
+            {
+                return;
+            }
 
-            case CubeState.Transition:
-                State = CubeState.Transition;
-                Body.constraints = RigidbodyConstraints.None;
-                break;
+            if (cube.Number == Number)
+            {
+                cube.SetFinalState();
+                SetFinalState();
+
+                nextCubeNumber.SetValue(Number * 2);
+                nextCubePosition.SetValue(Vector.Midpoint(transform.position, cube.transform.position));
+
+                if (cubeMergeEvent)
+                {
+                    cubeMergeEvent.Raise();
+                }
+            }
         }
 
-        SetNumber(number);
-    }
-
-    private void SetNumber(int number)
-    {
-        Number = number;
-
-        string numberString = number.ToString();
-        if (number > 8192)
+        public void InitNew(int number)
         {
-            numberString = (number / 1000).ToString() + "K";
+            Init(number, CubeState.Initial);
+
+            transform.localScale = Vector3.zero;
+            transform.DOScale(1f, 0.5f).SetEase(Ease.OutQuad).Play();
         }
 
-        foreach (var label in labels)
+        public void InitMerged(int number)
         {
-            label.text = numberString;
+            Init(number, CubeState.Transition);
         }
 
-        string converted = System.Convert.ToString(number, 2);
-        int index = converted.Length - 1;
-        if (index > colors.Length)
+        private void Init(int number, CubeState state)
         {
-            index -= (index / colors.Length) * colors.Length;
-        }
-        boxRenderer.material.SetColor("_TintColorA", colors[index - 1]);
-    }
+            switch (state)
+            {
+                case CubeState.Initial:
+                    State = CubeState.Initial;
+                    Body.constraints = RigidbodyConstraints.FreezeRotation;
+                    break;
 
-    public void SetFinalState()
-    {
-        State = CubeState.Final;
+                case CubeState.Transition:
+                    State = CubeState.Transition;
+                    Body.constraints = RigidbodyConstraints.None;
+                    break;
+            }
 
-        boxCollider.enabled = false;
-        Body.velocity = Vector3.zero;
-
-        MetaRemove();
-        Destroy(gameObject);
-    }
-
-    public void MoveLeft()
-    {
-        destPosition += new Vector3(swipeDelta.Value.x * swipeDeltaMultiplier, 0f, 0f);
-        if (destPosition.x < -xConstraint)
-        {
-            destPosition = new Vector3(-xConstraint, destPosition.y, destPosition.z);
-        }
-    }
-
-    public void MoveRight()
-    {
-        destPosition += new Vector3(swipeDelta.Value.x * swipeDeltaMultiplier, 0f, 0f);
-        if (destPosition.x > xConstraint)
-        {
-            destPosition = new Vector3(xConstraint, destPosition.y, destPosition.z);
-        }
-    }
-
-    public void Accelerate()
-    {
-        if (State != CubeState.Initial)
-        {
-            return;
+            SetNumber(number);
         }
 
-        // accelerate here
-        Body.AddForce(Vector3.forward * force);
-
-        State = CubeState.Transition;
-    }
-
-    #region Database
-
-    private void UpdateMeta()
-    {
-        bool sleeping = Body.velocity.magnitude < 0.1f;
-        if (_sleeping == sleeping)
+        private void SetNumber(int number)
         {
-            return;
+            Number = number;
+
+            string numberString = number.ToString();
+            if (number > 8192)
+            {
+                numberString = (number / 1000).ToString() + "K";
+            }
+
+            foreach (var label in labels)
+            {
+                label.text = numberString;
+            }
+
+            string converted = System.Convert.ToString(number, 2);
+            int index = converted.Length - 1;
+            if (index > colors.Length)
+            {
+                index -= (index / colors.Length) * colors.Length;
+            }
+            boxRenderer.material.SetColor("_TintColorA", colors[index - 1]);
         }
 
-        _sleeping = sleeping;
-        MetaSave();
-    }
-
-    private void MetaSave()
-    {
-        IntType state = new IntType((int)State);
-        IntType num = new IntType(Number);
-        Vector3Type pos = new Vector3Type(transform.position);
-        QuaternionType rot = new QuaternionType(transform.rotation);
-
-        if (!databox.EntryExists(Table, _identifier.ToString()))
+        public void SetFinalState()
         {
-            databox.AddData(Table, _identifier.ToString(), StateField, state);
-            databox.AddData(Table, _identifier.ToString(), NumberField, num);
-            databox.AddData(Table, _identifier.ToString(), PositionField, pos);
-            databox.AddData(Table, _identifier.ToString(), RotationField, rot);
-        }
-        else
-        {
-            databox.SetData<IntType>(Table, _identifier.ToString(), StateField, state);
-            databox.SetData<IntType>(Table, _identifier.ToString(), NumberField, num);
-            databox.SetData<Vector3Type>(Table, _identifier.ToString(), PositionField, pos);
-            databox.SetData<QuaternionType>(Table, _identifier.ToString(), RotationField, rot);
+            State = CubeState.Final;
+
+            boxCollider.enabled = false;
+            Body.velocity = Vector3.zero;
+
+            MetaRemove();
+            Destroy(gameObject);
         }
 
-        databox.SaveDatabase();
-    }
-
-    public void MetaLoad(string key)
-    {
-        _identifier = int.Parse(key);
-        _sleeping = true;
-
-        if (!databox.EntryExists(Table, _identifier.ToString()))
+        public void MoveLeft()
         {
-            return;
+            destPosition += new Vector3(swipeDelta.Value.x * swipeDeltaMultiplier, 0f, 0f);
+            if (destPosition.x < -xConstraint)
+            {
+                destPosition = new Vector3(-xConstraint, destPosition.y, destPosition.z);
+            }
         }
 
-        IntType state = databox.GetData<IntType>(Table, _identifier.ToString(), StateField);
-        IntType num = databox.GetData<IntType>(Table, _identifier.ToString(), NumberField);
-        Vector3Type pos = databox.GetData<Vector3Type>(Table, _identifier.ToString(), PositionField);
-        QuaternionType rot = databox.GetData<QuaternionType>(Table, _identifier.ToString(), RotationField);
+        public void MoveRight()
+        {
+            destPosition += new Vector3(swipeDelta.Value.x * swipeDeltaMultiplier, 0f, 0f);
+            if (destPosition.x > xConstraint)
+            {
+                destPosition = new Vector3(xConstraint, destPosition.y, destPosition.z);
+            }
+        }
 
-        Init(num.Value, (CubeState)state.Value);
-        transform.position = pos.Value;
-        transform.rotation = rot.Value;
+        public void Accelerate()
+        {
+            if (State != CubeState.Initial)
+            {
+                return;
+            }
+
+            // accelerate here
+            Body.AddForce(Vector3.forward * force);
+
+            State = CubeState.Transition;
+        }
+
+        #region Database
+
+        private void UpdateMeta()
+        {
+            bool sleeping = Body.velocity.magnitude < 0.1f;
+            if (_sleeping == sleeping)
+            {
+                return;
+            }
+
+            _sleeping = sleeping;
+            MetaSave();
+        }
+
+        private void MetaSave()
+        {
+            IntType state = new IntType((int)State);
+            IntType num = new IntType(Number);
+            Vector3Type pos = new Vector3Type(transform.position);
+            QuaternionType rot = new QuaternionType(transform.rotation);
+
+            string table = DataBaseController.Cubes_Table;
+            string stateField = DataBaseController.Cubes_StateField;
+            string numberField = DataBaseController.Cubes_NumberField;
+            string positionField = DataBaseController.Cubes_PositionField;
+            string rotationField = DataBaseController.Cubes_RotationField;
+
+            if (!databox.EntryExists(table, _identifier.ToString()))
+            {
+                databox.AddData(table, _identifier.ToString(), stateField, state);
+                databox.AddData(table, _identifier.ToString(), numberField, num);
+                databox.AddData(table, _identifier.ToString(), positionField, pos);
+                databox.AddData(table, _identifier.ToString(), rotationField, rot);
+            }
+            else
+            {
+                databox.SetData<IntType>(table, _identifier.ToString(), stateField, state);
+                databox.SetData<IntType>(table, _identifier.ToString(), numberField, num);
+                databox.SetData<Vector3Type>(table, _identifier.ToString(), positionField, pos);
+                databox.SetData<QuaternionType>(table, _identifier.ToString(), rotationField, rot);
+            }
+
+            databox.SaveDatabase();
+        }
+
+        public void MetaLoad(string key)
+        {
+            _identifier = int.Parse(key);
+            _sleeping = true;
+
+            string table = DataBaseController.Cubes_Table;
+            string stateField = DataBaseController.Cubes_StateField;
+            string numberField = DataBaseController.Cubes_NumberField;
+            string positionField = DataBaseController.Cubes_PositionField;
+            string rotationField = DataBaseController.Cubes_RotationField;
+
+            if (!databox.EntryExists(table, _identifier.ToString()))
+            {
+                return;
+            }
+
+            IntType state = databox.GetData<IntType>(table, _identifier.ToString(), stateField);
+            IntType num = databox.GetData<IntType>(table, _identifier.ToString(), numberField);
+            Vector3Type pos = databox.GetData<Vector3Type>(table, _identifier.ToString(), positionField);
+            QuaternionType rot = databox.GetData<QuaternionType>(table, _identifier.ToString(), rotationField);
+
+            Init(num.Value, (CubeState)state.Value);
+            transform.position = pos.Value;
+            transform.rotation = rot.Value;
+        }
+
+        private void MetaRemove()
+        {
+            databox.RemoveEntry(DataBaseController.Cubes_Table, _identifier.ToString());
+        }
+
+        #endregion
     }
-
-    private void MetaRemove()
-    {
-        databox.RemoveEntry(Table, _identifier.ToString());
-    }
-
-#endregion
 }

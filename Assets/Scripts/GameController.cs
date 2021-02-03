@@ -2,10 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour
+namespace ClashTheCube
 {
-    public void Vibrate()
+    public class GameController : MonoBehaviour
     {
-        Handheld.Vibrate();
+        private void Start()
+        {
+            Vibration.Init();
+        }
+
+        public void Vibrate()
+        {
+            Vibration.VibratePop();
+        }
     }
 }
