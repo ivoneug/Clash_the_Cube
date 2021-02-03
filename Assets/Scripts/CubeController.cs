@@ -23,6 +23,7 @@ namespace ClashTheCube
         [SerializeField] private FloatReference velocity;
         [SerializeField] private FloatReference force;
         [SerializeField] private GameEvent cubeMergeEvent;
+        [SerializeField] private GameEvent cubeMetaSavedEvent;
 
         [SerializeField] private TextMeshPro[] labels;
 
@@ -260,7 +261,10 @@ namespace ClashTheCube
                 databox.SetData<QuaternionType>(table, _identifier.ToString(), rotationField, rot);
             }
 
-            databox.SaveDatabase();
+            if (cubeMetaSavedEvent)
+            {
+                cubeMetaSavedEvent.Raise();
+            }
         }
 
         public void MetaLoad(string key)

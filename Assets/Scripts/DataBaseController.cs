@@ -20,6 +20,9 @@ namespace ClashTheCube
 
         [SerializeField] private DataboxObject databox;
         [SerializeField] private GameEvent dataBaseReadyEvent;
+        [SerializeField][Range(0, 30)] private int saveDatabaseDelay = 5;
+
+        private bool isDataBaseReady = false;
 
         private void Start()
         {
@@ -39,7 +42,51 @@ namespace ClashTheCube
 
         private void OnDatabaseLoaded()
         {
+            isDataBaseReady = true;
             dataBaseReadyEvent.Raise();
+        }
+
+        private void OnApplicationQuit()
+        {
+            SaveDatabase();
+        }
+
+        private void OnApplicationPause(bool pauseStatus)
+        {
+            if (!pauseStatus)
+            {
+                return;
+            }
+
+            SaveDatabase();
+        }
+        
+        private void OnApplicationFocus(bool hasFocus)
+        {
+            if (hasFocus)
+            {
+                return;
+            }
+
+            SaveDatabase();
+        }
+
+        public void SaveDatabaseDelayed()
+        {
+            CancelInvoke("SaveDatabase");
+            Invoke("SaveDatabase", saveDatabaseDelay);
+        }
+
+        private void SaveDatabase()
+        {
+            if (!isDataBaseReady)
+            {
+                return;
+            }
+            CancelInvoke("SaveDatabase");
+
+            databox.SaveDatabase();
+            Debug.Log("DB Saved");
         }
     }
 }
