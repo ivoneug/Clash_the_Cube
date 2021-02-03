@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Framework.Events;
 using Framework.Variables;
 
@@ -22,6 +23,7 @@ namespace Framework.Utils
 
         [SerializeField] private bool detectSwipeOnlyAfterRelease = false;
         [SerializeField] private float SWIPE_THRESHOLD = 20f;
+        [SerializeField] private Vector2 activeScreenArea = Vector2.zero;
 
         public Vector2 Delta { get { return delta; } }
 
@@ -29,47 +31,89 @@ namespace Framework.Utils
         private Vector2 fingerUp;
         private Vector2 delta;
 
-        private void Update()
+        private bool activeTouch = false;
+
+        private void LateUpdate()
         {
-            foreach (Touch touch in Input.touches)
+            if (Input.touchCount == 0)
             {
-                if (touch.phase == TouchPhase.Began)
+                activeTouch = false;
+                return;
+            }
+            Touch touch = Input.GetTouch(0);
+
+            if (touch.phase == TouchPhase.Began)
+            {
+                if (IsPointerOverUIObject(touch) || !IsAllowedTouchInScreenArea(touch))
                 {
-                    fingerUp = touch.position;
+                    activeTouch = false;
+                    return;
+                }
+                activeTouch = true;
+
+                fingerUp = touch.position;
+                fingerDown = touch.position;
+
+                UpdateDelta();
+                UpdateTouchPosition();
+                OnTouchDown();
+            }
+
+            if (!activeTouch)
+            {
+                return;
+            }
+
+            //Detects Swipe while finger is still moving
+            if (touch.phase == TouchPhase.Moved)
+            {
+                if (!detectSwipeOnlyAfterRelease)
+                {
                     fingerDown = touch.position;
 
                     UpdateDelta();
                     UpdateTouchPosition();
-                    OnTouchDown();
+                    CheckSwipe();
                 }
+            }
 
-                //Detects Swipe while finger is still moving
-                if (touch.phase == TouchPhase.Moved)
-                {
-                    if (!detectSwipeOnlyAfterRelease)
-                    {
-                        fingerDown = touch.position;
+            //Detects swipe after finger is released
+            if (touch.phase == TouchPhase.Ended)
+            {
+                fingerDown = touch.position;
 
-                        UpdateDelta();
-                        UpdateTouchPosition();
-                        checkSwipe();
-                    }
-                }
-
-                //Detects swipe after finger is released
-                if (touch.phase == TouchPhase.Ended)
-                {
-                    fingerDown = touch.position;
-
-                    UpdateDelta();
-                    UpdateTouchPosition();
-                    checkSwipe();
-                    OnTouchUp();
-                }
+                UpdateDelta();
+                UpdateTouchPosition();
+                CheckSwipe();
+                OnTouchUp();
             }
         }
 
-        private void checkSwipe()
+        private bool IsAllowedTouchInScreenArea(Touch touch)
+        {
+            if (activeScreenArea == Vector2.zero ||
+                (activeScreenArea.x > 0.99f && activeScreenArea.y > 0.99f))
+            {
+                return true;
+            }
+
+            float halfX = activeScreenArea.x / 2f;
+            float halfY = activeScreenArea.y / 2f;
+
+            Vector2 position = NormalizedPosition(touch.position);
+
+            if (position.x >= 0.5f - halfX &&
+                position.x <= 0.5f + halfX &&
+                position.y >= 0.5f - halfY &&
+                position.y <= 0.5f + halfY)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private void CheckSwipe()
         {
             //Check if Vertical swipe
             if (verticalMove() > SWIPE_THRESHOLD && verticalMove() > horizontalValMove())
@@ -140,7 +184,7 @@ namespace Framework.Utils
             }
             if (swipeDeltaNormalized)
             {
-                swipeDeltaNormalized.SetValue(new Vector2(delta.x / (float)Screen.width, delta.y / (float)Screen.height));
+                swipeDeltaNormalized.SetValue(NormalizedPosition(delta));
             }
         }
 
@@ -152,11 +196,11 @@ namespace Framework.Utils
             }
             if (touchPositionNormalized)
             {
-                touchPositionNormalized.SetValue(new Vector2(fingerDown.x / (float)Screen.width, fingerDown.y / (float)Screen.height));
+                touchPositionNormalized.SetValue(NormalizedPosition(fingerDown));
             }
         }
 
-        //////////////////////////////////CALLBACK FUNCTIONS/////////////////////////////
+        #region Callback Functions
         private void OnTouchDown()
         {
             // Debug.Log("Touch down");
@@ -210,5 +254,41 @@ namespace Framework.Utils
                 swipeRightEvent.Raise();
             }
         }
+        #endregion
+
+        #region Helper Methods
+        private Vector2 NormalizedPosition(Vector2 position)
+        {
+            return new Vector2(position.x / (float)Screen.width, position.y / (float)Screen.height);
+        }
+
+        /// <summary>
+        /// Checks if the pointer, or any touch is over (Raycastable) UI.
+        /// WARNING: ONLY WORKS RELIABLY IF IN LateUpdate/LateTickable!
+        /// </summary>
+        private bool IsPointerOverUIObject()
+        {
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                return true;
+            }
+
+            for (int touchIndex = 0; touchIndex < Input.touchCount; touchIndex++)
+            {
+                Touch touch = Input.GetTouch(touchIndex);
+                if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool IsPointerOverUIObject(Touch touch)
+        {
+            return EventSystem.current.IsPointerOverGameObject(touch.fingerId);
+        }
+        #endregion
     }
 }
