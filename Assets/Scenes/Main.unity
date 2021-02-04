@@ -4142,11 +4142,11 @@ MonoBehaviour:
     Variable: {fileID: 0}
   cubeMergeForceMin:
     UseConstant: 1
-    ConstantValue: 250
+    ConstantValue: 300
     Variable: {fileID: 0}
   cubeMergeForceMax:
     UseConstant: 1
-    ConstantValue: 300
+    ConstantValue: 350
     Variable: {fileID: 0}
   cubeMergeAngle:
     UseConstant: 1
