@@ -207,10 +207,28 @@ namespace ClashTheCube
             }
 
             Shuffle.List<CubeController>(objects);
-            Debug.Log("Cubes count: " + objects.Count + ", generated: " + objects[0].Number);
+            bool found = false;
+            foreach (var cube in objects)
+            {
+                if (cube.Number != previousGeneratedNumber)
+                {
+                    random = cube.Number;
+                    found = true;
+                    break;
+                }
+            }
 
-            previousGeneratedNumber = objects[0].Number;
-            return objects[0].Number;
+            if (found)
+            {
+                Debug.Log("Cubes count: " + objects.Count + ", generated: " + random);
+            }
+            else
+            {
+                Debug.Log("Cubes count: " + objects.Count + ", but all the same as previous, generated: " + random);
+            }
+
+            previousGeneratedNumber = random;
+            return random;
         }
     }
 }
