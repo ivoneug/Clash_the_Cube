@@ -832,6 +832,7 @@ MonoBehaviour:
     ConstantValue: 1300
     Variable: {fileID: 0}
   cubeMergeEvent: {fileID: 11400000, guid: 83fa76346461f49bc92a7a636018466c, type: 2}
+  cubeCrossedRedLineEvent: {fileID: 11400000, guid: 02a80a18d73114e899a037e1ba7a313a, type: 2}
   cubeMetaSavedEvent: {fileID: 11400000, guid: a6270a64e8e7a497e8599918f1601507, type: 2}
   labels:
   - {fileID: 2669104615382121830}

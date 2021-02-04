@@ -7,6 +7,7 @@ TagManager:
   - Platform
   - Cube
   - Wall
+  - Red Line
   layers:
   - Default
   - TransparentFX

@@ -23,6 +23,7 @@ namespace ClashTheCube
         [SerializeField] private FloatReference velocity;
         [SerializeField] private FloatReference force;
         [SerializeField] private GameEvent cubeMergeEvent;
+        [SerializeField] private GameEvent cubeCrossedRedLineEvent;
         [SerializeField] private GameEvent cubeMetaSavedEvent;
 
         [SerializeField] private TextMeshPro[] labels;
@@ -44,6 +45,8 @@ namespace ClashTheCube
 
         private int _identifier;
         private bool _sleeping;
+        private int _redLineCrossCount;
+        private bool _redLineHitActive;
 
         private void Awake()
         {
@@ -53,6 +56,7 @@ namespace ClashTheCube
 
             _identifier = GetInstanceID();
             _sleeping = true;
+            _redLineHitActive = false;
         }
 
         private void Start()
@@ -72,7 +76,50 @@ namespace ClashTheCube
 
         private void FixedUpdate()
         {
-            UpdateMeta();
+            bool sleeping = Body.velocity.magnitude < 0.1f;
+            if (_sleeping == sleeping)
+            {
+                return;
+            }
+
+            _sleeping = sleeping;
+            MetaSave();
+            CheckRedLine();
+        }
+
+        private void OnTriggerEnter(Collider collider)
+        {
+            if (collider.gameObject.tag != "Red Line")
+            {
+                return;
+            }
+
+            _redLineHitActive = true;
+            _redLineCrossCount++;
+
+            CheckRedLine();
+        }
+
+        private void OnTriggerExit(Collider collider)
+        {
+            if (collider.gameObject.tag != "Red Line")
+            {
+                return;
+            }
+
+            _redLineHitActive = false;
+        }
+
+        private void CheckRedLine()
+        {
+            if (_redLineCrossCount > 1 || (_sleeping && _redLineHitActive))
+            {
+                Debug.Log("GAME OVER");
+                if (cubeCrossedRedLineEvent)
+                {
+                    cubeCrossedRedLineEvent.Raise();
+                }
+            }
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -142,11 +189,13 @@ namespace ClashTheCube
                 case CubeState.Initial:
                     State = CubeState.Initial;
                     Body.constraints = RigidbodyConstraints.FreezeRotation;
+                    _redLineCrossCount = 0;
                     break;
 
                 case CubeState.Transition:
                     State = CubeState.Transition;
                     Body.constraints = RigidbodyConstraints.None;
+                    _redLineCrossCount = 1;
                     break;
             }
 
@@ -220,18 +269,6 @@ namespace ClashTheCube
         }
 
         #region Database
-
-        private void UpdateMeta()
-        {
-            bool sleeping = Body.velocity.magnitude < 0.1f;
-            if (_sleeping == sleeping)
-            {
-                return;
-            }
-
-            _sleeping = sleeping;
-            MetaSave();
-        }
 
         private void MetaSave()
         {
