@@ -29,6 +29,7 @@ namespace ClashTheCube
         [SerializeField] private TextMeshPro[] labels;
 
         [SerializeField] private Color[] colors;
+        [SerializeField] private GameObject directionLine;
 
         [SerializeField] private IntVariable nextCubeNumber;
         [SerializeField] private Vector3Variable nextCubePosition;
@@ -66,6 +67,8 @@ namespace ClashTheCube
 
         private void Update()
         {
+            UpdateDirectionLine();
+
             if (State != CubeState.Initial)
             {
                 return;
@@ -266,6 +269,16 @@ namespace ClashTheCube
             Body.AddForce(Vector3.forward * force);
 
             State = CubeState.Transition;
+        }
+
+        private void UpdateDirectionLine()
+        {
+            var active = State == CubeState.Initial;
+
+            if (directionLine.activeInHierarchy != active)
+            {
+                directionLine.SetActive(active);
+            }
         }
 
         #region Database
