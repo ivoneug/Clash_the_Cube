@@ -22,6 +22,7 @@ namespace ClashTheCube
         [SerializeField] private FloatReference xConstraint;
         [SerializeField] private FloatReference velocity;
         [SerializeField] private FloatReference force;
+        [SerializeField] private FloatReference backZVelocityThreshold;
         [SerializeField] private GameEvent cubeMergeEvent;
         [SerializeField] private GameEvent cubeCrossedRedLineEvent;
         [SerializeField] private GameEvent cubeMetaSavedEvent;
@@ -79,6 +80,11 @@ namespace ClashTheCube
 
         private void FixedUpdate()
         {
+            if (Body.velocity.z < backZVelocityThreshold)
+            {
+                Body.velocity = new Vector3(Body.velocity.x, Body.velocity.y, backZVelocityThreshold);
+            }
+
             bool sleeping = Body.velocity.magnitude < 0.1f;
             if (_sleeping == sleeping)
             {
