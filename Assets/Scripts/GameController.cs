@@ -8,12 +8,20 @@ namespace ClashTheCube
     {
         private void Start()
         {
-            Vibration.Init();
+            try
+            {
+                Vibration.Init();
+            }
+            catch { }
         }
 
         public void Vibrate()
         {
-            Vibration.VibratePop();
+            try
+            {
+                Vibration.VibratePop();
+            }
+            catch { }
         }
     }
 }
