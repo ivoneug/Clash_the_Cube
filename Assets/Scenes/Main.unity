@@ -9902,7 +9902,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DebugMode: 0
   ControllerName: 
-  DontDestroyControllerOnLoad: 1
+  DontDestroyControllerOnLoad: 0
   m_graphModel: {fileID: 11400000, guid: 316437bbd8c584ce3a34b8cc2901b5dd, type: 2}
 --- !u!4 &1170578737
 Transform:
@@ -16703,7 +16703,31 @@ MonoBehaviour:
         CustomSortingLayer: Default
       Event:
         m_PersistentCalls:
-          m_Calls: []
+          m_Calls:
+          - m_Target: {fileID: 1837498920}
+            m_TargetAssemblyTypeName: ClashTheCube.CubeSpawner, Assembly-CSharp
+            m_MethodName: MetaClear
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 26261510}
+            m_TargetAssemblyTypeName: ClashTheCube.GameController, Assembly-CSharp
+            m_MethodName: ReloadScene
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
       GameEvents: []
       SoundData:
         SoundSource: 0

@@ -61,6 +61,13 @@ namespace ClashTheCube
             return hasInitial;
         }
 
+        public void MetaClear()
+        {
+            databox.RemoveDatabaseTable(DataBaseController.Cubes_Table);
+            databox.AddDatabaseTable(DataBaseController.Cubes_Table);
+            databox.SaveDatabase();
+        }
+
         public void Spawn()
         {
             CancelInvoke("_Spawn");

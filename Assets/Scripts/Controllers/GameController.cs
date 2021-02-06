@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Framework.Variables;
 
 namespace ClashTheCube
@@ -50,6 +51,14 @@ namespace ClashTheCube
         private void UpdateGamePause()
         {
             Time.timeScale = gamePaused ? 0 : 1;
+        }
+
+        public void ReloadScene()
+        {
+            ResumeGame();
+            
+            string scene = SceneManager.GetActiveScene().name;
+            Initiate.Fade(scene, Color.black, 2f);
         }
     }
 }
