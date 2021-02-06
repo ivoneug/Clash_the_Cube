@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 26261511}
   - component: {fileID: 26261510}
   - component: {fileID: 26261512}
+  - component: {fileID: 26261514}
   - component: {fileID: 26261509}
   - component: {fileID: 26261513}
   m_Layer: 0
@@ -187,6 +188,10 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: b22e56900749742858da14191b4674ab, type: 2}
+  isVibrationOn:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 2d4e22fc4268c49c99f4311477b1e297, type: 2}
 --- !u!4 &26261511
 Transform:
   m_ObjectHideFlags: 0
@@ -244,6 +249,38 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   Event: {fileID: 11400000, guid: a6270a64e8e7a497e8599918f1601507, type: 2}
+--- !u!114 &26261514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26261508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90c7349a3c8ce407bb196ed609efd07f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  databox: {fileID: 11400000, guid: 74695ae3ec05c4ffa93bac3e5d6d9cb8, type: 2}
+  settingsChangedEvent: {fileID: 11400000, guid: 31c6fce1cc08840e19ae6e8c73efded1, type: 2}
+  audioMixer: {fileID: 24100000, guid: 493ea9c4dca434227bb862ffaa45f23b, type: 2}
+  musicVolume: -5
+  sfxVolume: 0
+  isMusicOn:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 9b790112d924849e880ec0b35ca19018, type: 2}
+  isSfxOn:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: e402fcd791f2b47d59e51250685b6403, type: 2}
+  isVibrationOn:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 2d4e22fc4268c49c99f4311477b1e297, type: 2}
+  musicToggle: {fileID: 274015622}
+  sfxToggle: {fileID: 2103005447}
+  vibrationToggle: {fileID: 1300931433}
 --- !u!1001 &27425904
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -659,6 +696,49 @@ MonoBehaviour:
   otherPanels:
   - {fileID: 0}
   - {fileID: 1912590265}
+--- !u!1 &78945135
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 78945137}
+  - component: {fileID: 78945136}
+  m_Layer: 0
+  m_Name: MusicController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &78945136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78945135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d66ac5510fa4d6aa9b3396dfeacf83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &78945137
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78945135}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &79423768
 GameObject:
   m_ObjectHideFlags: 0
@@ -3065,6 +3145,7 @@ GameObject:
   - component: {fileID: 274015623}
   - component: {fileID: 274015622}
   - component: {fileID: 274015621}
+  - component: {fileID: 274015624}
   m_Layer: 5
   m_Name: UIToggle
   m_TagString: Untagged
@@ -3606,22 +3687,10 @@ MonoBehaviour:
       Event:
         m_PersistentCalls:
           m_Calls:
-          - m_Target: {fileID: 1716670546}
-            m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-            m_MethodName: SetActive
-            m_Mode: 6
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
-          - m_Target: {fileID: 775853900}
-            m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-            m_MethodName: SetActive
-            m_Mode: 6
+          - m_Target: {fileID: 26261514}
+            m_TargetAssemblyTypeName: ClashTheCube.SettingsController, Assembly-CSharp
+            m_MethodName: MuteMusic
+            m_Mode: 1
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
               m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3650,22 +3719,10 @@ MonoBehaviour:
       Event:
         m_PersistentCalls:
           m_Calls:
-          - m_Target: {fileID: 1716670546}
-            m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-            m_MethodName: SetActive
-            m_Mode: 6
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 1
-            m_CallState: 2
-          - m_Target: {fileID: 775853900}
-            m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-            m_MethodName: SetActive
-            m_Mode: 6
+          - m_Target: {fileID: 26261514}
+            m_TargetAssemblyTypeName: ClashTheCube.SettingsController, Assembly-CSharp
+            m_MethodName: UnmuteMusic
+            m_Mode: 1
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
               m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4369,6 +4426,20 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 1
+--- !u!114 &274015624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274015619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2912e8452a55c44e48d49b3e193acd30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onState: {fileID: 1716670546}
+  offState: {fileID: 775853900}
 --- !u!1 &275561070
 GameObject:
   m_ObjectHideFlags: 0
@@ -5778,7 +5849,7 @@ Transform:
   - {fileID: 1344530985}
   - {fileID: 920922236}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &490297778
 GameObject:
@@ -6490,7 +6561,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22457152, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 22457152, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
       propertyPath: m_AnchorMax.x
@@ -9845,7 +9916,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1177699031
 PrefabInstance:
@@ -10366,6 +10437,7 @@ GameObject:
   - component: {fileID: 1300931434}
   - component: {fileID: 1300931433}
   - component: {fileID: 1300931432}
+  - component: {fileID: 1300931435}
   m_Layer: 5
   m_Name: UIToggle
   m_TagString: Untagged
@@ -10931,6 +11003,18 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 1
             m_CallState: 2
+          - m_Target: {fileID: 26261514}
+            m_TargetAssemblyTypeName: ClashTheCube.SettingsController, Assembly-CSharp
+            m_MethodName: SetVibrationOff
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 1
+            m_CallState: 2
       GameEvents: []
       SoundData:
         SoundSource: 0
@@ -10967,6 +11051,18 @@ MonoBehaviour:
             m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
             m_MethodName: SetActive
             m_Mode: 6
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 26261514}
+            m_TargetAssemblyTypeName: ClashTheCube.SettingsController, Assembly-CSharp
+            m_MethodName: SetVibrationOn
+            m_Mode: 1
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
               m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -11670,6 +11766,20 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 1
+--- !u!114 &1300931435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300931430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2912e8452a55c44e48d49b3e193acd30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onState: {fileID: 1940949846}
+  offState: {fileID: 1493660144}
 --- !u!1 &1318805745
 GameObject:
   m_ObjectHideFlags: 0
@@ -15255,7 +15365,7 @@ RectTransform:
   - {fileID: 1912590267}
   - {fileID: 77832209}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -18767,6 +18877,55 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd89c56a1fcd0534a946f51a4cf9e51b, type: 3}
+--- !u!1 &1689494800
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1689494802}
+  - component: {fileID: 1689494801}
+  m_Layer: 0
+  m_Name: MusicTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1689494801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1689494800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6763a8b7034c4743a298322d473c675, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  music:
+    SoundSource: 0
+    DatabaseName: Music
+    SoundName: Dream On_looped
+    AudioClip: {fileID: 0}
+    OutputAudioMixerGroup: {fileID: 0}
+--- !u!4 &1689494802
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1689494800}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1692804884
 GameObject:
   m_ObjectHideFlags: 0
@@ -19199,7 +19358,7 @@ Transform:
   - {fileID: 153533087}
   - {fileID: 1387347676}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 19.81, y: 11.21, z: 5.2}
 --- !u!1 &1800689809
 GameObject:
@@ -19448,7 +19607,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1837498922
 MonoBehaviour:
@@ -19775,7 +19934,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1888576386
 GameObject:
@@ -21387,7 +21546,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1960216123
 GameObject:
@@ -22308,6 +22467,7 @@ GameObject:
   - component: {fileID: 2103005448}
   - component: {fileID: 2103005447}
   - component: {fileID: 2103005449}
+  - component: {fileID: 2103005450}
   m_Layer: 5
   m_Name: UIToggle
   m_TagString: Untagged
@@ -22837,22 +22997,10 @@ MonoBehaviour:
       Event:
         m_PersistentCalls:
           m_Calls:
-          - m_Target: {fileID: 1843992244}
-            m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-            m_MethodName: SetActive
-            m_Mode: 6
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
-          - m_Target: {fileID: 1120976322}
-            m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-            m_MethodName: SetActive
-            m_Mode: 6
+          - m_Target: {fileID: 26261514}
+            m_TargetAssemblyTypeName: ClashTheCube.SettingsController, Assembly-CSharp
+            m_MethodName: MuteSFX
+            m_Mode: 1
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
               m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -22881,22 +23029,10 @@ MonoBehaviour:
       Event:
         m_PersistentCalls:
           m_Calls:
-          - m_Target: {fileID: 1843992244}
-            m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-            m_MethodName: SetActive
-            m_Mode: 6
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 1
-            m_CallState: 2
-          - m_Target: {fileID: 1120976322}
-            m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-            m_MethodName: SetActive
-            m_Mode: 6
+          - m_Target: {fileID: 26261514}
+            m_TargetAssemblyTypeName: ClashTheCube.SettingsController, Assembly-CSharp
+            m_MethodName: UnmuteSFX
+            m_Mode: 1
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
               m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -23612,6 +23748,20 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &2103005450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2103005445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2912e8452a55c44e48d49b3e193acd30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onState: {fileID: 1843992244}
+  offState: {fileID: 1120976322}
 --- !u!1 &2123485946
 GameObject:
   m_ObjectHideFlags: 0

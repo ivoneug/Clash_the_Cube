@@ -8,6 +8,7 @@ namespace ClashTheCube
     public class GameController : MonoBehaviour
     {
         [SerializeField] private BoolReference gamePaused;
+        [SerializeField] private BoolReference isVibrationOn;
 
         private void Start()
         {
@@ -22,6 +23,11 @@ namespace ClashTheCube
 
         public void Vibrate()
         {
+            if (!isVibrationOn)
+            {
+                return;
+            }
+            
             try
             {
                 Vibration.VibratePop();

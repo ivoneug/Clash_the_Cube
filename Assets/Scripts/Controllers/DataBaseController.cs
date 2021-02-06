@@ -14,9 +14,13 @@ namespace ClashTheCube
         public static string Cubes_PositionField = "PositionField";
         public static string Cubes_RotationField = "RotationField";
 
-        public static string Stats_Table = "Stats";
+        public static string Data_Table = "Data";
+        public static string Stats_Entry = "Stats";
 
-        public static string Settings_Table = "Settings";
+        public static string Settings_Entry = "Settings";
+        public static string Settings_isMusicOnField = "isMusicOn";
+        public static string Settings_isSfxOnField = "isSfxOnField";
+        public static string Settings_isVibrationOnField = "isVibrationOn";
 
         [SerializeField] private DataboxObject databox;
         [SerializeField] private GameEvent dataBaseReadyEvent;
@@ -30,8 +34,7 @@ namespace ClashTheCube
             if (!System.IO.File.Exists(path))
             {
                 databox.AddDatabaseTable(Cubes_Table);
-                databox.AddDatabaseTable(Stats_Table);
-                databox.AddDatabaseTable(Settings_Table);
+                databox.AddDatabaseTable(Data_Table);
 
                 databox.SaveDatabase();
             }
