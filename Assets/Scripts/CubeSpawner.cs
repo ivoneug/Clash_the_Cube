@@ -3,6 +3,7 @@ using UnityEngine;
 using Framework.Variables;
 using Framework.Utils;
 using Databox;
+using Framework.Events;
 
 namespace ClashTheCube
 {
@@ -27,6 +28,9 @@ namespace ClashTheCube
 
         [SerializeField] private IntReference nearestCubesCountToGenerateNumber;
         [SerializeField][Range(0f, 1f)] private float randomNumberGenerationChance = 0.25f;
+
+        [SerializeField] private GameEvent achievementReachedEvent;
+        [SerializeField] private IntReference achievementMinNumber;
 
         private int previousGeneratedNumber = -1;
 
@@ -107,6 +111,8 @@ namespace ClashTheCube
             cube.Body.AddForce(force * Random.Range(cubeMergeForceMin, cubeMergeForceMax));
             // cube.Body.AddTorque(Vector.Vector3RandomNormal() * cubeMergeTorque, ForceMode.Impulse);
             cube.Body.AddTorque(torque * Random.Range(cubeMergeTorqueMin, cubeMergeTorqueMax), ForceMode.Impulse);
+
+            CheckAchievement();
         }
 
         private CubeController GetNearestMatchingCube()
@@ -236,6 +242,16 @@ namespace ClashTheCube
 
             previousGeneratedNumber = random;
             return random;
+        }
+
+        private void CheckAchievement()
+        {
+            if (nextCubeNumber < achievementMinNumber || achievementReachedEvent == null)
+            {
+                return;
+            }
+
+            achievementReachedEvent.Raise();
         }
     }
 }
