@@ -32,6 +32,8 @@ namespace ClashTheCube
         [SerializeField] private GameEvent achievementReachedEvent;
         [SerializeField] private IntReference achievementMinNumber;
 
+        [SerializeField] private IntReference zPositionThresholdForForceContinue;
+
         private int previousGeneratedNumber = -1;
 
         public void LoadSavedFieldState()
@@ -252,6 +254,26 @@ namespace ClashTheCube
             }
 
             achievementReachedEvent.Raise();
+        }
+
+        public void ForceContinueGame()
+        {
+            var objects = GameObject.FindGameObjectsWithTag("Cube");
+
+            foreach (var obj in objects)
+            {
+                var cube = obj.GetComponent<CubeController>();
+                if (cube.State != CubeController.CubeState.Transition)
+                {
+                    continue;
+                }
+
+                // remove all cubes which have Z < zPositionThresholdForForceContinue
+                if (cube.transform.position.z < zPositionThresholdForForceContinue)
+                {
+                    cube.SetFinalState();
+                }
+            }
         }
     }
 }
