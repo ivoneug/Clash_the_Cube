@@ -9,7 +9,7 @@ namespace ClashTheCube
 {
     public class InAppPurchaseController : MonoBehaviour
     {
-        public static new InAppPurchaseController Instance;
+        public static InAppPurchaseController Instance;
 
         [SerializeField] private DataboxObject databox;
         [SerializeField] private GameEvent purchaseCompletedEvent;
@@ -90,14 +90,20 @@ namespace ClashTheCube
         private void PurchaseCompletedHandler(IAPProduct product)
         {
             SavePurchaseData(product);
-            purchaseCompletedEvent.Raise();
+            if (purchaseCompletedEvent)
+            {
+                purchaseCompletedEvent.Raise();
+            }
 
             Debug.Log(product.Name + " was purchased.");
         }
 
         private void PurchaseFailedHandler(IAPProduct product, string info)
         {
-            purchaseFailedEvent.Raise();
+            if (purchaseFailedEvent)
+            {
+                purchaseFailedEvent.Raise();
+            }
 
             Debug.Log("The purchase of product " + product.Name + " has failed.");
         }

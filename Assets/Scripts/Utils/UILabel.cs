@@ -28,7 +28,7 @@ namespace ClashTheCube
             }
         }
 
-        private void Start()
+        private void Awake()
         {
             parent = GetComponent<TextMeshProUGUI>();
         }
