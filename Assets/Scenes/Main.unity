@@ -3214,6 +3214,8 @@ GameObject:
   - component: {fileID: 84408629}
   - component: {fileID: 84408628}
   - component: {fileID: 84408627}
+  - component: {fileID: 84408632}
+  - component: {fileID: 84408631}
   m_Layer: 5
   m_Name: View - GameOver
   m_TagString: Untagged
@@ -4107,6 +4109,98 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &84408631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84408625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 286aa3dbc77aa4a9997c673f8098a890, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 180352862}
+        m_TargetAssemblyTypeName: ClashTheCube.ScoreController, Assembly-CSharp
+        m_MethodName: ScoreClear
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1837498920}
+        m_TargetAssemblyTypeName: ClashTheCube.CubeSpawner, Assembly-CSharp
+        m_MethodName: MetaClear
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 26261510}
+        m_TargetAssemblyTypeName: ClashTheCube.GameController, Assembly-CSharp
+        m_MethodName: ReloadScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  Event: {fileID: 11400000, guid: b0564962c9df34a019d4e941000f2bee, type: 2}
+--- !u!114 &84408632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84408625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 286aa3dbc77aa4a9997c673f8098a890, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1170578736}
+        m_TargetAssemblyTypeName: Doozy.Engine.Nody.GraphController, Assembly-CSharp-firstpass
+        m_MethodName: GoToNodeByName
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Main
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1837498920}
+        m_TargetAssemblyTypeName: ClashTheCube.CubeSpawner, Assembly-CSharp
+        m_MethodName: ForceContinueGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  Event: {fileID: 11400000, guid: 13f1e2e20f5794b83b5bfc6d70faf299, type: 2}
 --- !u!1 &96648753
 GameObject:
   m_ObjectHideFlags: 0
@@ -5259,7 +5353,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 44.80945, y: -1.2499237}
+  m_AnchoredPosition: {x: 44.80957, y: -1.2499237}
   m_SizeDelta: {x: 70, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &249766376
@@ -28610,7 +28704,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 44.80945, y: -1.2499237}
+  m_AnchoredPosition: {x: 44.80957, y: -1.2499237}
   m_SizeDelta: {x: 67, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &620885274
@@ -32836,6 +32930,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5766a0e1f2f394eb0af1e8ae7d1b7e73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  adCompletedEvent: {fileID: 11400000, guid: 13f1e2e20f5794b83b5bfc6d70faf299, type: 2}
+  adSkippedEvent: {fileID: 11400000, guid: b0564962c9df34a019d4e941000f2bee, type: 2}
   removeAdsButton: {fileID: 1117800471}
 --- !u!198 &920922235 stripped
 ParticleSystem:
@@ -45332,7 +45428,19 @@ MonoBehaviour:
         CustomSortingLayer: Default
       Event:
         m_PersistentCalls:
-          m_Calls: []
+          m_Calls:
+          - m_Target: {fileID: 912113416}
+            m_TargetAssemblyTypeName: ClashTheCube.AdvertisingController, Assembly-CSharp
+            m_MethodName: ShowAchievementAD
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
       GameEvents: []
       SoundData:
         SoundSource: 0
@@ -49595,6 +49703,7 @@ GameObject:
   - component: {fileID: 1518079218}
   - component: {fileID: 1518079217}
   - component: {fileID: 1518079221}
+  - component: {fileID: 1518079222}
   m_Layer: 5
   m_Name: View - Achievement
   m_TagString: Untagged
@@ -50506,6 +50615,37 @@ MonoBehaviour:
   number: {fileID: 960001283}
   title: {fileID: 2061505161}
   subtitle: {fileID: 1174160730}
+--- !u!114 &1518079222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1518079215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6d4fb1342afe41e394a1d8016c62ddd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1170578736}
+        m_TargetAssemblyTypeName: Doozy.Engine.Nody.GraphController, Assembly-CSharp-firstpass
+        m_MethodName: GoToNodeByName
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Main
+          m_BoolArgument: 0
+        m_CallState: 2
+  type: 1
+  Events:
+  - {fileID: 11400000, guid: 13f1e2e20f5794b83b5bfc6d70faf299, type: 2}
+  - {fileID: 11400000, guid: b0564962c9df34a019d4e941000f2bee, type: 2}
 --- !u!1 &1519408881
 GameObject:
   m_ObjectHideFlags: 0
@@ -51784,9 +51924,9 @@ MonoBehaviour:
       Event:
         m_PersistentCalls:
           m_Calls:
-          - m_Target: {fileID: 1837498920}
-            m_TargetAssemblyTypeName: ClashTheCube.CubeSpawner, Assembly-CSharp
-            m_MethodName: ForceContinueGame
+          - m_Target: {fileID: 912113416}
+            m_TargetAssemblyTypeName: ClashTheCube.AdvertisingController, Assembly-CSharp
+            m_MethodName: ShowContinueGameAD
             m_Mode: 1
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
@@ -56438,7 +56578,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 44.80945, y: -1.2499237}
+  m_AnchoredPosition: {x: 44.80957, y: -1.2499237}
   m_SizeDelta: {x: 60, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1670709765
@@ -62944,6 +63084,7 @@ GameObject:
   - component: {fileID: 1850411244}
   - component: {fileID: 1850411243}
   - component: {fileID: 1850411242}
+  - component: {fileID: 1850411245}
   m_Layer: 5
   m_Name: Button - Restart Game
   m_TagString: Untagged
@@ -63916,33 +64057,9 @@ MonoBehaviour:
       Event:
         m_PersistentCalls:
           m_Calls:
-          - m_Target: {fileID: 180352862}
-            m_TargetAssemblyTypeName: ClashTheCube.ScoreController, Assembly-CSharp
-            m_MethodName: ScoreClear
-            m_Mode: 1
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
-          - m_Target: {fileID: 1837498920}
-            m_TargetAssemblyTypeName: ClashTheCube.CubeSpawner, Assembly-CSharp
-            m_MethodName: MetaClear
-            m_Mode: 1
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
-          - m_Target: {fileID: 26261510}
-            m_TargetAssemblyTypeName: ClashTheCube.GameController, Assembly-CSharp
-            m_MethodName: ReloadScene
+          - m_Target: {fileID: 1850411245}
+            m_TargetAssemblyTypeName: GameEventRaiser, Assembly-CSharp
+            m_MethodName: Raise
             m_Mode: 1
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
@@ -65408,6 +65525,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1850411245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1850411237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc5b62ebdf8ce4f108fc3825771378e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: b0564962c9df34a019d4e941000f2bee, type: 2}
 --- !u!1 &1862719557
 GameObject:
   m_ObjectHideFlags: 0

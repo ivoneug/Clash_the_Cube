@@ -2,26 +2,11 @@
   <packages>
     <package>com.android.support:appcompat-v7:24.0.+</package>
     <package>com.android.support:support-v4:26.1.+</package>
+    <package>com.google.android.gms:play-services-ads:19.5.0</package>
     <package>com.google.android.play:core:1.8.+</package>
     <package>com.sglib.easymobile:easy-mobile:1.+</package>
   </packages>
-  <files>
-    <file>Assets/Plugins/Android/android.arch.core.common-1.0.0.jar</file>
-    <file>Assets/Plugins/Android/android.arch.lifecycle.common-1.0.0.jar</file>
-    <file>Assets/Plugins/Android/android.arch.lifecycle.runtime-1.0.0.aar</file>
-    <file>Assets/Plugins/Android/com.android.support.animated-vector-drawable-26.1.0.aar</file>
-    <file>Assets/Plugins/Android/com.android.support.appcompat-v7-26.1.0.aar</file>
-    <file>Assets/Plugins/Android/com.android.support.support-annotations-26.1.0.jar</file>
-    <file>Assets/Plugins/Android/com.android.support.support-compat-26.1.0.aar</file>
-    <file>Assets/Plugins/Android/com.android.support.support-core-ui-26.1.0.aar</file>
-    <file>Assets/Plugins/Android/com.android.support.support-core-utils-26.1.0.aar</file>
-    <file>Assets/Plugins/Android/com.android.support.support-fragment-26.1.0.aar</file>
-    <file>Assets/Plugins/Android/com.android.support.support-media-compat-26.1.0.aar</file>
-    <file>Assets/Plugins/Android/com.android.support.support-v4-26.1.0.aar</file>
-    <file>Assets/Plugins/Android/com.android.support.support-vector-drawable-26.1.0.aar</file>
-    <file>Assets/Plugins/Android/com.google.android.play.core-1.8.3.aar</file>
-    <file>Assets/Plugins/Android/com.sglib.easymobile.easy-mobile-1.5.0.aar</file>
-  </files>
+  <files />
   <settings>
     <setting name="androidAbis" value="arm64-v8a,armeabi-v7a" />
     <setting name="bundleId" value="ru.bibobo.clashthecube" />

@@ -7,7 +7,7 @@ using Databox;
 
 namespace ClashTheCube
 {
-    public class InAppPurchaseController : BaseSingletonController
+    public class InAppPurchaseController : MonoBehaviour
     {
         public static new InAppPurchaseController Instance;
 
@@ -15,9 +15,27 @@ namespace ClashTheCube
         [SerializeField] private GameEvent purchaseCompletedEvent;
         [SerializeField] private GameEvent purchaseFailedEvent;
 
-        private void Awake()
+        public bool IsSingleton
         {
-            if (!IsSingleton) return;
+            get
+            {
+                return this == InAppPurchaseController.Instance;
+            }
+        }
+
+        void Awake()
+        {
+            if (!Instance)
+            {
+                Instance = this;
+            }
+            else if (Instance != this)
+            {
+                Destroy(this);
+                return;
+            }
+
+            DontDestroyOnLoad(this);
 
             if (!RuntimeManager.IsInitialized())
             {
