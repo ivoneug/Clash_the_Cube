@@ -16,6 +16,7 @@ namespace ClashTheCube
 
         public static string Data_Table = "Data";
         public static string Stats_Entry = "Stats";
+        public static string Stats_ScoreField = "Score";
 
         public static string Settings_Entry = "Settings";
         public static string Settings_isMusicOnField = "isMusicOn";
