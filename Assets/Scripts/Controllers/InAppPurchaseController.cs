@@ -3,83 +3,127 @@ using System.Collections.Generic;
 using UnityEngine;
 using EasyMobile;
 using Framework.Events;
+using Databox;
 
-public class InAppPurchaseController : MonoBehaviour
+namespace ClashTheCube
 {
-    // [SerializeField]
-    // private TopicInfo buyTopicInfo;
-
-    [SerializeField]
-    private GameEvent purchaseCompletedEvent;
-
-    [SerializeField]
-    private GameEvent purchaseFailedEvent;
-
-    private void Awake()
+    public class InAppPurchaseController : BaseSingletonController
     {
-        if (!RuntimeManager.IsInitialized())
+        public static new InAppPurchaseController Instance;
+
+        [SerializeField] private DataboxObject databox;
+        [SerializeField] private GameEvent purchaseCompletedEvent;
+        [SerializeField] private GameEvent purchaseFailedEvent;
+
+        private void Awake()
         {
-            RuntimeManager.Init();
+            if (!IsSingleton) return;
+
+            if (!RuntimeManager.IsInitialized())
+            {
+                RuntimeManager.Init();
+            }
         }
-    }
 
-    private void OnEnable()
-    {
-        InAppPurchasing.PurchaseCompleted += PurchaseCompletedHandler;
-        InAppPurchasing.PurchaseFailed += PurchaseFailedHandler;
+        private void Start()
+        {
+            if (!IsSingleton) return;
 
-        InAppPurchasing.RestoreCompleted += RestoreCompletedHandler;
-        InAppPurchasing.RestoreFailed += RestoreFailedHandler;
-    }
+            InitPurchaseData();
+        }
 
-    private void OnDisable()
-    {
-        InAppPurchasing.PurchaseCompleted -= PurchaseCompletedHandler;
-        InAppPurchasing.PurchaseFailed -= PurchaseFailedHandler;
+        private void OnEnable()
+        {
+            if (!IsSingleton) return;
 
-        InAppPurchasing.RestoreCompleted -= RestoreCompletedHandler;
-        InAppPurchasing.RestoreFailed -= RestoreFailedHandler;
-    }
+            InAppPurchasing.PurchaseCompleted += PurchaseCompletedHandler;
+            InAppPurchasing.PurchaseFailed += PurchaseFailedHandler;
 
-    public void PurchaseTopic()
-    {
-        // InAppPurchasing.PurchaseWithId(buyTopicInfo.inAppId);
-    }
+            InAppPurchasing.RestoreCompleted += RestoreCompletedHandler;
+            InAppPurchasing.RestoreFailed += RestoreFailedHandler;
+        }
 
-    public bool IsProductOwned()
-    {
-        return true;
-        // return InAppPurchasing.IsProductWithIdOwned(buyTopicInfo.inAppId);
-    }
+        private void OnDisable()
+        {
+            if (!IsSingleton) return;
 
-    public void RestorePurchases()
-    {
-        InAppPurchasing.RestorePurchases();
-    }
+            InAppPurchasing.PurchaseCompleted -= PurchaseCompletedHandler;
+            InAppPurchasing.PurchaseFailed -= PurchaseFailedHandler;
 
-    private void PurchaseCompletedHandler(IAPProduct product)
-    {
-        // buyTopicInfo.CloneFrom(product);
-        purchaseCompletedEvent.Raise();
+            InAppPurchasing.RestoreCompleted -= RestoreCompletedHandler;
+            InAppPurchasing.RestoreFailed -= RestoreFailedHandler;
+        }
 
-        Debug.Log(product.Name + " was purchased.");
-    }
+        public void PurchaseRemoveADs()
+        {
+            InAppPurchasing.PurchaseWithId(EM_IAPConstants.Product_Remove_ADs);
+        }
 
-    private void PurchaseFailedHandler(IAPProduct product, string info)
-    {
-        // buyTopicInfo.CloneFrom(product);
-        purchaseFailedEvent.Raise();
+        public bool IsRemoveADsProductOwned()
+        {
+            return InAppPurchasing.IsProductWithIdOwned(EM_IAPConstants.Product_Remove_ADs);
+        }
 
-        Debug.Log("The purchase of product " + product.Name + " has failed.");
-    }
+        public void RestorePurchases()
+        {
+            InAppPurchasing.RestorePurchases();
+        }
 
-    void RestoreCompletedHandler()
-    {
-        Debug.Log("All purchases have been restored successfully.");
-    }
+        private void PurchaseCompletedHandler(IAPProduct product)
+        {
+            SavePurchaseData(product);
+            purchaseCompletedEvent.Raise();
 
-    void RestoreFailedHandler()
-    {
-        Debug.Log("The purchase restoration has failed.");
+            Debug.Log(product.Name + " was purchased.");
+        }
+
+        private void PurchaseFailedHandler(IAPProduct product, string info)
+        {
+            purchaseFailedEvent.Raise();
+
+            Debug.Log("The purchase of product " + product.Name + " has failed.");
+        }
+
+        private void RestoreCompletedHandler()
+        {
+            Debug.Log("All purchases have been restored successfully.");
+        }
+
+        private void RestoreFailedHandler()
+        {
+            Debug.Log("The purchase restoration has failed.");
+        }
+
+        private void InitPurchaseData()
+        {
+            var table = DataBaseController.Data_Table;
+            var entry = DataBaseController.Purchases_Entry;
+            var removeADsField = DataBaseController.Purchases_RemoveADsField;
+
+            if (!databox.EntryExists(table, entry))
+            {
+                databox.AddData(table, entry, removeADsField, new BoolType(false));
+                databox.SaveDatabase();
+            }
+        }
+
+        private void SavePurchaseData(IAPProduct product)
+        {
+            var table = DataBaseController.Data_Table;
+            var entry = DataBaseController.Purchases_Entry;
+            var removeADsField = DataBaseController.Purchases_RemoveADsField;
+
+            switch (product.Id)
+            {
+                case EM_IAPConstants.Product_Remove_ADs:
+                    databox.AddData(table, entry, removeADsField, new BoolType(true));
+                    break;
+
+                default:
+                    break;
+            }
+
+            databox.SaveDatabase();
+        }
     }
 }

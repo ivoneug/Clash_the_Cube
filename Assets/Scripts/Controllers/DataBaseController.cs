@@ -15,6 +15,10 @@ namespace ClashTheCube
         public static string Cubes_RotationField = "RotationField";
 
         public static string Data_Table = "Data";
+
+        public static string Purchases_Entry = "Purchases";
+        public static string Purchases_RemoveADsField = "RemoveADs";
+
         public static string Stats_Entry = "Stats";
         public static string Stats_ScoreField = "Score";
 
