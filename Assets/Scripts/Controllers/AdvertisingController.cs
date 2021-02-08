@@ -53,9 +53,9 @@ namespace ClashTheCube
         {
             if (!Advertising.IsInterstitialAdReady())
             {
-                if (adSkippedEvent)
+                if (adCompletedEvent)
                 {
-                    adSkippedEvent.Raise();
+                    adCompletedEvent.Raise();
                 }
                 return;
             }
@@ -67,9 +67,9 @@ namespace ClashTheCube
         {
             if (!Advertising.IsRewardedAdReady())
             {
-                if (adSkippedEvent)
+                if (adCompletedEvent)
                 {
-                    adSkippedEvent.Raise();
+                    adCompletedEvent.Raise();
                 }
                 return;
             }
