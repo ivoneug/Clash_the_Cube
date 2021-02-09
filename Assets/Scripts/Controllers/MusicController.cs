@@ -6,10 +6,35 @@ using Doozy.Engine.Soundy;
 
 namespace ClashTheCube
 {
-    public class MusicController : BaseSingletonController
+    public class MusicController : MonoBehaviour
     {
+        public static MusicController Instance;
+
         private SoundyData _activeMusic;
         private SoundyController _activeMusicController;
+
+        public bool IsSingleton
+        {
+            get
+            {
+                return this == Instance;
+            }
+        }
+
+        void Awake()
+        {
+            if (!Instance)
+            {
+                Instance = this;
+            }
+            else if (Instance != this)
+            {
+                Destroy(this);
+                return;
+            }
+
+            DontDestroyOnLoad(this);
+        }
 
         private void Start()
         {

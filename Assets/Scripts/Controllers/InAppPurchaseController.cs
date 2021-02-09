@@ -19,7 +19,7 @@ namespace ClashTheCube
         {
             get
             {
-                return this == InAppPurchaseController.Instance;
+                return this == Instance;
             }
         }
 
@@ -34,8 +34,6 @@ namespace ClashTheCube
                 Destroy(this);
                 return;
             }
-
-            DontDestroyOnLoad(this);
 
             if (!RuntimeManager.IsInitialized())
             {
