@@ -26,6 +26,9 @@ namespace ClashTheCube
         public static string Settings_isMusicOnField = "isMusicOn";
         public static string Settings_isSfxOnField = "isSfxOnField";
         public static string Settings_isVibrationOnField = "isVibrationOn";
+        public static string Settings_LanguageCodeField = "languageCode";
+
+        public static string Localisation_Table = "Localisation";
 
         [SerializeField] private DataboxObject databox;
         [SerializeField] private GameEvent dataBaseReadyEvent;
