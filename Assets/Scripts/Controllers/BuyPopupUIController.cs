@@ -18,7 +18,7 @@ namespace ClashTheCube
             string localizedPrice = "0 RUB";
 
 #if EM_UIAP
-            ProductMetadata data = InAppPurchasing.GetProductLocalizedDataWithId(EM_IAPConstants.Product_Remove_ADs);
+            ProductMetadata data = InAppPurchasing.GetProductLocalizedData(EM_IAPConstants.Product_Remove_ADs);
             if (data != null)
             {
                 localizedPrice = data.localizedPriceString;

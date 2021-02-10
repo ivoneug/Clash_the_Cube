@@ -72,12 +72,12 @@ namespace ClashTheCube
 
         public void PurchaseRemoveADs()
         {
-            InAppPurchasing.PurchaseWithId(EM_IAPConstants.Product_Remove_ADs);
+            InAppPurchasing.Purchase(EM_IAPConstants.Product_Remove_ADs);
         }
 
         public bool IsRemoveADsProductOwned()
         {
-            return InAppPurchasing.IsProductWithIdOwned(EM_IAPConstants.Product_Remove_ADs);
+            return InAppPurchasing.IsProductOwned(EM_IAPConstants.Product_Remove_ADs);
         }
 
         public void RestorePurchases()
@@ -135,7 +135,7 @@ namespace ClashTheCube
             var entry = DataBaseController.Purchases_Entry;
             var removeADsField = DataBaseController.Purchases_RemoveADsField;
 
-            switch (product.Id)
+            switch (product.Name)
             {
                 case EM_IAPConstants.Product_Remove_ADs:
                     databox.AddData(table, entry, removeADsField, new BoolType(true));
