@@ -1,0 +1,9 @@
+<dependencies>
+  <androidPackages>
+    <androidPackage spec="com.mopub:mopub-sdk:5.15.0"/>
+  </androidPackages>
+  <iosPods>
+    <iosPod name="MoPub-SDK-Plugin" minTargetSdk="10.0" path="Assets/MoPub/Plugins/iOS"/>
+    <iosPod name="mopub-ios-sdk" subspecs="['Core']" minTargetSdk="10.0" version="5.15.0"/>
+  </iosPods>
+</dependencies>

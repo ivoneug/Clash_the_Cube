@@ -1,0 +1,14 @@
+<!-- WARNING: File modified by script.  Keep all tags with a mopub-key attribute to a single line. -->
+<dependencies>
+ <androidPackages>
+   <androidPackage spec="com.mopub.mediation:adcolony:4.4.1.0" mopub-key="ANDROID_ADAPTER_VERSION"/>
+   <androidPackage spec="com.adcolony:sdk:4.4.1" mopub-key="ANDROID_SDK_VERSION">
+        <repositories>
+            <repository>https://adcolony.bintray.com/AdColony</repository>
+        </repositories>
+   </androidPackage>
+ </androidPackages>
+ <iosPods>
+   <iosPod name="MoPub-AdColony-Adapters" subspecs="['Network']" minTargetSdk="8.0" version="4.5.0.0" mopub-key="IOS_ADAPTER_VERSION"/>
+ </iosPods>
+</dependencies>

@@ -1,63 +1,94 @@
 <dependencies>
   <packages>
+    <package>com.adcolony:sdk:4.4.1</package>
     <package>com.android.support:appcompat-v7:24.0.+</package>
     <package>com.android.support:support-v4:26.1.+</package>
-    <package>com.google.android.gms:play-services-ads:19.5.0</package>
+    <package>com.google.android.gms:play-services-ads:19.6.0</package>
     <package>com.google.android.play:core:1.8.+</package>
+    <package>com.mopub.mediation:adcolony:4.4.1.0</package>
+    <package>com.mopub.mediation:admob:19.6.0.1</package>
+    <package>com.mopub:mopub-sdk:5.15.0</package>
     <package>com.sglib.easymobile:easy-mobile:1.+</package>
   </packages>
   <files>
+    <file>Assets/Plugins/Android/androidx.activity.activity-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.annotation.annotation-1.1.0.jar</file>
-    <file>Assets/Plugins/Android/androidx.appcompat.appcompat-1.0.0.aar</file>
-    <file>Assets/Plugins/Android/androidx.arch.core.core-common-2.0.1.jar</file>
+    <file>Assets/Plugins/Android/androidx.appcompat.appcompat-1.1.0.aar</file>
+    <file>Assets/Plugins/Android/androidx.appcompat.appcompat-resources-1.1.0.aar</file>
+    <file>Assets/Plugins/Android/androidx.arch.core.core-common-2.1.0.jar</file>
     <file>Assets/Plugins/Android/androidx.arch.core.core-runtime-2.0.1.aar</file>
     <file>Assets/Plugins/Android/androidx.asynclayoutinflater.asynclayoutinflater-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.browser.browser-1.0.0.aar</file>
-    <file>Assets/Plugins/Android/androidx.collection.collection-1.0.0.jar</file>
+    <file>Assets/Plugins/Android/androidx.collection.collection-1.1.0.jar</file>
     <file>Assets/Plugins/Android/androidx.coordinatorlayout.coordinatorlayout-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.core.core-1.2.0.aar</file>
+    <file>Assets/Plugins/Android/androidx.core.core-ktx-1.1.0.aar</file>
     <file>Assets/Plugins/Android/androidx.cursoradapter.cursoradapter-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.customview.customview-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.documentfile.documentfile-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.drawerlayout.drawerlayout-1.0.0.aar</file>
-    <file>Assets/Plugins/Android/androidx.fragment.fragment-1.0.0.aar</file>
+    <file>Assets/Plugins/Android/androidx.fragment.fragment-1.1.0.aar</file>
     <file>Assets/Plugins/Android/androidx.interpolator.interpolator-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.legacy.legacy-support-core-ui-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.legacy.legacy-support-core-utils-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.legacy.legacy-support-v4-1.0.0.aar</file>
-    <file>Assets/Plugins/Android/androidx.lifecycle.lifecycle-common-2.0.0.jar</file>
+    <file>Assets/Plugins/Android/androidx.lifecycle.lifecycle-common-2.1.0.jar</file>
     <file>Assets/Plugins/Android/androidx.lifecycle.lifecycle-livedata-2.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.lifecycle.lifecycle-livedata-core-2.0.0.aar</file>
-    <file>Assets/Plugins/Android/androidx.lifecycle.lifecycle-runtime-2.0.0.aar</file>
+    <file>Assets/Plugins/Android/androidx.lifecycle.lifecycle-runtime-2.1.0.aar</file>
     <file>Assets/Plugins/Android/androidx.lifecycle.lifecycle-service-2.0.0.aar</file>
-    <file>Assets/Plugins/Android/androidx.lifecycle.lifecycle-viewmodel-2.0.0.aar</file>
+    <file>Assets/Plugins/Android/androidx.lifecycle.lifecycle-viewmodel-2.1.0.aar</file>
     <file>Assets/Plugins/Android/androidx.loader.loader-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.localbroadcastmanager.localbroadcastmanager-1.0.0.aar</file>
-    <file>Assets/Plugins/Android/androidx.media.media-1.0.0.aar</file>
+    <file>Assets/Plugins/Android/androidx.media.media-1.1.0.aar</file>
+    <file>Assets/Plugins/Android/androidx.media2.media2-common-1.0.1.aar</file>
+    <file>Assets/Plugins/Android/androidx.media2.media2-exoplayer-1.0.1.aar</file>
+    <file>Assets/Plugins/Android/androidx.media2.media2-player-1.0.1.aar</file>
+    <file>Assets/Plugins/Android/androidx.media2.media2-session-1.0.1.aar</file>
+    <file>Assets/Plugins/Android/androidx.media2.media2-widget-1.0.1.aar</file>
+    <file>Assets/Plugins/Android/androidx.palette.palette-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.print.print-1.0.0.aar</file>
+    <file>Assets/Plugins/Android/androidx.recyclerview.recyclerview-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.room.room-common-2.1.0.jar</file>
     <file>Assets/Plugins/Android/androidx.room.room-runtime-2.1.0.aar</file>
+    <file>Assets/Plugins/Android/androidx.savedstate.savedstate-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.slidingpanelayout.slidingpanelayout-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.sqlite.sqlite-2.0.1.aar</file>
     <file>Assets/Plugins/Android/androidx.sqlite.sqlite-framework-2.0.1.aar</file>
     <file>Assets/Plugins/Android/androidx.swiperefreshlayout.swiperefreshlayout-1.0.0.aar</file>
-    <file>Assets/Plugins/Android/androidx.vectordrawable.vectordrawable-1.0.0.aar</file>
-    <file>Assets/Plugins/Android/androidx.vectordrawable.vectordrawable-animated-1.0.0.aar</file>
+    <file>Assets/Plugins/Android/androidx.vectordrawable.vectordrawable-1.1.0.aar</file>
+    <file>Assets/Plugins/Android/androidx.vectordrawable.vectordrawable-animated-1.1.0.aar</file>
     <file>Assets/Plugins/Android/androidx.versionedparcelable.versionedparcelable-1.1.0.aar</file>
     <file>Assets/Plugins/Android/androidx.viewpager.viewpager-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.work.work-runtime-2.1.0.aar</file>
-    <file>Assets/Plugins/Android/com.google.android.gms.play-services-ads-19.5.0.aar</file>
-    <file>Assets/Plugins/Android/com.google.android.gms.play-services-ads-base-19.5.0.aar</file>
+    <file>Assets/Plugins/Android/com.adcolony.sdk-4.4.1.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-ads-19.6.0.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-ads-base-19.6.0.aar</file>
     <file>Assets/Plugins/Android/com.google.android.gms.play-services-ads-identifier-17.0.0.aar</file>
-    <file>Assets/Plugins/Android/com.google.android.gms.play-services-ads-lite-19.5.0.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-ads-lite-19.6.0.aar</file>
     <file>Assets/Plugins/Android/com.google.android.gms.play-services-basement-17.3.0.aar</file>
-    <file>Assets/Plugins/Android/com.google.android.gms.play-services-gass-19.5.0.aar</file>
-    <file>Assets/Plugins/Android/com.google.android.gms.play-services-measurement-base-17.2.0.aar</file>
-    <file>Assets/Plugins/Android/com.google.android.gms.play-services-measurement-sdk-api-17.2.0.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-gass-19.6.0.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-measurement-base-17.5.0.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-measurement-sdk-api-17.5.0.aar</file>
     <file>Assets/Plugins/Android/com.google.android.gms.play-services-tasks-17.1.0.aar</file>
     <file>Assets/Plugins/Android/com.google.android.play.core-1.8.3.aar</file>
+    <file>Assets/Plugins/Android/com.google.code.gson.gson-2.8.6.jar</file>
     <file>Assets/Plugins/Android/com.google.guava.listenablefuture-1.0.jar</file>
+    <file>Assets/Plugins/Android/com.mopub.mediation.adcolony-4.4.1.0.aar</file>
+    <file>Assets/Plugins/Android/com.mopub.mediation.admob-19.6.0.1.aar</file>
+    <file>Assets/Plugins/Android/com.mopub.mopub-sdk-5.15.0.aar</file>
+    <file>Assets/Plugins/Android/com.mopub.mopub-sdk-banner-5.15.0.aar</file>
+    <file>Assets/Plugins/Android/com.mopub.mopub-sdk-base-5.15.0.aar</file>
+    <file>Assets/Plugins/Android/com.mopub.mopub-sdk-fullscreen-5.15.0.aar</file>
+    <file>Assets/Plugins/Android/com.mopub.mopub-sdk-native-static-5.15.0.aar</file>
+    <file>Assets/Plugins/Android/com.mopub.omsdk-android-1.3.4.aar</file>
+    <file>Assets/Plugins/Android/com.mopub.volley.mopub-volley-2.1.0.jar</file>
     <file>Assets/Plugins/Android/com.sglib.easymobile.easy-mobile-1.5.0.aar</file>
+    <file>Assets/Plugins/Android/org.jetbrains.annotations-13.0.jar</file>
+    <file>Assets/Plugins/Android/org.jetbrains.kotlin.kotlin-android-extensions-runtime-1.3.61.jar</file>
+    <file>Assets/Plugins/Android/org.jetbrains.kotlin.kotlin-stdlib-1.3.61.jar</file>
+    <file>Assets/Plugins/Android/org.jetbrains.kotlin.kotlin-stdlib-common-1.3.61.jar</file>
+    <file>Assets/Plugins/Android/org.jetbrains.kotlin.kotlin-stdlib-jdk7-1.3.61.jar</file>
   </files>
   <settings>
     <setting name="androidAbis" value="arm64-v8a,armeabi-v7a" />
