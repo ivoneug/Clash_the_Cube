@@ -33,7 +33,7 @@ namespace ClashTheCube
             LocalizeLabel(soundFx, nameof(soundFx));
             LocalizeLabel(music, nameof(music));
             LocalizeLabel(vibration, nameof(vibration));
-            LocalizeLabel(restartGameSettings, nameof(restartGameSettings));
+            LocalizeLabel(restartGameSettings, "restartGameButton");
 
             LocalizeLabel(removeAdsTitle, nameof(removeAdsTitle));
             LocalizeLabel(removeAdsInfo, nameof(removeAdsInfo));
@@ -42,7 +42,7 @@ namespace ClashTheCube
             LocalizeLabel(gameOverInfo, nameof(gameOverInfo));
             LocalizeLabel(gameOverTextContinue, nameof(gameOverTextContinue));
             LocalizeLabel(gameOverContinueButton, nameof(gameOverContinueButton));
-            LocalizeLabel(gameOverRestartGameButton, nameof(gameOverRestartGameButton));
+            LocalizeLabel(gameOverRestartGameButton, "restartGameButton");
         }
 
         public void LocalizeLabel(TextMeshProUGUI label, string key)
