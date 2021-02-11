@@ -12,6 +12,9 @@ namespace ClashTheCube
 {
     public class SettingsController : MonoBehaviour
     {
+        private const string enLanguageCode = "en";
+        private const string ruLanguageCode = "ru";
+
         [SerializeField] private DataboxObject databox;
         [SerializeField] private GameEvent settingsChangedEvent;
 
@@ -28,6 +31,8 @@ namespace ClashTheCube
         [SerializeField] private UIToggle musicToggle;
         [SerializeField] private UIToggle sfxToggle;
         [SerializeField] private UIToggle vibrationToggle;
+        [SerializeField] private GameObject ruFlagCheckmark;
+        [SerializeField] private GameObject enFlagCheckmark;
 
         private bool settingsLoaded = false;
 
@@ -66,6 +71,7 @@ namespace ClashTheCube
             }
 
             UpdateAudioState();
+            UpdateLanguageState();
 
             musicToggle.IsOn = isMusicOn;
             sfxToggle.IsOn = isSfxOn;
@@ -111,6 +117,12 @@ namespace ClashTheCube
         {
             audioMixer.SetFloat("Music_Volume", isMusicOn ? musicVolume : zeroVolume);
             audioMixer.SetFloat("SFX_Volume", isSfxOn ? sfxVolume : zeroVolume);
+        }
+
+        private void UpdateLanguageState()
+        {
+            ruFlagCheckmark.SetActive(languageCode == ruLanguageCode);
+            enFlagCheckmark.SetActive(languageCode == enLanguageCode);
         }
 
         private void RaiseSettingsEvent()
@@ -203,6 +215,34 @@ namespace ClashTheCube
             RaiseSettingsEvent();
         }
 
+        public void SetEnglishLanguage()
+        {
+            if (!settingsLoaded)
+            {
+                return;
+            }
+
+            languageCode.Variable.SetValue(enLanguageCode);
+
+            UpdateLanguageState();
+            SaveSettings();
+            RaiseSettingsEvent();
+        }
+
+        public void SetRussianLanguage()
+        {
+            if (!settingsLoaded)
+            {
+                return;
+            }
+
+            languageCode.Variable.SetValue(ruLanguageCode);
+
+            UpdateLanguageState();
+            SaveSettings();
+            RaiseSettingsEvent();
+        }
+
         #endregion
 
         #region Language
@@ -212,15 +252,15 @@ namespace ClashTheCube
             switch (Application.systemLanguage)
             {
                 case SystemLanguage.English:
-                    return "en";
+                    return enLanguageCode;
 
                 case SystemLanguage.Russian:
                 case SystemLanguage.Ukrainian:
                 case SystemLanguage.Belarusian:
-                    return "ru";
+                    return ruLanguageCode;
 
                 default:
-                    return "en";
+                    return enLanguageCode;
             }
         }
 
