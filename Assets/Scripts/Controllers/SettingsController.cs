@@ -47,13 +47,14 @@ namespace ClashTheCube
             var isVibrationOnField = DataBaseController.Settings_isVibrationOnField;
             var languageCodeField = DataBaseController.Settings_LanguageCodeField;
 
+            // default values
+            isMusicOn.Variable.SetValue(true);
+            isSfxOn.Variable.SetValue(true);
+            isVibrationOn.Variable.SetValue(true);
+            languageCode.Variable.SetValue(GetLanguage());
+
             if (!databox.EntryExists(table, entry))
             {
-                isMusicOn.Variable.SetValue(true);
-                isSfxOn.Variable.SetValue(true);
-                isVibrationOn.Variable.SetValue(true);
-                languageCode.Variable.SetValue(GetLanguage());
-
                 SaveSettings();
             }
             else
