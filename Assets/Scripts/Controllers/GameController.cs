@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Framework.Variables;
+using Framework.Utils;
 
 namespace ClashTheCube
 {
@@ -10,6 +11,8 @@ namespace ClashTheCube
     {
         [SerializeField] private BoolReference gamePaused;
         [SerializeField] private BoolReference isVibrationOn;
+
+        [SerializeField] private FPSCounter fpsCounter;
 
         private void Start()
         {
@@ -59,6 +62,11 @@ namespace ClashTheCube
             
             string scene = SceneManager.GetActiveScene().name;
             Initiate.Fade(scene, Color.black, 2f);
+        }
+
+        public void ToggleFps()
+        {
+            fpsCounter.enabled = !fpsCounter.enabled;
         }
     }
 }
