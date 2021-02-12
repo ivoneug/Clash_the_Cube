@@ -9,7 +9,7 @@ public class AdMobPackageConfig : PackageConfig
 
     public override string Version
     {
-        get { return /*UNITY_PACKAGE_VERSION*/"1.9.2"; }
+        get { return /*UNITY_PACKAGE_VERSION*/"1.9.3"; }
     }
 
     public override Dictionary<Platform, string> NetworkSdkVersions

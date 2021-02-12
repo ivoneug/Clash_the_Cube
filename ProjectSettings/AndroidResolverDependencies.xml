@@ -6,7 +6,7 @@
     <package>com.google.android.gms:play-services-ads:19.6.0</package>
     <package>com.google.android.play:core:1.8.+</package>
     <package>com.mopub.mediation:adcolony:4.4.1.0</package>
-    <package>com.mopub.mediation:admob:19.6.0.1</package>
+    <package>com.mopub.mediation:admob:19.6.0.2</package>
     <package>com.mopub:mopub-sdk:5.15.0</package>
     <package>com.sglib.easymobile:easy-mobile:1.+</package>
   </packages>
@@ -75,7 +75,7 @@
     <file>Assets/Plugins/Android/com.google.code.gson.gson-2.8.6.jar</file>
     <file>Assets/Plugins/Android/com.google.guava.listenablefuture-1.0.jar</file>
     <file>Assets/Plugins/Android/com.mopub.mediation.adcolony-4.4.1.0.aar</file>
-    <file>Assets/Plugins/Android/com.mopub.mediation.admob-19.6.0.1.aar</file>
+    <file>Assets/Plugins/Android/com.mopub.mediation.admob-19.6.0.2.aar</file>
     <file>Assets/Plugins/Android/com.mopub.mopub-sdk-5.15.0.aar</file>
     <file>Assets/Plugins/Android/com.mopub.mopub-sdk-banner-5.15.0.aar</file>
     <file>Assets/Plugins/Android/com.mopub.mopub-sdk-base-5.15.0.aar</file>
@@ -95,7 +95,7 @@
     <setting name="bundleId" value="com.IvonGames.ClashtheCube" />
     <setting name="explodeAars" value="True" />
     <setting name="gradleBuildEnabled" value="True" />
-    <setting name="gradlePropertiesTemplateEnabled" value="False" />
+    <setting name="gradlePropertiesTemplateEnabled" value="True" />
     <setting name="gradleTemplateEnabled" value="False" />
     <setting name="installAndroidPackages" value="True" />
     <setting name="localMavenRepoDir" value="Assets/GeneratedLocalRepo" />
