@@ -30,6 +30,7 @@ namespace ClashTheCube
         [SerializeField][Range(0f, 1f)] private float randomNumberGenerationChance = 0.25f;
 
         [SerializeField] private GameEvent achievementReachedEvent;
+        [SerializeField] private IntReference achievementNumber;
         [SerializeField] private IntReference achievementMinNumber;
 
         [SerializeField] private IntReference zPositionThresholdForForceContinue;
@@ -90,6 +91,8 @@ namespace ClashTheCube
 
         public void SpawnMerge()
         {
+            CheckAchievement();
+
             // var quaternion = Quaternion.Euler(Random.Range(-cubeMergeAngle, cubeMergeAngle), 0f, Random.Range(-cubeMergeAngle, cubeMergeAngle));
             var quaternion = Quaternion.identity;
             // var force = Vector3.up;
@@ -113,8 +116,6 @@ namespace ClashTheCube
             cube.Body.AddForce(force * Random.Range(cubeMergeForceMin, cubeMergeForceMax));
             // cube.Body.AddTorque(Vector.Vector3RandomNormal() * cubeMergeTorque, ForceMode.Impulse);
             cube.Body.AddTorque(torque * Random.Range(cubeMergeTorqueMin, cubeMergeTorqueMax), ForceMode.Impulse);
-
-            CheckAchievement();
         }
 
         private CubeController GetNearestMatchingCube()
@@ -253,6 +254,7 @@ namespace ClashTheCube
                 return;
             }
 
+            achievementNumber.Variable.Value = nextCubeNumber;
             achievementReachedEvent.Raise();
         }
 

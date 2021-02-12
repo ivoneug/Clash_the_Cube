@@ -10,7 +10,7 @@ namespace ClashTheCube
     {
         [SerializeField] LocalisationController localisationController;
 
-        [SerializeField] private IntReference nextCubeNumber;
+        [SerializeField] private IntReference achievementNumber;
         [SerializeField] private UILabel number;
         [SerializeField] private TextMeshProUGUI title;
         [SerializeField] private TextMeshProUGUI subtitle;
@@ -18,7 +18,7 @@ namespace ClashTheCube
 
         private void OnEnable()
         {
-            int value = nextCubeNumber;
+            int value = achievementNumber;
 
             string titleFormat = localisationController.GetLocalizedText("achievementTitle");
             string subtitleFormat = localisationController.GetLocalizedText("achievementSubtitle");

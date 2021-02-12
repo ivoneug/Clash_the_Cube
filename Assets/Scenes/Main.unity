@@ -55840,10 +55840,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localisationController: {fileID: 365795672}
-  nextCubeNumber:
+  achievementNumber:
     UseConstant: 0
     ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 0d0620078eb204bffb130c01055b2168, type: 2}
+    Variable: {fileID: 11400000, guid: f2b35b6a21c414898b25fd96b9a1eba9, type: 2}
   number: {fileID: 960001283}
   title: {fileID: 2061505161}
   subtitle: {fileID: 1174160730}
@@ -68292,6 +68292,10 @@ MonoBehaviour:
     Variable: {fileID: 0}
   randomNumberGenerationChance: 0.7
   achievementReachedEvent: {fileID: 11400000, guid: 0cd86a904b29d4382a5cecffd08f01b9, type: 2}
+  achievementNumber:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: f2b35b6a21c414898b25fd96b9a1eba9, type: 2}
   achievementMinNumber:
     UseConstant: 1
     ConstantValue: 512
