@@ -31,10 +31,12 @@ namespace ClashTheCube
         public static string Localisation_Table = "Localisation";
 
         [SerializeField] private DataboxObject databox;
+        [SerializeField] private DataboxObject localisation;
         [SerializeField] private GameEvent dataBaseReadyEvent;
         [SerializeField][Range(0, 30)] private int saveDatabaseDelay = 5;
 
         private bool isDataBaseReady = false;
+        private bool isLocalisationReady = false;
 
         private void Start()
         {
@@ -48,12 +50,31 @@ namespace ClashTheCube
             }
 
             databox.OnDatabaseLoaded += OnDatabaseLoaded;
+            localisation.OnDatabaseLoaded += OnLocalisationLoaded;
+
             databox.LoadDatabase();
+            localisation.LoadDatabase();
         }
 
         private void OnDatabaseLoaded()
         {
             isDataBaseReady = true;
+            CheckAndFireDataBaseReadyEvent();
+        }
+
+        private void OnLocalisationLoaded()
+        {
+            isLocalisationReady = true;
+            CheckAndFireDataBaseReadyEvent();
+        }
+
+        private void CheckAndFireDataBaseReadyEvent()
+        {
+            if (!isDataBaseReady || !isLocalisationReady)
+            {
+                return;
+            }
+            
             dataBaseReadyEvent.Raise();
         }
 

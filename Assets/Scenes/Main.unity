@@ -2779,6 +2779,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   databox: {fileID: 11400000, guid: 74695ae3ec05c4ffa93bac3e5d6d9cb8, type: 2}
+  localisation: {fileID: 11400000, guid: e7626bbdf6dab42f78bee2d6f31a4253, type: 2}
   dataBaseReadyEvent: {fileID: 11400000, guid: 75e81fc9d19434bad9b28ba578ac0e74, type: 2}
   saveDatabaseDelay: 5
 --- !u!114 &26261513
@@ -7782,7 +7783,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 11452418, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
   m_PrefabInstance: {fileID: 543044910}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1733708995}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a4f16ed905adcd4ab0d7c8c11f0d72c, type: 3}
@@ -56118,6 +56119,8 @@ GameObject:
   - component: {fileID: 1555284589}
   - component: {fileID: 1555284590}
   - component: {fileID: 1555284591}
+  - component: {fileID: 1555284593}
+  - component: {fileID: 1555284592}
   m_Layer: 5
   m_Name: Game Over
   m_TagString: Untagged
@@ -56168,6 +56171,91 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   label: {fileID: 879570727}
   shadow: {fileID: 1100378808}
+--- !u!114 &1555284592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1555284588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03e926c9619cd4b8b8068dea4f7b817d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attempts: 5
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 242267388}
+        m_TargetAssemblyTypeName: IngameDebugConsole.DebugLogManager, IngameDebugConsole.Runtime
+        m_MethodName: ShowLogWindow
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  gameEvent: {fileID: 0}
+--- !u!114 &1555284593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1555284588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 0
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 0}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1555284592}
+        m_TargetAssemblyTypeName: InvokeAfterNumberOfAttempts, Assembly-CSharp
+        m_MethodName: TryInvoke
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1590221230
 GameObject:
   m_ObjectHideFlags: 0
@@ -66940,6 +67028,69 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1716670546}
   m_CullTransparentMesh: 0
+--- !u!1 &1733708995 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 132536, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
+  m_PrefabInstance: {fileID: 543044910}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1733708996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733708995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1dbe23658d34460c916fb5d84d53789, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  command: sim_reward_ad
+  description: Simulate Rewarded Video AD
+  action:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 912113416}
+        m_TargetAssemblyTypeName: ClashTheCube.AdvertisingController, Assembly-CSharp
+        m_MethodName: ShowContinueGameAD
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1733708997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733708995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1dbe23658d34460c916fb5d84d53789, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  command: sim_inter_ad
+  description: Simulate Interstitial AD
+  action:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 912113416}
+        m_TargetAssemblyTypeName: ClashTheCube.AdvertisingController, Assembly-CSharp
+        m_MethodName: ShowAchievementAD
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1738206920
 GameObject:
   m_ObjectHideFlags: 0
