@@ -16,9 +16,21 @@ namespace ClashTheCube
         [SerializeField] private TextMeshProUGUI subtitle;
         [SerializeField] private UILabel gotItButton;
 
+        private int currentAchievementNumber;
+
         private void OnEnable()
         {
+            currentAchievementNumber = -1;
+        }
+
+        private void Update()
+        {
             int value = achievementNumber;
+            if (currentAchievementNumber == value)
+            {
+                return;
+            }
+            currentAchievementNumber = value;
 
             string titleFormat = localisationController.GetLocalizedText("achievementTitle");
             string subtitleFormat = localisationController.GetLocalizedText("achievementSubtitle");
@@ -26,7 +38,7 @@ namespace ClashTheCube
             number.text = value.ToString();
             title.text = string.Format(titleFormat, value);
             subtitle.text = string.Format(subtitleFormat, value * 2);
-            
+
             localisationController.LocalizeLabel(gotItButton, "achievementButton");
         }
     }
