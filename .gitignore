@@ -94,3 +94,4 @@ Assets/EasyMobile
 Assets/ExternalDependencyManager
 ImageSources
 out-ios
+out-ios-simulator
