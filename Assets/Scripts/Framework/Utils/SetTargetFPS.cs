@@ -1,87 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Framework.SystemInfo;
 
-public class SetTargetFPS : MonoBehaviour
+namespace Framework.Utils
 {
-    [System.Flags]
-    public enum PlatfromType
+    public class SetTargetFPS : MonoBehaviour
     {
-        None = 0,
-        iOS = 1,
-        Android = 2,
-        Desktop = 4,
-        Editor = 8
-    }
-
-    public enum TargetFpsType
-    {
-        fps30,
-        fps60
-    }
-
-    [SerializeField] private PlatfromType platforms;
-    [SerializeField] TargetFpsType targetFPS = TargetFpsType.fps60;
-
-    private void Awake()
-    {
-        if (platforms == PlatfromType.None)
+        public enum TargetFpsType
         {
-            return;
-        }
-        if (!IsPlaformActive())
-        {
-            return;
+            fps30,
+            fps60
         }
 
-        switch (targetFPS)
+        [SerializeField] private Platform.PlatfromType platforms;
+        [SerializeField] TargetFpsType targetFPS = TargetFpsType.fps60;
+
+        private void Awake()
         {
-            case TargetFpsType.fps60:
-                Application.targetFrameRate = 60;
-                Debug.Log("Set target FPS to 60");
-                break;
+            if (platforms == Platform.PlatfromType.None)
+            {
+                return;
+            }
+            if (!IsPlaformActive())
+            {
+                return;
+            }
 
-            case TargetFpsType.fps30:
-                Application.targetFrameRate = 30;
-                Debug.Log("Set target FPS to 30");
-                break;
+            switch (targetFPS)
+            {
+                case TargetFpsType.fps60:
+                    Application.targetFrameRate = 60;
+                    Debug.Log("Set target FPS to 60");
+                    break;
 
-            default:
-                break;
+                case TargetFpsType.fps30:
+                    Application.targetFrameRate = 30;
+                    Debug.Log("Set target FPS to 30");
+                    break;
+
+                default:
+                    break;
+            }
         }
-    }
 
-    private bool HasFlag(PlatfromType flag)
-    {
-        return (platforms & flag) == flag;
-    }
-
-    private PlatfromType PlatfromToFlag()
-    {
-        switch (Application.platform)
+        private bool IsPlaformActive()
         {
-            case RuntimePlatform.IPhonePlayer:
-                return PlatfromType.iOS;
-
-            case RuntimePlatform.Android:
-                return PlatfromType.Android;
-
-            case RuntimePlatform.OSXPlayer:
-            case RuntimePlatform.WindowsPlayer:
-                return PlatfromType.Desktop;
-
-            case RuntimePlatform.OSXEditor:
-            case RuntimePlatform.WindowsEditor:
-            case RuntimePlatform.LinuxEditor:
-                return PlatfromType.Editor;
-
-            default:
-                return PlatfromType.None;
+            return Platform.HasFlag(platforms, Platform.CurrentPlatfrom());
         }
-    }
-
-    private bool IsPlaformActive()
-    {
-        return HasFlag(PlatfromToFlag());
     }
 }
