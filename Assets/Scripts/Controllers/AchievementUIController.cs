@@ -16,12 +16,7 @@ namespace ClashTheCube
         [SerializeField] private TextMeshProUGUI subtitle;
         [SerializeField] private UILabel gotItButton;
 
-        private int currentAchievementNumber;
-
-        private void OnEnable()
-        {
-            currentAchievementNumber = -1;
-        }
+        private int currentAchievementNumber = -1;
 
         private void Update()
         {
