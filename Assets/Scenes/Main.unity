@@ -43754,6 +43754,7 @@ GameObject:
   - component: {fileID: 1086257289}
   - component: {fileID: 1086257291}
   - component: {fileID: 1086257285}
+  - component: {fileID: 1086257286}
   m_Layer: 1
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -43775,6 +43776,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   platforms: -1
   targetFPS: 1
+--- !u!114 &1086257286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1086257284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faceebf6674124e76887eccc39d42a54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  performanceType: 0
+  anchor: 6
+  isDebug: 0
 --- !u!20 &1086257287
 Camera:
   m_ObjectHideFlags: 0
@@ -44035,7 +44051,7 @@ MonoBehaviour:
   _pixelateDownscale: 0
   _antialiasStrength: 5
   _antialiasDepthThreshold: 0.001
-  isDirty: 1
+  isDirty: 0
   bMat: {fileID: 0}
 --- !u!1 &1100378806
 GameObject:
