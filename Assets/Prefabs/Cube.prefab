@@ -901,6 +901,10 @@ MonoBehaviour:
     UseConstant: 1
     ConstantValue: 7
     Variable: {fileID: 0}
+  swipeDeltaMultiplierDesktop:
+    UseConstant: 1
+    ConstantValue: 13
+    Variable: {fileID: 0}
   xConstraint:
     UseConstant: 1
     ConstantValue: 1.7

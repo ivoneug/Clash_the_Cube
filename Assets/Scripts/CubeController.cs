@@ -2,6 +2,7 @@
 using Framework.Variables;
 using Framework.Events;
 using Framework.Utils;
+using Framework.SystemInfo;
 using DG.Tweening;
 using TMPro;
 using Databox;
@@ -19,6 +20,7 @@ namespace ClashTheCube
 
         [SerializeField] private Vector2Variable swipeDelta;
         [SerializeField] private FloatReference swipeDeltaMultiplier;
+        [SerializeField] private FloatReference swipeDeltaMultiplierDesktop;
         [SerializeField] private FloatReference xConstraint;
         [SerializeField] private FloatReference velocity;
         [SerializeField] private FloatReference force;
@@ -248,7 +250,7 @@ namespace ClashTheCube
 
         public void MoveLeft()
         {
-            destPosition += new Vector3(swipeDelta.Value.x * swipeDeltaMultiplier, 0f, 0f);
+            destPosition += new Vector3(swipeDelta.Value.x * GetDeltaMultiplier(), 0f, 0f);
             if (destPosition.x < -xConstraint)
             {
                 destPosition = new Vector3(-xConstraint, destPosition.y, destPosition.z);
@@ -257,7 +259,7 @@ namespace ClashTheCube
 
         public void MoveRight()
         {
-            destPosition += new Vector3(swipeDelta.Value.x * swipeDeltaMultiplier, 0f, 0f);
+            destPosition += new Vector3(swipeDelta.Value.x * GetDeltaMultiplier(), 0f, 0f);
             if (destPosition.x > xConstraint)
             {
                 destPosition = new Vector3(xConstraint, destPosition.y, destPosition.z);
@@ -285,6 +287,11 @@ namespace ClashTheCube
             {
                 directionLine.SetActive(active);
             }
+        }
+
+        private float GetDeltaMultiplier()
+        {
+            return Platform.IsMobilePlatform() ? swipeDeltaMultiplier : swipeDeltaMultiplierDesktop;
         }
 
         #region Database
