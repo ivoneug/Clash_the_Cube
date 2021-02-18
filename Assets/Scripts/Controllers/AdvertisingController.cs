@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using EasyMobile;
 using Framework.Events;
+using Framework.SystemInfo;
 
 namespace ClashTheCube
 {
@@ -32,8 +33,20 @@ namespace ClashTheCube
             Advertising.RewardedAdSkipped -= RewardedAdSkippedHandler;
         }
 
+        private bool IsADsSupported()
+        {
+            return Platform.CurrentPlatfrom() == Platform.PlatfromType.Android ||
+                   Platform.CurrentPlatfrom() == Platform.PlatfromType.iOS;
+        }
+
         public void RefreshADs()
         {
+            if (!IsADsSupported())
+            {
+                removeAdsButton.SetActive(false);
+                return;
+            }
+
             bool isADsVisible = true;
 
             if (Advertising.IsAdRemoved())
@@ -51,7 +64,7 @@ namespace ClashTheCube
 
         public void ShowAchievementAD()
         {
-            if (!Advertising.IsInterstitialAdReady())
+            if (!Advertising.IsInterstitialAdReady() || !IsADsSupported())
             {
                 if (adCompletedEvent)
                 {
@@ -65,7 +78,7 @@ namespace ClashTheCube
 
         public void ShowContinueGameAD()
         {
-            if (!Advertising.IsRewardedAdReady())
+            if (!Advertising.IsRewardedAdReady() || !IsADsSupported())
             {
                 if (adCompletedEvent)
                 {
