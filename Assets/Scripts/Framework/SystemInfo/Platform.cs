@@ -3,16 +3,23 @@ using UnityEngine;
 
 namespace Framework.SystemInfo
 {
+    [Flags]
+    public enum PlatfromType
+    {
+        None = 0,
+        iOS = 1,
+        Android = 2,
+        Desktop = 4,
+        Editor = 8
+    }
+
     public class Platform
     {
-        [Flags]
-        public enum PlatfromType
+        private static PlatfromType editorPlatfrom = PlatfromType.Editor;
+
+        public static void OverrideEditorPlatform(PlatfromType platfrom)
         {
-            None = 0,
-            iOS = 1,
-            Android = 2,
-            Desktop = 4,
-            Editor = 8
+            editorPlatfrom = platfrom;
         }
 
         public static bool HasFlag(PlatfromType platforms, PlatfromType flag)
@@ -37,11 +44,17 @@ namespace Framework.SystemInfo
                 case RuntimePlatform.OSXEditor:
                 case RuntimePlatform.WindowsEditor:
                 case RuntimePlatform.LinuxEditor:
-                    return PlatfromType.Editor;
+                    return editorPlatfrom;
 
                 default:
                     return PlatfromType.None;
             }
+        }
+
+        public static bool IsMobilePlatform()
+        {
+            return CurrentPlatfrom() == PlatfromType.Android ||
+                   CurrentPlatfrom() == PlatfromType.iOS;
         }
     }
 }

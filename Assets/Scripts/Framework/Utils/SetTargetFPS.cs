@@ -13,12 +13,12 @@ namespace Framework.Utils
             fps60
         }
 
-        [SerializeField] private Platform.PlatfromType platforms;
+        [SerializeField] private PlatfromType platforms;
         [SerializeField] TargetFpsType targetFPS = TargetFpsType.fps60;
 
         private void Awake()
         {
-            if (platforms == Platform.PlatfromType.None)
+            if (platforms == PlatfromType.None)
             {
                 return;
             }

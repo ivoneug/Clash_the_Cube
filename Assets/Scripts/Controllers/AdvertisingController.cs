@@ -35,8 +35,7 @@ namespace ClashTheCube
 
         private bool IsADsSupported()
         {
-            return Platform.CurrentPlatfrom() == Platform.PlatfromType.Android ||
-                   Platform.CurrentPlatfrom() == Platform.PlatfromType.iOS;
+            return Platform.IsMobilePlatform();
         }
 
         public void RefreshADs()
