@@ -55,7 +55,7 @@ PlayerSettings:
   iosShowActivityIndicatorOnLoading: -1
   androidShowActivityIndicatorOnLoading: -1
   iosUseCustomAppBackgroundBehavior: 0
-  iosAllowHTTPDownload: 0
+  iosAllowHTTPDownload: 1
   allowedAutorotateToPortrait: 1
   allowedAutorotateToPortraitUpsideDown: 0
   allowedAutorotateToLandscapeRight: 0
@@ -270,36 +270,35 @@ PlayerSettings:
   m_BuildTargetPlatformIcons:
   - m_BuildTarget: Android
     m_Icons:
-    - m_Textures:
-      - {fileID: 2800000, guid: 1b6003e45e54143258298664048daf6d, type: 3}
-      m_Width: 192
-      m_Height: 192
-      m_Kind: 0
+    - m_Textures: []
+      m_Width: 432
+      m_Height: 432
+      m_Kind: 2
       m_SubKind: 
     - m_Textures: []
-      m_Width: 144
-      m_Height: 144
-      m_Kind: 0
+      m_Width: 324
+      m_Height: 324
+      m_Kind: 2
       m_SubKind: 
     - m_Textures: []
-      m_Width: 96
-      m_Height: 96
-      m_Kind: 0
+      m_Width: 216
+      m_Height: 216
+      m_Kind: 2
       m_SubKind: 
     - m_Textures: []
-      m_Width: 72
-      m_Height: 72
-      m_Kind: 0
+      m_Width: 162
+      m_Height: 162
+      m_Kind: 2
       m_SubKind: 
     - m_Textures: []
-      m_Width: 48
-      m_Height: 48
-      m_Kind: 0
+      m_Width: 108
+      m_Height: 108
+      m_Kind: 2
       m_SubKind: 
     - m_Textures: []
-      m_Width: 36
-      m_Height: 36
-      m_Kind: 0
+      m_Width: 81
+      m_Height: 81
+      m_Kind: 2
       m_SubKind: 
     - m_Textures:
       - {fileID: 2800000, guid: f89a4117782544e07ba368915651e37f, type: 3}
@@ -332,65 +331,39 @@ PlayerSettings:
       m_Height: 36
       m_Kind: 1
       m_SubKind: 
-    - m_Textures: []
-      m_Width: 432
-      m_Height: 432
-      m_Kind: 2
+    - m_Textures:
+      - {fileID: 2800000, guid: 1b6003e45e54143258298664048daf6d, type: 3}
+      m_Width: 192
+      m_Height: 192
+      m_Kind: 0
       m_SubKind: 
     - m_Textures: []
-      m_Width: 324
-      m_Height: 324
-      m_Kind: 2
+      m_Width: 144
+      m_Height: 144
+      m_Kind: 0
       m_SubKind: 
     - m_Textures: []
-      m_Width: 216
-      m_Height: 216
-      m_Kind: 2
+      m_Width: 96
+      m_Height: 96
+      m_Kind: 0
       m_SubKind: 
     - m_Textures: []
-      m_Width: 162
-      m_Height: 162
-      m_Kind: 2
+      m_Width: 72
+      m_Height: 72
+      m_Kind: 0
       m_SubKind: 
     - m_Textures: []
-      m_Width: 108
-      m_Height: 108
-      m_Kind: 2
+      m_Width: 48
+      m_Height: 48
+      m_Kind: 0
       m_SubKind: 
     - m_Textures: []
-      m_Width: 81
-      m_Height: 81
-      m_Kind: 2
+      m_Width: 36
+      m_Height: 36
+      m_Kind: 0
       m_SubKind: 
   - m_BuildTarget: iPhone
     m_Icons:
-    - m_Textures:
-      - {fileID: 2800000, guid: 3ff0bc623f1624249b20c25f3c2af263, type: 3}
-      m_Width: 180
-      m_Height: 180
-      m_Kind: 0
-      m_SubKind: iPhone
-    - m_Textures: []
-      m_Width: 120
-      m_Height: 120
-      m_Kind: 0
-      m_SubKind: iPhone
-    - m_Textures:
-      - {fileID: 2800000, guid: e1df8e7dcb53d46bfbddc2e901ba0232, type: 3}
-      m_Width: 167
-      m_Height: 167
-      m_Kind: 0
-      m_SubKind: iPad
-    - m_Textures: []
-      m_Width: 152
-      m_Height: 152
-      m_Kind: 0
-      m_SubKind: iPad
-    - m_Textures: []
-      m_Width: 76
-      m_Height: 76
-      m_Kind: 0
-      m_SubKind: iPad
     - m_Textures:
       - {fileID: 2800000, guid: 2f079c045cae04325819204484e2dd61, type: 3}
       m_Width: 120
@@ -468,6 +441,33 @@ PlayerSettings:
       m_Height: 1024
       m_Kind: 4
       m_SubKind: App Store
+    - m_Textures:
+      - {fileID: 2800000, guid: 3ff0bc623f1624249b20c25f3c2af263, type: 3}
+      m_Width: 180
+      m_Height: 180
+      m_Kind: 0
+      m_SubKind: iPhone
+    - m_Textures: []
+      m_Width: 120
+      m_Height: 120
+      m_Kind: 0
+      m_SubKind: iPhone
+    - m_Textures:
+      - {fileID: 2800000, guid: e1df8e7dcb53d46bfbddc2e901ba0232, type: 3}
+      m_Width: 167
+      m_Height: 167
+      m_Kind: 0
+      m_SubKind: iPad
+    - m_Textures: []
+      m_Width: 152
+      m_Height: 152
+      m_Kind: 0
+      m_SubKind: iPad
+    - m_Textures: []
+      m_Width: 76
+      m_Height: 76
+      m_Kind: 0
+      m_SubKind: iPad
   m_BuildTargetBatching:
   - m_BuildTarget: Standalone
     m_StaticBatching: 1
