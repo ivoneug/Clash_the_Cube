@@ -38168,6 +38168,9 @@ MonoBehaviour:
   adCompletedEvent: {fileID: 11400000, guid: 13f1e2e20f5794b83b5bfc6d70faf299, type: 2}
   adSkippedEvent: {fileID: 11400000, guid: b0564962c9df34a019d4e941000f2bee, type: 2}
   removeAdsButton: {fileID: 1117800471}
+  continueGameRewardedButton: {fileID: 1590221230}
+  continueGameInfoText: {fileID: 1808459133}
+  continueGameText: {fileID: 10326516}
 --- !u!198 &920922235 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 198563236803704106, guid: cd89c56a1fcd0534a946f51a4cf9e51b, type: 3}
@@ -44051,7 +44054,7 @@ MonoBehaviour:
   _pixelateDownscale: 0
   _antialiasStrength: 5
   _antialiasDepthThreshold: 0.001
-  isDirty: 0
+  isDirty: 1
   bMat: {fileID: 0}
 --- !u!1 &1100378806
 GameObject:
@@ -68051,10 +68054,10 @@ RectTransform:
   m_Father: {fileID: 84408626}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 28.2}
-  m_SizeDelta: {x: -100, y: 258.05466}
+  m_SizeDelta: {x: 700, y: 258.05466}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1808459135
 MonoBehaviour:

@@ -13,6 +13,9 @@ namespace ClashTheCube
         [SerializeField] private GameEvent adSkippedEvent;
 
         [SerializeField] private GameObject removeAdsButton;
+        [SerializeField] private GameObject continueGameRewardedButton;
+        [SerializeField] private GameObject continueGameInfoText;
+        [SerializeField] private GameObject continueGameText;
 
         private void Start()
         {
@@ -43,6 +46,10 @@ namespace ClashTheCube
             if (!IsADsSupported())
             {
                 removeAdsButton.SetActive(false);
+
+                continueGameRewardedButton.SetActive(false);
+                continueGameText.SetActive(false);
+                continueGameInfoText.SetActive(false);
                 return;
             }
 
