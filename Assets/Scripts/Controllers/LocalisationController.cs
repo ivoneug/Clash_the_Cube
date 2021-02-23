@@ -26,6 +26,7 @@ namespace ClashTheCube
         [SerializeField] private TextMeshProUGUI gameOverTextContinue;
         [SerializeField] private UILabel gameOverContinueButton;
         [SerializeField] private UILabel gameOverRestartGameButton;
+        [SerializeField] private TextMeshProUGUI restorePurchases;
 
         public void UpdateUI()
         {
@@ -43,6 +44,8 @@ namespace ClashTheCube
             LocalizeLabel(gameOverTextContinue, nameof(gameOverTextContinue));
             LocalizeLabel(gameOverContinueButton, nameof(gameOverContinueButton));
             LocalizeLabel(gameOverRestartGameButton, "restartGameButton");
+
+            LocalizeLabel(restorePurchases, nameof(restorePurchases));
         }
 
         public void LocalizeLabel(TextMeshProUGUI label, string key)
