@@ -119,7 +119,7 @@ public static class Vibration
     {
 
         if ( Application.isMobilePlatform ) {
-#if !UNITY_WEBGL
+#if !UNITY_WEBGL && !UNITY_STANDALONE
 #if UNITY_ANDROID
 
             if ( AndroidVersion >= 26 ) {
@@ -145,6 +145,7 @@ public static class Vibration
     public static void Vibrate ( long[] pattern, int repeat )
     {
         if ( Application.isMobilePlatform ) {
+#if !UNITY_WEBGL && !UNITY_STANDALONE
 #if UNITY_ANDROID
 
             if ( AndroidVersion >= 26 ) {
@@ -159,6 +160,7 @@ public static class Vibration
         Handheld.Vibrate();
 #else
         Handheld.Vibrate ();
+#endif
 #endif
         }
     }
@@ -204,7 +206,9 @@ public static class Vibration
     public static void Vibrate ()
     {
         if ( Application.isMobilePlatform ) {
+#if !UNITY_WEBGL && !UNITY_STANDALONE
             Handheld.Vibrate ();
+#endif
         }
     }
 
