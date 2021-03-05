@@ -118,6 +118,22 @@ namespace ClashTheCube
             cube.Body.AddTorque(torque * Random.Range(cubeMergeTorqueMin, cubeMergeTorqueMax), ForceMode.Impulse);
         }
 
+        public void DischargeActiveCube()
+        {
+            var objects = GameObject.FindGameObjectsWithTag("Cube");
+
+            foreach (var obj in objects)
+            {
+                var cube = obj.GetComponent<CubeController>();
+                if (cube.State != CubeController.CubeState.Initial)
+                {
+                    continue;
+                }
+
+                cube.Discharge();
+            }
+        }
+
         private CubeController GetNearestMatchingCube()
         {
             var objects = GameObject.FindGameObjectsWithTag("Cube");

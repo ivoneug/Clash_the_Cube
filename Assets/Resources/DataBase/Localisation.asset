@@ -29,7 +29,6 @@ MonoBehaviour:
   encryption: 0
   encryptionKey: 123456
   compressJson: 1
-  dataFormat: 0
   collapsedView: 0
   showInspector: 1
   entriesPerPage: 99

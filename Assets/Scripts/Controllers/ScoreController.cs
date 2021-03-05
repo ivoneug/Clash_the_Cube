@@ -15,7 +15,7 @@ namespace ClashTheCube
         private int score;
         private int destScore;
 
-        private void Start()
+        public void LoadSavedState()
         {
             LoadScore();
             label.text = score.ToString();

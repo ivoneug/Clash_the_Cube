@@ -18,6 +18,9 @@ namespace ClashTheCube
 
         public static string Purchases_Entry = "Purchases";
         public static string Purchases_RemoveADsField = "RemoveADs";
+        public static string Purchases_SwitchCube = "SwitchCube";
+        public static string Purchases_DropBomb = "DropBomb";
+        public static string Purchases_SuperMagnete = "SuperMagnete";
 
         public static string Stats_Entry = "Stats";
         public static string Stats_ScoreField = "Score";

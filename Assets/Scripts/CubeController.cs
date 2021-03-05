@@ -180,6 +180,17 @@ namespace ClashTheCube
             }
         }
 
+        public void Discharge()
+        {
+            State = CubeState.Final;
+
+            transform.localScale = Vector3.one;
+            transform.DOScale(0f, 0.5f)
+                     .SetEase(Ease.OutQuad)
+                     .OnComplete(() => SetFinalState())
+                     .Play();
+        }
+
         public void InitNew(int number)
         {
             Init(number, CubeState.Initial);
