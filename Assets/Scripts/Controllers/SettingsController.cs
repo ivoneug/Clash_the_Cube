@@ -25,6 +25,7 @@ namespace ClashTheCube
         private float zeroVolume = -80f;
 
         [SerializeField] private BoolReference isMusicOn;
+        [SerializeField] private IntReference musicIndex;
         [SerializeField] private BoolReference isSfxOn;
         [SerializeField] private BoolReference isVibrationOn;
         [SerializeField] private StringReference languageCode;
@@ -48,12 +49,14 @@ namespace ClashTheCube
             var table = DataBaseController.Data_Table;
             var entry = DataBaseController.Settings_Entry;
             var isMusicOnField = DataBaseController.Settings_isMusicOnField;
+            var musicIndexField = DataBaseController.Settings_musicIndexField;
             var isSfxOnField = DataBaseController.Settings_isSfxOnField;
             var isVibrationOnField = DataBaseController.Settings_isVibrationOnField;
             var languageCodeField = DataBaseController.Settings_LanguageCodeField;
 
             // default values
             isMusicOn.Variable.SetValue(true);
+            musicIndex.Variable.SetValue(0);
             isSfxOn.Variable.SetValue(true);
             isVibrationOn.Variable.SetValue(true);
             languageCode.Variable.SetValue(GetLanguage());
@@ -65,10 +68,14 @@ namespace ClashTheCube
             else
             {
                 isMusicOn.Variable.SetValue(databox.GetData<BoolType>(table, entry, isMusicOnField).Value);
+                musicIndex.Variable.SetValue(databox.GetData<IntType>(table, entry, musicIndexField).Value);
                 isSfxOn.Variable.SetValue(databox.GetData<BoolType>(table, entry, isSfxOnField).Value);
                 isVibrationOn.Variable.SetValue(databox.GetData<BoolType>(table, entry, isVibrationOnField).Value);
                 languageCode.Variable.SetValue(databox.GetData<StringType>(table, entry, languageCodeField).Value);
             }
+
+            // set music always on
+            isMusicOn.Variable.SetValue(true);
 
             UpdateAudioState();
             UpdateLanguageState();
@@ -86,11 +93,13 @@ namespace ClashTheCube
             var table = DataBaseController.Data_Table;
             var entry = DataBaseController.Settings_Entry;
             var isMusicOnField = DataBaseController.Settings_isMusicOnField;
+            var musicIndexField = DataBaseController.Settings_musicIndexField;
             var isSfxOnField = DataBaseController.Settings_isSfxOnField;
             var isVibrationOnField = DataBaseController.Settings_isVibrationOnField;
             var languageCodeField = DataBaseController.Settings_LanguageCodeField;
 
             var isMusicOnValue = new BoolType(isMusicOn);
+            var musicIndexValue = new IntType(musicIndex);
             var isSfxOnValue = new BoolType(isSfxOn);
             var isVibrationOnValue = new BoolType(isVibrationOn);
             var languageCodeValue = new StringType(languageCode);
@@ -98,6 +107,7 @@ namespace ClashTheCube
             if (!databox.EntryExists(table, entry))
             {
                 databox.AddData(table, entry, isMusicOnField, isMusicOnValue);
+                databox.AddData(table, entry, musicIndexField, musicIndexValue);
                 databox.AddData(table, entry, isSfxOnField, isSfxOnValue);
                 databox.AddData(table, entry, isVibrationOnField, isVibrationOnValue);
                 databox.AddData(table, entry, languageCodeField, languageCodeValue);
@@ -108,9 +118,29 @@ namespace ClashTheCube
                 databox.SetData<BoolType>(table, entry, isSfxOnField, isSfxOnValue);
                 databox.SetData<BoolType>(table, entry, isVibrationOnField, isVibrationOnValue);
                 databox.SetData<StringType>(table, entry, languageCodeField, languageCodeValue);
+
+                if (!databox.ValueExists(table, entry, musicIndexField))
+                {
+                    databox.AddData(table, entry, musicIndexField, musicIndexValue);
+                }
+                else
+                {
+                    databox.SetData<IntType>(table, entry, musicIndexField, musicIndexValue);
+                }
             }
 
             databox.SaveDatabase();
+        }
+
+        public void StoreSettings()
+        {
+            if (!settingsLoaded)
+            {
+                return;
+            }
+
+            SaveSettings();
+            RaiseSettingsEvent();
         }
 
         private void UpdateAudioState()
