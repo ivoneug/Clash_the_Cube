@@ -13,6 +13,7 @@ namespace ClashTheCube
 
         [SerializeField] private DataboxObject databox;
         [SerializeField] private GameEvent purchaseCompletedEvent;
+        [SerializeField] private GameEvent abilityPurchaseCompletedEvent;
         [SerializeField] private GameEvent purchaseFailedEvent;
 
         public bool IsSingleton
@@ -80,6 +81,11 @@ namespace ClashTheCube
             return InAppPurchasing.IsProductOwned(EM_IAPConstants.Product_Remove_ADs);
         }
 
+        public void PurchaseAddAbility()
+        {
+            InAppPurchasing.Purchase(EM_IAPConstants.Product_Add_Ability);
+        }
+
         public void RestorePurchases()
         {
             InAppPurchasing.RestorePurchases();
@@ -88,9 +94,23 @@ namespace ClashTheCube
         private void PurchaseCompletedHandler(IAPProduct product)
         {
             SavePurchaseData(product);
-            if (purchaseCompletedEvent)
+
+            GameEvent gameEvent = null;
+
+            switch (product.Name)
             {
-                purchaseCompletedEvent.Raise();
+                case EM_IAPConstants.Product_Remove_ADs:
+                    gameEvent = purchaseCompletedEvent;
+                    break;
+
+                case EM_IAPConstants.Product_Add_Ability:
+                    gameEvent = abilityPurchaseCompletedEvent;
+                    break;
+            }
+
+            if (gameEvent)
+            {
+                gameEvent.Raise();
             }
 
             Debug.Log(product.Name + " was purchased.");

@@ -7,29 +7,16 @@ using Databox;
 
 namespace ClashTheCube
 {
-    public enum AbilityType
-    {
-        None,
-        SwitchCube,
-        DropBomb,
-        SuperMagnete
-    }
-
     public class AbilityButtonController : MonoBehaviour
     {
-        private static Dictionary<AbilityType, string> AbilityTypeFieldMap = new Dictionary<AbilityType, string>{
-            { AbilityType.SwitchCube, DataBaseController.Purchases_SwitchCube },
-            { AbilityType.DropBomb, DataBaseController.Purchases_DropBomb },
-            { AbilityType.SuperMagnete, DataBaseController.Purchases_SuperMagnete }
-        };
-
         [SerializeField] private DataboxObject databox;
         [SerializeField] LocalisationController localisationController;
-        [SerializeField] private AbilityType abilityType = AbilityType.None;
-        [SerializeField] private int defaultCount = 0;
+        [SerializeField] private AbilityTypeInfo info;
+        [SerializeField] private AbilityTypeInfo activeInfo;
         [SerializeField] private UILabel countLabel;
         [SerializeField] private UILabel nameLabel;
         [SerializeField] private RectTransform addIcon;
+        [SerializeField] private Image icon;
         [SerializeField] private GameEvent activateAbilityEvent;
         [SerializeField] private GameEvent notEnoughAbilityEvent;
 
@@ -44,6 +31,7 @@ namespace ClashTheCube
         public void TryActivate()
         {
             GameEvent gameEvent = null;
+            activeInfo.CloneFrom(info);
 
             if (count > 0)
             {
@@ -63,9 +51,23 @@ namespace ClashTheCube
             }
         }
 
+        public void AddAbility()
+        {
+            if (info != activeInfo)
+            {
+                return;
+            }
+
+            count += info.purchaseCount;
+
+            Save();
+            UpdateUI();
+        }
+
         public void UpdateUI()
         {
-            localisationController.LocalizeLabel(nameLabel, AbilityTypeFieldMap[abilityType]);
+            icon.sprite = info.icon;
+            localisationController.LocalizeLabel(nameLabel, info.localNameKey);
             countLabel.text = string.Format("x{0}", count);
             addIcon.gameObject.SetActive(count == 0);
         }
@@ -74,17 +76,17 @@ namespace ClashTheCube
         {
             var table = DataBaseController.Data_Table;
             var entry = DataBaseController.Purchases_Entry;
-            var field = AbilityTypeFieldMap[abilityType];
+            var field = info.field;
 
             if (string.IsNullOrEmpty(field))
             {
-                Debug.LogError("Unable to get DB entry field for ability: " + abilityType);
+                Debug.LogError("Unable to get DB entry field for ability: " + info.abilityType);
                 return;
             }
 
             if (!databox.EntryExists(table, entry) || !databox.ValueExists(table, entry, field))
             {
-                count = defaultCount;
+                count = info.defaultCount;
                 databox.AddData(table, entry, field, new IntType(count));
             }
             else
@@ -97,11 +99,11 @@ namespace ClashTheCube
         {
             var table = DataBaseController.Data_Table;
             var entry = DataBaseController.Purchases_Entry;
-            var field = AbilityTypeFieldMap[abilityType];
+            var field = info.field;
 
             if (string.IsNullOrEmpty(field))
             {
-                Debug.LogError("Unable to get DB entry field for ability: " + abilityType);
+                Debug.LogError("Unable to get DB entry field for ability: " + info.abilityType);
                 return;
             }
 

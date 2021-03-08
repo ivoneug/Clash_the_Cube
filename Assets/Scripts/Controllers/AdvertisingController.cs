@@ -9,7 +9,10 @@ namespace ClashTheCube
 {
     public class AdvertisingController : MonoBehaviour
     {
+        private static string AddAbilityPlacement = "Add_Ability";
+
         [SerializeField] private GameEvent adCompletedEvent;
+        [SerializeField] private GameEvent abilityAdCompletedEvent;
         [SerializeField] private GameEvent adSkippedEvent;
 
         [SerializeField] private GameObject removeAdsButton;
@@ -96,23 +99,46 @@ namespace ClashTheCube
             Advertising.ShowRewardedAd();
         }
 
+        public void ShowAddAbilityGameAD()
+        {
+            if (!Advertising.IsRewardedAdReady() || !IsADsSupported())
+            {
+                if (adSkippedEvent)
+                {
+                    adSkippedEvent.Raise();
+                }
+                return;
+            }
+
+            Advertising.ShowRewardedAd(AdPlacement.PlacementWithName(AddAbilityPlacement));
+        }
+
         private void InterstitialAdCompletedHandler(InterstitialAdNetwork network, AdPlacement placement)
         {
             Debug.Log("Interstitial ad has been closed.");
 
-            if (adCompletedEvent)
-            {
-                adCompletedEvent.Raise();
-            }
+            AdCompletedHandler(placement);
         }
 
         private void RewardedAdCompletedHandler(RewardedAdNetwork network, AdPlacement placement)
         {
             Debug.Log("Rewarded ad has completed. The user should be rewarded now.");
 
-            if (adCompletedEvent)
+            AdCompletedHandler(placement);
+        }
+
+        private void AdCompletedHandler(AdPlacement placement)
+        {
+            GameEvent gameEvent = adCompletedEvent;
+
+            if (placement == AdPlacement.PlacementWithName(AddAbilityPlacement))
             {
-                adCompletedEvent.Raise();
+                gameEvent = abilityAdCompletedEvent;
+            }
+
+            if (gameEvent)
+            {
+                gameEvent.Raise();
             }
         }
 

@@ -478,7 +478,7 @@ GameObject:
   - component: {fileID: 3594506278095261307}
   - component: {fileID: 3594506278095261306}
   m_Layer: 5
-  m_Name: Icon_Sub
+  m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -531,7 +531,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: afa393036457c43fc8b7968d9bea35b5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9b0ab5fbdd0224344a3cfb7725fef4ff, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -558,6 +558,8 @@ GameObject:
   - component: {fileID: 3594506278435892836}
   - component: {fileID: 727671966276525567}
   - component: {fileID: 3594506278435892837}
+  - component: {fileID: 5189497239821602156}
+  - component: {fileID: 4532695619843688880}
   m_Layer: 5
   m_Name: Button - Ability
   m_TagString: Untagged
@@ -3001,11 +3003,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   databox: {fileID: 11400000, guid: 74695ae3ec05c4ffa93bac3e5d6d9cb8, type: 2}
   localisationController: {fileID: 0}
-  abilityType: 0
-  defaultCount: 0
+  info: {fileID: 0}
+  activeInfo: {fileID: 11400000, guid: a72bbd56ca1e24b61900d2f57bb49c19, type: 2}
   countLabel: {fileID: 3594506277558442656}
   nameLabel: {fileID: 3594506277766035998}
   addIcon: {fileID: 3594506278560739020}
+  icon: {fileID: 3594506278095261306}
   activateAbilityEvent: {fileID: 0}
   notEnoughAbilityEvent: {fileID: 0}
 --- !u!114 &727671966276525567
@@ -3064,6 +3067,54 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   Event: {fileID: 11400000, guid: 31c6fce1cc08840e19ae6e8c73efded1, type: 2}
+--- !u!114 &5189497239821602156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3594506278435892845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bca9b3b53f5d74982af3704bb585fe6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Response:
+    m_PersistentCalls:
+      m_Calls: []
+  Event: {fileID: 0}
+  DoozyEvent: AddAbility
+--- !u!114 &4532695619843688880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3594506278435892845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6d4fb1342afe41e394a1d8016c62ddd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3594506278435892836}
+        m_TargetAssemblyTypeName: ClashTheCube.AbilityButtonController, Assembly-CSharp
+        m_MethodName: AddAbility
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  type: 1
+  Events:
+  - {fileID: 11400000, guid: 3574d67877136472b808d3686c2038d2, type: 2}
+  - {fileID: 11400000, guid: 95c08f6d898b2436ca1c9818dfdfa122, type: 2}
 --- !u!1 &3594506278458635230
 GameObject:
   m_ObjectHideFlags: 0
