@@ -8,42 +8,17 @@ namespace ClashTheCube
 {
     public class MusicController : MonoBehaviour
     {
-        public static MusicController Instance;
-
         private SoundyData _activeMusic;
         private SoundyController _activeMusicController;
 
-        public bool IsSingleton
-        {
-            get
-            {
-                return this == Instance;
-            }
-        }
-
         void Awake()
         {
-            if (!Instance)
-            {
-                Instance = this;
-            }
-            else if (Instance != this)
-            {
-                Destroy(this);
-                return;
-            }
-
-            DontDestroyOnLoad(this);
+            SceneManager.sceneUnloaded += (Scene scene) => {
+                StopMusic();
+            };
         }
 
         private void Start()
-        {
-            if (!IsSingleton) return;
-
-            ActivateMusic();
-        }
-
-        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             ActivateMusic();
         }
@@ -59,6 +34,20 @@ namespace ClashTheCube
 
             if (_activeMusic != null && _activeMusic.SoundName != target.music.SoundName)
             {
+                StopMusic();
+            }
+
+            if (_activeMusic == null)
+            {
+                _activeMusicController = SoundyManager.Play(target.music);
+                _activeMusic = target.music;
+            }
+        }
+
+        private void StopMusic()
+        {
+            if (_activeMusic != null)
+            {
                 if (_activeMusicController != null)
                 {
                     _activeMusicController.Stop();
@@ -66,12 +55,6 @@ namespace ClashTheCube
 
                 _activeMusic = null;
                 _activeMusicController = null;
-            }
-
-            if (_activeMusic == null)
-            {
-                _activeMusicController = SoundyManager.Play(target.music);
-                _activeMusic = target.music;
             }
         }
     }
