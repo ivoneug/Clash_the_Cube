@@ -16,7 +16,6 @@ namespace ClashTheCube
 
         private void Start()
         {
-            targets = musicTargetContainer.GetComponentsInChildren<MusicTarget>();
             RefreshTargets();
         }
 
@@ -46,6 +45,8 @@ namespace ClashTheCube
 
         public void RefreshTargets()
         {
+            targets = musicTargetContainer.GetComponentsInChildren<MusicTarget>(true);
+
             for (int idx = 0; idx < targets.Length; idx++)
             {
                 var target = targets[idx];
