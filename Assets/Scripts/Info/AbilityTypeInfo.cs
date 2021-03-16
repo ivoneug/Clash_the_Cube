@@ -18,6 +18,7 @@ namespace ClashTheCube
         public AbilityType abilityType = AbilityType.None;
         public int defaultCount = 0;
         public int purchaseCount = 0;
+        public int adCount = 0;
         public string field;
         public string localNameKey;
         public string localInfoKey;
@@ -28,6 +29,7 @@ namespace ClashTheCube
             this.abilityType = info.abilityType;
             this.defaultCount = info.defaultCount;
             this.purchaseCount = info.purchaseCount;
+            this.adCount = info.adCount;
             this.field = info.field;
             this.localNameKey = info.localNameKey;
             this.localInfoKey = info.localInfoKey;

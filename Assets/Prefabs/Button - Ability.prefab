@@ -559,7 +559,8 @@ GameObject:
   - component: {fileID: 727671966276525567}
   - component: {fileID: 3594506278435892837}
   - component: {fileID: 5189497239821602156}
-  - component: {fileID: 4532695619843688880}
+  - component: {fileID: 7932615901977491883}
+  - component: {fileID: 8655103419661371991}
   m_Layer: 5
   m_Name: Button - Ability
   m_TagString: Untagged
@@ -3084,7 +3085,7 @@ MonoBehaviour:
       m_Calls: []
   Event: {fileID: 0}
   DoozyEvent: AddAbility
---- !u!114 &4532695619843688880
+--- !u!114 &7932615901977491883
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3093,7 +3094,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3594506278435892845}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6d4fb1342afe41e394a1d8016c62ddd, type: 3}
+  m_Script: {fileID: 11500000, guid: 286aa3dbc77aa4a9997c673f8098a890, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Response:
@@ -3101,7 +3102,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3594506278435892836}
         m_TargetAssemblyTypeName: ClashTheCube.AbilityButtonController, Assembly-CSharp
-        m_MethodName: AddAbility
+        m_MethodName: AddAdAbility
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3111,10 +3112,35 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  type: 1
-  Events:
-  - {fileID: 11400000, guid: 3574d67877136472b808d3686c2038d2, type: 2}
-  - {fileID: 11400000, guid: 95c08f6d898b2436ca1c9818dfdfa122, type: 2}
+  Event: {fileID: 11400000, guid: 3574d67877136472b808d3686c2038d2, type: 2}
+--- !u!114 &8655103419661371991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3594506278435892845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 286aa3dbc77aa4a9997c673f8098a890, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3594506278435892836}
+        m_TargetAssemblyTypeName: ClashTheCube.AbilityButtonController, Assembly-CSharp
+        m_MethodName: AddPurchasedAbility
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  Event: {fileID: 11400000, guid: 95c08f6d898b2436ca1c9818dfdfa122, type: 2}
 --- !u!1 &3594506278458635230
 GameObject:
   m_ObjectHideFlags: 0

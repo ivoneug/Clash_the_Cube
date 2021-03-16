@@ -12,6 +12,7 @@ namespace ClashTheCube
         [SerializeField] private DataboxObject databox;
 
         [SerializeField] private GameObject cubePrefab;
+        [SerializeField] private GameObject bombPrefab;
 
         [SerializeField] private IntReference maxPowNumberForCube;
         [SerializeField] private IntReference nextCubeNumber;
@@ -59,7 +60,7 @@ namespace ClashTheCube
                 var cube = Instantiate(cubePrefab, transform.position, Quaternion.identity).GetComponent<CubeController>();
                 cube.MetaLoad(entry.Key);
 
-                if (cube.State == CubeController.CubeState.Initial)
+                if (cube.State == CubeState.Initial)
                 {
                     hasInitial = true;
                 }
@@ -118,6 +119,18 @@ namespace ClashTheCube
             cube.Body.AddTorque(torque * Random.Range(cubeMergeTorqueMin, cubeMergeTorqueMax), ForceMode.Impulse);
         }
 
+        public void SpawnBomb()
+        {
+            CancelInvoke("_SpawnBomb");
+
+            Invoke("_SpawnBomb", 0.7f);
+        }
+
+        private void _SpawnBomb()
+        {
+            Instantiate(bombPrefab, transform.position, Quaternion.identity).GetComponent<CubeController>();
+        }
+
         public void DischargeActiveCube()
         {
             var objects = GameObject.FindGameObjectsWithTag("Cube");
@@ -125,7 +138,7 @@ namespace ClashTheCube
             foreach (var obj in objects)
             {
                 var cube = obj.GetComponent<CubeController>();
-                if (cube.State != CubeController.CubeState.Initial)
+                if (cube.State != CubeState.Initial)
                 {
                     continue;
                 }
@@ -143,7 +156,7 @@ namespace ClashTheCube
             {
                 var cube = obj.GetComponent<CubeController>();
                 if (cube.Number != nextCubeNumber.Value ||
-                    cube.State != CubeController.CubeState.Transition)
+                    cube.State != CubeState.Transition)
                 {
                     continue;
                 }
@@ -204,7 +217,7 @@ namespace ClashTheCube
             foreach (var obj in objs)
             {
                 var cube = obj.GetComponent<CubeController>();
-                if (cube.Number > maxNumber || cube.State != CubeController.CubeState.Transition)
+                if (cube.Number > maxNumber || cube.State != CubeState.Transition)
                 {
                     continue;
                 }
@@ -281,7 +294,7 @@ namespace ClashTheCube
             foreach (var obj in objects)
             {
                 var cube = obj.GetComponent<CubeController>();
-                if (cube.State != CubeController.CubeState.Transition)
+                if (cube.State != CubeState.Transition)
                 {
                     continue;
                 }

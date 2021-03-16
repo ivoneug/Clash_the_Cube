@@ -51,14 +51,24 @@ namespace ClashTheCube
             }
         }
 
-        public void AddAbility()
+        public void AddPurchasedAbility()
+        {
+            AddAbility(info.purchaseCount);
+        }
+
+        public void AddAdAbility()
+        {
+            AddAbility(info.adCount);
+        }
+
+        private void AddAbility(int amount)
         {
             if (info != activeInfo)
             {
                 return;
             }
 
-            count += info.purchaseCount;
+            count += amount;
 
             Save();
             UpdateUI();

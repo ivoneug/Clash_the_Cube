@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26fd479b6d48f4f94986e183dea7e922, type: 3}
-  m_Name: Switch Cube Ability Type Info
+  m_Name: Drop Bomb Ability Type Info
   m_EditorClassIdentifier: 
-  abilityType: 1
-  defaultCount: 10
-  purchaseCount: 15
-  adCount: 5
-  field: SwitchCube
-  localNameKey: SwitchCube
-  localInfoKey: SwitchCube_Info
-  icon: {fileID: 21300000, guid: afa393036457c43fc8b7968d9bea35b5, type: 3}
+  abilityType: 2
+  defaultCount: 5
+  purchaseCount: 10
+  adCount: 3
+  field: DropBomb
+  localNameKey: DropBomb
+  localInfoKey: DropBomb_Info
+  icon: {fileID: 21300000, guid: 0691ffed7f8d74c218b102fd3da38d00, type: 3}

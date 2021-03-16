@@ -9,15 +9,15 @@ using Databox;
 
 namespace ClashTheCube
 {
+    public enum CubeState
+    {
+        Initial,
+        Transition,
+        Final
+    }
+
     public class CubeController : MonoBehaviour
     {
-        public enum CubeState
-        {
-            Initial,
-            Transition,
-            Final
-        }
-
         [SerializeField] private Vector2Variable swipeDelta;
         [SerializeField] private FloatReference swipeDeltaMultiplier;
         [SerializeField] private FloatReference swipeDeltaMultiplierDesktop;
@@ -211,12 +211,14 @@ namespace ClashTheCube
                 case CubeState.Initial:
                     State = CubeState.Initial;
                     Body.constraints = RigidbodyConstraints.FreezeRotation;
+                    Body.isKinematic = true;
                     _redLineCrossCount = 0;
                     break;
 
                 case CubeState.Transition:
                     State = CubeState.Transition;
                     Body.constraints = RigidbodyConstraints.None;
+                    Body.isKinematic = false;
                     _redLineCrossCount = 1;
                     break;
             }
@@ -285,6 +287,7 @@ namespace ClashTheCube
             }
 
             // accelerate here
+            Body.isKinematic = false;
             Body.AddForce(Vector3.forward * force);
 
             State = CubeState.Transition;

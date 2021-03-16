@@ -8,7 +8,8 @@ namespace ClashTheCube
     public class VFXController : MonoBehaviour
     {
         [SerializeField] private ParticleSystem cubeMergeVFX;
-        [SerializeField] private Vector3Variable nextCubePosition;
+        [SerializeField] private GameObject explosionVFX;
+        [SerializeField] private Vector3Variable vfxPosition;
         [SerializeField] private FloatReference cubeMergeVFXPositionShift;
         [SerializeField] private ParticleSystem[] helpArrows;
         [SerializeField][Range(0, 45)] private int showHelpArrowsDelay = 15;
@@ -22,10 +23,17 @@ namespace ClashTheCube
 
         public void ShowMergeVFX()
         {
-            var direction = (nextCubePosition.Value - mainCamera.transform.position).normalized;
-            var position = nextCubePosition.Value - direction * cubeMergeVFXPositionShift;
+            var direction = (vfxPosition.Value - mainCamera.transform.position).normalized;
+            var position = vfxPosition.Value - direction * cubeMergeVFXPositionShift;
 
             var vfx = Instantiate(cubeMergeVFX, position, Quaternion.identity).GetComponent<ParticleSystem>();
+            vfx.Play();
+            Destroy(vfx.gameObject, vfx.main.duration);
+        }
+
+        public void ShowExplosionVFX()
+        {
+            var vfx = Instantiate(explosionVFX, vfxPosition.Value, Quaternion.identity).GetComponent<ParticleSystem>();
             vfx.Play();
             Destroy(vfx.gameObject, vfx.main.duration);
         }
