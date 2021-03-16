@@ -24,6 +24,22 @@ namespace ClashTheCube
         public string localInfoKey;
         public Sprite icon;
 
+        public bool CanActivate()
+        {
+            switch (abilityType)
+            {
+                case AbilityType.DropBomb:
+                case AbilityType.SwitchCube:
+                    {
+                        var objects = GameObject.FindGameObjectsWithTag("Bomb");
+                        return objects.Length == 0;
+                    }
+
+                default:
+                    return true;
+            }
+        }
+
         public void CloneFrom(AbilityTypeInfo info)
         {
             this.abilityType = info.abilityType;

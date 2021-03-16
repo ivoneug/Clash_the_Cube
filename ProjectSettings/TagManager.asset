@@ -8,6 +8,7 @@ TagManager:
   - Cube
   - Wall
   - Red Line
+  - Bomb
   layers:
   - Default
   - TransparentFX

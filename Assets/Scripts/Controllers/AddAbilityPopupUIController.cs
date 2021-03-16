@@ -34,13 +34,16 @@ namespace ClashTheCube
             var abilityName = localisationController.GetLocalizedText(info.localNameKey);
 
             title.text = string.Format("\"{0}\"", abilityName);
-            subtitle.text = string.Format("{0} {1}x \"{2}\"", subtitleText, info.purchaseCount, abilityName);
+            subtitle.text = string.Format("{0} \"{1}\"", subtitleText, abilityName);
 
             icon.sprite = info.icon;
 
-            localisationController.LocalizeLabel(viewAdLabel, "AddAbilityViewAd");
+            var adButtonText = localisationController.GetLocalizedText("AddAbilityViewAd");
+            var buyButtonText = localisationController.GetLocalizedText("AddAbilityPurchase");
 
-            string localizedPrice = "0 RUB";
+            viewAdLabel.text = string.Format("{0} {1}x", adButtonText, info.adCount);
+
+            string localizedPrice = "0";
 
 #if EM_UIAP
             ProductMetadata data = InAppPurchasing.GetProductLocalizedData(EM_IAPConstants.Product_Add_Ability);
@@ -50,7 +53,7 @@ namespace ClashTheCube
             }
 #endif
 
-            priceLabel.text = localizedPrice;
+            priceLabel.text = string.Format(buyButtonText, info.purchaseCount, localizedPrice);
         }
     }
 }
