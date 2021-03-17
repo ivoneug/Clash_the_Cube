@@ -9,7 +9,7 @@ public class AdColonyPackageConfig : PackageConfig
 
     public override string Version
     {
-        get { return /*UNITY_PACKAGE_VERSION*/"1.2.5"; }
+        get { return /*UNITY_PACKAGE_VERSION*/"1.2.6"; }
     }
 
     public override Dictionary<Platform, string> NetworkSdkVersions

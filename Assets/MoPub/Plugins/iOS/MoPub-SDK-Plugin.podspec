@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                  = 'MoPub-SDK-Plugin'
-  s.version               = '5.15.0'
+  s.version               = '5.16.1'
   s.summary               = 'Unity wrapper for MoPub iOS SDK'
   s.homepage              = 'https://github.com/mopub/mopub-unity-sdk'
   s.license               = { :type => 'MoPub', :file => 'LICENSE' }

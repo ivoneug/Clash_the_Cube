@@ -87,7 +87,7 @@ internal class MoPubAndroid : MoPubPlatformApi
     internal override MoPub.LogLevel SdkLogLevel
     {
         get { return (MoPub.LogLevel) PluginClass.CallStatic<int>("getLogLevel"); }
-        set { PluginClass.CallStatic<int>("setLogLevel", (int) value); }
+        set { PluginClass.CallStatic("setLogLevel", (int) value); }
     }
 
 

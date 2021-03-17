@@ -114,11 +114,17 @@ public class MoPubManager : MonoBehaviour
     // Fired when the MoPub consent dialog has been dismissed.
     public static event Action OnConsentDialogDismissedEvent;
 
-    // Fired when the ad is shown, but after a fullscreen ad is dismissed.
+    // Fired generally when the ad is dismissed, specifically when the Unity Player resumes after an impression is made.
+    // This may happen at other times however, such as when the user taps the ad. In some environments, tapping an ad
+    // momentarily resumes the Unity Player before opening the browser, which triggers the impression callback before
+    // the ad is explicitly dismissed. For more predictable behavior across platforms, see OnImpressionTrackedEventBg.
+    //
     // NOTE: ImpressionData will be empty when also subscribed to OnImpressionTrackedEventBg.
     public static event Action<string, MoPub.ImpressionData> OnImpressionTrackedEvent;
 
-    // Fired immediately when the ad is shown, potentially in a background thread.
+    // Fired immediately when the ad is shown, potentially in a background thread. Unlike OnImpressionTrackedEvent
+    // which is triggered on the Unity layer, OnImpressionTrackedEventBg is fired natively from Android and iOS.
+    //
     // NOTE: Subscribing to this event will cause ImpressionData to be empty on OnImpressionTrackedEvent.
     public static event Action<string, MoPub.ImpressionData> OnImpressionTrackedEventBg;
 

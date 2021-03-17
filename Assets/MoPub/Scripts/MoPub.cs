@@ -21,7 +21,7 @@ public abstract class MoPub : MoPubBase
     /// Please see <a href="https://github.com/mopub/mopub-unity-sdk">our GitHub repository</a> for details.
     /// </para>
     /// </summary>
-    public const string MoPubSdkVersion = "5.15.0";
+    public const string MoPubSdkVersion = "5.16.1";
 
 
     #region SdkSetup

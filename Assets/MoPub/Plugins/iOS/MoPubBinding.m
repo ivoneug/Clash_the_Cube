@@ -182,7 +182,7 @@ void _moPubEnableLocationSupport(bool shouldUseLocation)
 
 void _moPubSetEngineInformation(const char* name, const char* version)
 {
-    [[MoPub sharedInstance] setEngineInformation:[MPEngineInfo named:GetStringParam(name) version:GetStringParam(version)]];
+    [[MoPub sharedInstance] setEngineName:GetStringParam(name) version:GetStringParam(version)];
 }
 
 void _moPubReportApplicationOpen(const char* iTunesAppId)

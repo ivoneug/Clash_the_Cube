@@ -39,10 +39,14 @@ namespace MoPubInternal.Editor.Postbuild
             var projPath = Path.Combine(buildPath, "Unity-iPhone.xcodeproj/project.pbxproj");
             var project = new PBXProject();
             project.ReadFromString(File.ReadAllText(projPath));
-            var target = project.TargetGuidByName("Unity-iPhone");
-
+            var target =
+#if UNITY_2019_3_OR_NEWER
+                project.GetUnityMainTargetGuid();
+#else
+                project.TargetGuidByName("Unity-iPhone");
+#endif
             // The MoPub iOS SDK now includes Swift, so these properties ensure Xcode handles that properly.
-            project.AddBuildProperty(target, "SWIFT_VERSION", "5");
+            project.AddBuildProperty(target, "SWIFT_VERSION", "5.0");
             project.AddBuildProperty(target, "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES", "YES");
 
             File.WriteAllText(projPath, project.WriteToString());
