@@ -131,6 +131,54 @@ namespace ClashTheCube
             Instantiate(bombPrefab, transform.position, Quaternion.identity).GetComponent<CubeController>();
         }
 
+        public void ActivateSuperMagnete()
+        {
+            var map = new Dictionary<int, List<CubeController>>();
+            var objects = GameObject.FindGameObjectsWithTag("Cube");
+
+            foreach (var obj in objects)
+            {
+                var cube = obj.GetComponent<CubeController>();
+                if (cube.State != CubeState.Transition)
+                {
+                    continue;
+                }
+
+                if (!map.ContainsKey(cube.Number))
+                {
+                    map[cube.Number] = new List<CubeController>();
+                }
+                map[cube.Number].Add(cube);
+            }
+
+            foreach (var pair in map)
+            {
+                if (pair.Value.Count <= 1)
+                {
+                    continue;
+                }
+
+                var transforms = new List<Vector3>();
+                foreach (var cube in pair.Value)
+                {
+                    transforms.Add(cube.transform.position);
+                }
+
+                var midpoint = Vector.Midpoint(transforms.ToArray());
+
+                foreach (var cube in pair.Value)
+                {
+                    var torque = -(new Vector3(Random.Range(-cubeMergeAngle, cubeMergeAngle), 0f, Random.Range(-cubeMergeAngle, cubeMergeAngle))).normalized;
+
+                    var direction = (midpoint - cube.transform.position).normalized;
+                    var force = direction + Vector3.up * cubeMergeUpForceMultiplier;
+                    
+                    cube.Body.AddForce(force * Random.Range(cubeMergeForceMin, cubeMergeForceMax));
+                    cube.Body.AddTorque(torque * Random.Range(cubeMergeTorqueMin, cubeMergeTorqueMax), ForceMode.Impulse);
+                }
+            }
+        }
+
         public void DischargeActiveCube()
         {
             var objects = GameObject.FindGameObjectsWithTag("Cube");

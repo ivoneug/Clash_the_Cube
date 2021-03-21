@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Framework.Utils
 {
@@ -11,6 +12,32 @@ namespace Framework.Utils
             float z = a.z + (b.z - a.z) / 2f;
 
             return new Vector3(x, y, z);
+        }
+
+        public static Vector3 Midpoint(params Vector3[] arr)
+        {
+            if (arr.Length == 0)
+            {
+                return Vector3.zero;
+            }
+            else if (arr.Length == 1)
+            {
+                return arr[0];
+            }
+
+            List<Vector3> list = new List<Vector3>(arr);
+
+            while (list.Count > 1)
+            {
+                var a = list[0];
+                var b = list[1];
+                var midpoint = Midpoint(a, b);
+
+                list.RemoveRange(0, 2);
+                list.Insert(0, midpoint);
+            }
+
+            return list[0];
         }
 
         public static Vector2 Midpoint(Vector2 a, Vector2 b)
