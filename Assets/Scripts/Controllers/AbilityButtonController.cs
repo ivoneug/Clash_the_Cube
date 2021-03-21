@@ -30,16 +30,16 @@ namespace ClashTheCube
 
         public void TryActivate()
         {
-            if (!info.CanActivate())
-            {
-                return;
-            }
-
             GameEvent gameEvent = null;
             activeInfo.CloneFrom(info);
 
             if (count > 0)
             {
+                if (!info.CanActivate())
+                {
+                    return;
+                }
+                
                 count--;
                 gameEvent = activateAbilityEvent;
             } else
