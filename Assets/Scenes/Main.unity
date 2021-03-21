@@ -2829,8 +2829,8 @@ GameObject:
   - component: {fileID: 26261510}
   - component: {fileID: 26261512}
   - component: {fileID: 26261514}
-  - component: {fileID: 26261509}
   - component: {fileID: 26261513}
+  - component: {fileID: 26261509}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -2847,14 +2847,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 26261508}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 286aa3dbc77aa4a9997c673f8098a890, type: 3}
+  m_Script: {fileID: 11500000, guid: e6d4fb1342afe41e394a1d8016c62ddd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Response:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 26261510}
-        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
+        m_TargetAssemblyTypeName: ClashTheCube.GameController, Assembly-CSharp
         m_MethodName: Vibrate
         m_Mode: 1
         m_Arguments:
@@ -2865,7 +2865,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  Event: {fileID: 11400000, guid: 83fa76346461f49bc92a7a636018466c, type: 2}
+  type: 1
+  Events:
+  - {fileID: 11400000, guid: 83fa76346461f49bc92a7a636018466c, type: 2}
+  - {fileID: 11400000, guid: f85cdcf479c7e4ff8ba0f676bbdcf9d3, type: 2}
+  - {fileID: 11400000, guid: 1735192477da548a081ee37abc4a7177, type: 2}
+  - {fileID: 11400000, guid: d2421ce1b789d48a5bed8283abd0cc59, type: 2}
+  - {fileID: 11400000, guid: 97866d2c0f94a454d9369e7cb33cebdf, type: 2}
 --- !u!114 &26261510
 MonoBehaviour:
   m_ObjectHideFlags: 0
