@@ -5483,6 +5483,7 @@ GameObject:
   - component: {fileID: 47204187}
   - component: {fileID: 47204186}
   - component: {fileID: 47204185}
+  - component: {fileID: 47204189}
   m_Layer: 0
   m_Name: SoundController
   m_TagString: Untagged
@@ -5582,6 +5583,18 @@ MonoBehaviour:
     SoundName: Firework (1)
     AudioClip: {fileID: 0}
     OutputAudioMixerGroup: {fileID: 0}
+  lightningStrikeSound:
+    SoundSource: 0
+    DatabaseName: SFX
+    SoundName: Lightning Strike
+    AudioClip: {fileID: 0}
+    OutputAudioMixerGroup: {fileID: 0}
+  sparksSound:
+    SoundSource: 0
+    DatabaseName: SFX
+    SoundName: Spark 10
+    AudioClip: {fileID: 0}
+    OutputAudioMixerGroup: {fileID: 0}
 --- !u!4 &47204188
 Transform:
   m_ObjectHideFlags: 0
@@ -5596,6 +5609,34 @@ Transform:
   m_Father: {fileID: 1343391997}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &47204189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47204184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 286aa3dbc77aa4a9997c673f8098a890, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 47204187}
+        m_TargetAssemblyTypeName: ClashTheCube.SoundController, Assembly-CSharp
+        m_MethodName: PlayLightningStrikeSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  Event: {fileID: 11400000, guid: f85cdcf479c7e4ff8ba0f676bbdcf9d3, type: 2}
 --- !u!1 &60627822
 GameObject:
   m_ObjectHideFlags: 0
@@ -48943,6 +48984,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &508730403
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 508730404}
+  m_Layer: 0
+  m_Name: VFX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &508730404
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 508730403}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 674864633}
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &513357618
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52706,6 +52778,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 672613900}
   m_CullTransparentMesh: 0
+--- !u!1 &674864632 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5354065870855876329, guid: 28058538a98a747bbbd1ac279e749779, type: 3}
+  m_PrefabInstance: {fileID: 1253778663}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &674864633 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5352294440173606767, guid: 28058538a98a747bbbd1ac279e749779, type: 3}
+  m_PrefabInstance: {fileID: 1253778663}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &674864634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674864632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 286aa3dbc77aa4a9997c673f8098a890, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 674864636}
+        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  Event: {fileID: 11400000, guid: f85cdcf479c7e4ff8ba0f676bbdcf9d3, type: 2}
+--- !u!198 &674864636 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5227133035538185367, guid: 28058538a98a747bbbd1ac279e749779, type: 3}
+  m_PrefabInstance: {fileID: 1253778663}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &677015151
 GameObject:
   m_ObjectHideFlags: 0
@@ -73944,6 +74059,75 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4870204933709518, guid: d2cd02263a1e8084abf81f1324b929be, type: 3}
   m_PrefabInstance: {fileID: 1236609074}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1253778663
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 508730404}
+    m_Modifications:
+    - target: {fileID: 5227290432546504845, guid: 28058538a98a747bbbd1ac279e749779, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228021444829066877, guid: 28058538a98a747bbbd1ac279e749779, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228089022826394235, guid: 28058538a98a747bbbd1ac279e749779, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5352294440173606767, guid: 28058538a98a747bbbd1ac279e749779, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5352294440173606767, guid: 28058538a98a747bbbd1ac279e749779, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5352294440173606767, guid: 28058538a98a747bbbd1ac279e749779, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5352294440173606767, guid: 28058538a98a747bbbd1ac279e749779, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5352294440173606767, guid: 28058538a98a747bbbd1ac279e749779, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5352294440173606767, guid: 28058538a98a747bbbd1ac279e749779, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5352294440173606767, guid: 28058538a98a747bbbd1ac279e749779, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5352294440173606767, guid: 28058538a98a747bbbd1ac279e749779, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5352294440173606767, guid: 28058538a98a747bbbd1ac279e749779, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5352294440173606767, guid: 28058538a98a747bbbd1ac279e749779, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5352294440173606767, guid: 28058538a98a747bbbd1ac279e749779, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5354065870855876329, guid: 28058538a98a747bbbd1ac279e749779, type: 3}
+      propertyPath: m_Name
+      value: FX_LightningStrike_01 Variant
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 28058538a98a747bbbd1ac279e749779, type: 3}
 --- !u!1 &1277719362
 GameObject:
   m_ObjectHideFlags: 0

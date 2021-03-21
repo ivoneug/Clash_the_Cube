@@ -19,6 +19,12 @@ namespace ClashTheCube
         [Header("Explosion Sound")]
         [SerializeField] private SoundyData explosionSound;
 
+        [Header("Lightning Strike Sound")]
+        [SerializeField] private SoundyData lightningStrikeSound;
+
+        [Header("Sparks Sound")]
+        [SerializeField] private SoundyData sparksSound;
+
         public void PlayCubeMergeSound()
         {
             SoundyManager.Play(cubeMergeSound);
@@ -37,6 +43,12 @@ namespace ClashTheCube
         public void PlayExplosionSound()
         {
             SoundyManager.Play(explosionSound);
+        }
+
+        public void PlayLightningStrikeSound()
+        {
+            SoundyManager.Play(lightningStrikeSound);
+            SoundyManager.Play(sparksSound);
         }
     }
 }
