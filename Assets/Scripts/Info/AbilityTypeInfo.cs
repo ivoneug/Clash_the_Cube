@@ -19,6 +19,7 @@ namespace ClashTheCube
         public int defaultCount = 0;
         public int purchaseCount = 0;
         public int adCount = 0;
+        public int rewardCount = 0;
         public string field;
         public string localNameKey;
         public string localInfoKey;

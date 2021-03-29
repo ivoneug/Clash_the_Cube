@@ -16,6 +16,7 @@ MonoBehaviour:
   defaultCount: 5
   purchaseCount: 10
   adCount: 3
+  rewardCount: 1
   field: DropBomb
   localNameKey: DropBomb
   localInfoKey: DropBomb_Info

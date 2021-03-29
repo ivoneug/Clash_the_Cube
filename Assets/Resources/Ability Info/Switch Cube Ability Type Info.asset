@@ -16,6 +16,7 @@ MonoBehaviour:
   defaultCount: 10
   purchaseCount: 15
   adCount: 5
+  rewardCount: 3
   field: SwitchCube
   localNameKey: SwitchCube
   localInfoKey: SwitchCube_Info

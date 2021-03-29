@@ -16,6 +16,7 @@ MonoBehaviour:
   defaultCount: 5
   purchaseCount: 10
   adCount: 5
+  rewardCount: 1
   field: SuperMagnete
   localNameKey: SuperMagnete
   localInfoKey: SuperMagnete_Info

@@ -66,6 +66,11 @@ namespace ClashTheCube
             AddAbility(info.adCount);
         }
 
+        public void AddRewardAbility()
+        {
+            AddAbility(info.rewardCount);
+        }
+
         private void AddAbility(int amount)
         {
             if (info != activeInfo)
