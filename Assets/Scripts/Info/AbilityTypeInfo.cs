@@ -36,34 +36,6 @@ namespace ClashTheCube
                         return objects.Length == 0;
                     }
 
-                case AbilityType.SuperMagnete:
-                    {
-                        var map = new Dictionary<int, int>();
-                        var objects = GameObject.FindGameObjectsWithTag("Cube");
-
-                        foreach (var obj in objects)
-                        {
-                            var cube = obj.GetComponent<CubeController>();
-                            if (cube.State != CubeState.Transition)
-                            {
-                                continue;
-                            }
-
-                            if (!map.ContainsKey(cube.Number))
-                            {
-                                map[cube.Number] = 0;
-                            }
-                            
-                            map[cube.Number]++;
-                            if (map[cube.Number] > 1)
-                            {
-                                return true;
-                            }
-                        }
-
-                        return false;
-                    }
-
                 default:
                     return true;
             }
