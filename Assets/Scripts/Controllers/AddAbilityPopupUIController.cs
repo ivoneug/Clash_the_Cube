@@ -50,6 +50,10 @@ namespace ClashTheCube
             if (data != null)
             {
                 localizedPrice = data.localizedPriceString;
+                if (localizedPrice.Contains("₽"))
+                {
+                    localizedPrice = localizedPrice.Replace('₽', 'Р');
+                }
             }
 #endif
 
