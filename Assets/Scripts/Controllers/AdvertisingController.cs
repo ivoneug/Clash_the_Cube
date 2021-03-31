@@ -14,6 +14,7 @@ namespace ClashTheCube
         [SerializeField] private GameEvent adCompletedEvent;
         [SerializeField] private GameEvent abilityAdCompletedEvent;
         [SerializeField] private GameEvent adSkippedEvent;
+        [SerializeField] private GameEvent adNotReadyEvent;
 
         [SerializeField] private GameObject removeAdsButton;
         [SerializeField] private GameObject continueGameRewardedButton;
@@ -28,14 +29,14 @@ namespace ClashTheCube
         private void OnEnable()
         {
             Advertising.InterstitialAdCompleted += InterstitialAdCompletedHandler;
-            Advertising.RewardedAdCompleted += RewardedAdCompletedHandler;
+            Advertising.RewardedAdCompletedAndRewardReceived += RewardedAdCompletedHandler;
             Advertising.RewardedAdSkipped += RewardedAdSkippedHandler;
         }
 
         private void OnDisable()
         {
             Advertising.InterstitialAdCompleted -= InterstitialAdCompletedHandler;
-            Advertising.RewardedAdCompleted -= RewardedAdCompletedHandler;
+            Advertising.RewardedAdCompletedAndRewardReceived -= RewardedAdCompletedHandler;
             Advertising.RewardedAdSkipped -= RewardedAdSkippedHandler;
         }
 
@@ -71,13 +72,27 @@ namespace ClashTheCube
             removeAdsButton.SetActive(isADsVisible);
         }
 
+        public void ResetRemoveADs()
+        {
+            Advertising.ResetRemoveAds();
+            removeAdsButton.SetActive(true);
+        }
+
         public void ShowAchievementAD()
         {
-            if (!Advertising.IsInterstitialAdReady() || !IsADsSupported())
+            if (!IsADsSupported())
             {
                 if (adCompletedEvent)
                 {
                     adCompletedEvent.Raise();
+                }
+                return;
+            }
+            if (!Advertising.IsInterstitialAdReady())
+            {
+                if (adNotReadyEvent)
+                {
+                    adNotReadyEvent.Raise();
                 }
                 return;
             }
@@ -87,11 +102,19 @@ namespace ClashTheCube
 
         public void ShowContinueGameAD()
         {
-            if (!Advertising.IsRewardedAdReady() || !IsADsSupported())
+            if (!IsADsSupported())
             {
                 if (adCompletedEvent)
                 {
                     adCompletedEvent.Raise();
+                }
+                return;
+            }
+            if (!Advertising.IsRewardedAdReady())
+            {
+                if (adNotReadyEvent)
+                {
+                    adNotReadyEvent.Raise();
                 }
                 return;
             }
@@ -101,11 +124,19 @@ namespace ClashTheCube
 
         public void ShowAddAbilityGameAD()
         {
-            if (!Advertising.IsRewardedAdReady() || !IsADsSupported())
+            if (!IsADsSupported())
             {
-                if (adSkippedEvent)
+                if (adCompletedEvent)
                 {
-                    adSkippedEvent.Raise();
+                    adCompletedEvent.Raise();
+                }
+                return;
+            }
+            if (!Advertising.IsRewardedAdReady())
+            {
+                if (adNotReadyEvent)
+                {
+                    adNotReadyEvent.Raise();
                 }
                 return;
             }
