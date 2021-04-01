@@ -26,8 +26,9 @@ public class ApplePostProcessBuild
         rootDict.SetString("GADApplicationIdentifier", "ca-app-pub-7746721415936574~8954039403");
 
         var array = rootDict.CreateArray("SKAdNetworkItems");
-        var dict = array.AddDict();
-        dict.SetString("SKAdNetworkIdentifier", "cstr6suwn9.skadnetwork");
+        array.AddDict().SetString("SKAdNetworkIdentifier", "cstr6suwn9.skadnetwork"); // AdMob
+        array.AddDict().SetString("SKAdNetworkIdentifier", "4pfyvq9l8r.skadnetwork"); // AdColony
+        array.AddDict().SetString("SKAdNetworkIdentifier", "7953jerfzd.skadnetwork"); // MoPub
 
         // Write to file
         File.WriteAllText(plistPath, plist.WriteToString());
