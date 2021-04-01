@@ -94,7 +94,7 @@ namespace ClashTheCube
             }
 
             TimeSpan time = GetNextDayTime(10, 0, 0);
-            NotificationRepeat repeat = NotificationRepeat.EveryDay;
+            NotificationRepeat repeat = NotificationRepeat.None;
 
             // if (settingsInfo.reminderType == SettingsInfo.ReminderType.OnceADay)
             // {
