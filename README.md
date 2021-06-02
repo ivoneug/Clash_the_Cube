@@ -8,7 +8,7 @@ Merging similar cubes together is one of the best activity in the world. In this
 
 This game is based on event-driven architecture and ScriptableObject variables described here [Unity Unite 2017](https://www.youtube.com/watch?v=raQ3iHhE_Kk)
 
-**This repository contains only source codes, no payed assets are included!**
+**This repository contains only source codes, no payed assets are included! Also sounds and music is not included.**
 **To build and run the game you have to add necessary assets into the `Assets/Plugins/` directory:**
 - [Beautify 2](https://assetstore.unity.com/packages/vfx/shaders/fullscreen-camera-effects/beautify-2-163949)
 - [Skybox Extended Shader](https://assetstore.unity.com/packages/vfx/shaders/free-skybox-extended-shader-107400)
