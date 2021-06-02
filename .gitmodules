@@ -1,0 +1,3 @@
+[submodule "Assets/UnityToolsFramework"]
+	path = Assets/UnityToolsFramework
+	url = https://github.com/ivoneug/UnityToolsFramework.git
