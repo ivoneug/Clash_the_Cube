@@ -20,3 +20,7 @@ This game is based on event-driven architecture and ScriptableObject variables d
 - [POLYGON Particle FX](https://assetstore.unity.com/packages/vfx/particles/polygon-particle-fx-low-poly-3d-art-by-synty-168372)
 - [Simple Fade Scene Transition System](https://assetstore.unity.com/packages/tools/particles-effects/simple-fade-scene-transition-system-81753)
 - [X-Frame FPS Accelerator](https://assetstore.unity.com/packages/tools/camera/x-frame-fps-accelerator-63965)
+
+**Also you will need to put the following assets into `Assets/` directory:**
+- [EasyMobile Pro](https://assetstore.unity.com/packages/tools/integration/easy-mobile-pro-75476)
+- [MoPub](https://github.com/mopub/mopub-unity-sdk/releases)
