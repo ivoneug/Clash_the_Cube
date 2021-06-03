@@ -16,6 +16,9 @@ namespace ClashTheCube
         Final
     }
 
+    [RequireComponent(typeof(BoxCollider))]
+    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Renderer))]
     public class CubeController : MonoBehaviour
     {
         [SerializeField] private Vector2Variable swipeDelta;
@@ -47,10 +50,10 @@ namespace ClashTheCube
 
         [SerializeField] private DataboxObject databox;
 
-        private int _identifier;
-        private bool _sleeping;
-        private int _redLineCrossCount;
-        private bool _redLineHitActive;
+        private int identifier;
+        private bool sleeping;
+        private int redLineCrossCount;
+        private bool redLineHitActive;
 
         private void Awake()
         {
@@ -58,9 +61,9 @@ namespace ClashTheCube
             boxCollider = GetComponent<BoxCollider>();
             Body = GetComponent<Rigidbody>();
 
-            _identifier = GetInstanceID();
-            _sleeping = true;
-            _redLineHitActive = false;
+            identifier = GetInstanceID();
+            sleeping = true;
+            redLineHitActive = false;
         }
 
         private void Start()
@@ -88,12 +91,12 @@ namespace ClashTheCube
             }
 
             bool sleeping = Body.velocity.magnitude < 0.1f;
-            if (_sleeping == sleeping)
+            if (this.sleeping == sleeping)
             {
                 return;
             }
 
-            _sleeping = sleeping;
+            this.sleeping = sleeping;
             MetaSave();
             CheckRedLine();
         }
@@ -105,8 +108,8 @@ namespace ClashTheCube
                 return;
             }
 
-            _redLineHitActive = true;
-            _redLineCrossCount++;
+            redLineHitActive = true;
+            redLineCrossCount++;
 
             CheckRedLine();
         }
@@ -118,12 +121,12 @@ namespace ClashTheCube
                 return;
             }
 
-            _redLineHitActive = false;
+            redLineHitActive = false;
         }
 
         private void CheckRedLine()
         {
-            if (_redLineCrossCount > 1 || (_sleeping && _redLineHitActive))
+            if (redLineCrossCount > 1 || (sleeping && redLineHitActive))
             {
                 Debug.Log("GAME OVER");
                 if (cubeCrossedRedLineEvent)
@@ -135,7 +138,7 @@ namespace ClashTheCube
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.gameObject.tag == "Platform")
+            if (collision.gameObject.CompareTag("Platform"))
             {
                 return;
             }
@@ -146,7 +149,7 @@ namespace ClashTheCube
 
             Body.constraints = RigidbodyConstraints.None;
 
-            if (collision.gameObject.tag == "Cube")
+            if (collision.gameObject.CompareTag("Cube"))
             {
                 var cube = collision.gameObject.GetComponent<CubeController>();
                 if (cube.State == CubeState.Final)
@@ -212,14 +215,14 @@ namespace ClashTheCube
                     State = CubeState.Initial;
                     Body.constraints = RigidbodyConstraints.FreezeRotation;
                     Body.isKinematic = true;
-                    _redLineCrossCount = 0;
+                    redLineCrossCount = 0;
                     break;
 
                 case CubeState.Transition:
                     State = CubeState.Transition;
                     Body.constraints = RigidbodyConstraints.None;
                     Body.isKinematic = false;
-                    _redLineCrossCount = 1;
+                    redLineCrossCount = 1;
                     break;
             }
 
@@ -263,7 +266,7 @@ namespace ClashTheCube
 
         public void MoveLeft()
         {
-            destPosition += new Vector3(swipeDelta.Value.x * GetDeltaMultiplier(), 0f, 0f);
+            destPosition.x += swipeDelta.Value.x * GetDeltaMultiplier();
             if (destPosition.x < -xConstraint)
             {
                 destPosition = new Vector3(-xConstraint, destPosition.y, destPosition.z);
@@ -272,7 +275,7 @@ namespace ClashTheCube
 
         public void MoveRight()
         {
-            destPosition += new Vector3(swipeDelta.Value.x * GetDeltaMultiplier(), 0f, 0f);
+            destPosition.x += swipeDelta.Value.x * GetDeltaMultiplier();
             if (destPosition.x > xConstraint)
             {
                 destPosition = new Vector3(xConstraint, destPosition.y, destPosition.z);
@@ -323,19 +326,19 @@ namespace ClashTheCube
             string positionField = DataBaseController.Cubes_PositionField;
             string rotationField = DataBaseController.Cubes_RotationField;
 
-            if (!databox.EntryExists(table, _identifier.ToString()))
+            if (!databox.EntryExists(table, identifier.ToString()))
             {
-                databox.AddData(table, _identifier.ToString(), stateField, state);
-                databox.AddData(table, _identifier.ToString(), numberField, num);
-                databox.AddData(table, _identifier.ToString(), positionField, pos);
-                databox.AddData(table, _identifier.ToString(), rotationField, rot);
+                databox.AddData(table, identifier.ToString(), stateField, state);
+                databox.AddData(table, identifier.ToString(), numberField, num);
+                databox.AddData(table, identifier.ToString(), positionField, pos);
+                databox.AddData(table, identifier.ToString(), rotationField, rot);
             }
             else
             {
-                databox.SetData<IntType>(table, _identifier.ToString(), stateField, state);
-                databox.SetData<IntType>(table, _identifier.ToString(), numberField, num);
-                databox.SetData<Vector3Type>(table, _identifier.ToString(), positionField, pos);
-                databox.SetData<QuaternionType>(table, _identifier.ToString(), rotationField, rot);
+                databox.SetData<IntType>(table, identifier.ToString(), stateField, state);
+                databox.SetData<IntType>(table, identifier.ToString(), numberField, num);
+                databox.SetData<Vector3Type>(table, identifier.ToString(), positionField, pos);
+                databox.SetData<QuaternionType>(table, identifier.ToString(), rotationField, rot);
             }
 
             if (cubeMetaSavedEvent)
@@ -346,8 +349,8 @@ namespace ClashTheCube
 
         public void MetaLoad(string key)
         {
-            _identifier = int.Parse(key);
-            _sleeping = true;
+            identifier = int.Parse(key);
+            sleeping = true;
 
             string table = DataBaseController.Cubes_Table;
             string stateField = DataBaseController.Cubes_StateField;
@@ -355,15 +358,15 @@ namespace ClashTheCube
             string positionField = DataBaseController.Cubes_PositionField;
             string rotationField = DataBaseController.Cubes_RotationField;
 
-            if (!databox.EntryExists(table, _identifier.ToString()))
+            if (!databox.EntryExists(table, identifier.ToString()))
             {
                 return;
             }
 
-            IntType state = databox.GetData<IntType>(table, _identifier.ToString(), stateField);
-            IntType num = databox.GetData<IntType>(table, _identifier.ToString(), numberField);
-            Vector3Type pos = databox.GetData<Vector3Type>(table, _identifier.ToString(), positionField);
-            QuaternionType rot = databox.GetData<QuaternionType>(table, _identifier.ToString(), rotationField);
+            IntType state = databox.GetData<IntType>(table, identifier.ToString(), stateField);
+            IntType num = databox.GetData<IntType>(table, identifier.ToString(), numberField);
+            Vector3Type pos = databox.GetData<Vector3Type>(table, identifier.ToString(), positionField);
+            QuaternionType rot = databox.GetData<QuaternionType>(table, identifier.ToString(), rotationField);
 
             Init(num.Value, (CubeState)state.Value);
             transform.position = pos.Value;
@@ -372,7 +375,7 @@ namespace ClashTheCube
 
         private void MetaRemove()
         {
-            databox.RemoveEntry(DataBaseController.Cubes_Table, _identifier.ToString());
+            databox.RemoveEntry(DataBaseController.Cubes_Table, identifier.ToString());
         }
 
         #endregion

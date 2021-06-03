@@ -8,6 +8,8 @@ using DG.Tweening;
 
 namespace ClashTheCube
 {
+    [RequireComponent(typeof(BoxCollider))]
+    [RequireComponent(typeof(Rigidbody))]
     public class BombController : MonoBehaviour
     {
         [SerializeField] private Vector2Variable swipeDelta;
@@ -25,14 +27,14 @@ namespace ClashTheCube
         private BoxCollider boxCollider;
         private Vector3 destPosition;
 
-        private bool _sleeping;
+        private bool sleeping;
 
         private void Awake()
         {
             boxCollider = GetComponent<BoxCollider>();
             Body = GetComponent<Rigidbody>();
 
-            _sleeping = true;
+            sleeping = true;
         }
 
         private void Start()
@@ -62,18 +64,12 @@ namespace ClashTheCube
 
         private void FixedUpdate()
         {
-            bool sleeping = Body.velocity.magnitude < 0.1f;
-            if (_sleeping == sleeping)
-            {
-                return;
-            }
-
-            _sleeping = sleeping;
+            sleeping = Body.velocity.magnitude < 0.1f;
         }
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.gameObject.tag == "Platform")
+            if (collision.gameObject.CompareTag("Platform"))
             {
                 return;
             }
@@ -82,14 +78,12 @@ namespace ClashTheCube
                 return;
             }
 
-            // Body.constraints = RigidbodyConstraints.None;
-
-            if (collision.gameObject.tag == "Wall")
+            if (collision.gameObject.CompareTag("Wall"))
             {
                 Discharge();
             }
 
-            if (collision.gameObject.tag == "Cube")
+            if (collision.gameObject.CompareTag("Cube"))
             {
                 var cube = collision.gameObject.GetComponent<CubeController>();
                 if (cube.State == CubeState.Final)
@@ -123,7 +117,7 @@ namespace ClashTheCube
 
         public void MoveLeft()
         {
-            destPosition += new Vector3(swipeDelta.Value.x * GetDeltaMultiplier(), 0f, 0f);
+            destPosition.x += swipeDelta.Value.x * GetDeltaMultiplier();
             if (destPosition.x < -xConstraint)
             {
                 destPosition = new Vector3(-xConstraint, destPosition.y, destPosition.z);
@@ -132,7 +126,7 @@ namespace ClashTheCube
 
         public void MoveRight()
         {
-            destPosition += new Vector3(swipeDelta.Value.x * GetDeltaMultiplier(), 0f, 0f);
+            destPosition.x += swipeDelta.Value.x * GetDeltaMultiplier();
             if (destPosition.x > xConstraint)
             {
                 destPosition = new Vector3(xConstraint, destPosition.y, destPosition.z);

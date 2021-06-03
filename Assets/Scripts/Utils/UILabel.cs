@@ -5,6 +5,7 @@ using TMPro;
 
 namespace ClashTheCube
 {
+    [RequireComponent(typeof(TextMeshProUGUI))]
     public class UILabel : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI label;

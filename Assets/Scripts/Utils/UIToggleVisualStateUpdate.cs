@@ -5,6 +5,7 @@ using Doozy.Engine.UI;
 
 namespace ClashTheCube
 {
+    [RequireComponent(typeof(UIToggle))]
     public class UIToggleVisualStateUpdate : MonoBehaviour
     {
         [SerializeField] private GameObject onState;

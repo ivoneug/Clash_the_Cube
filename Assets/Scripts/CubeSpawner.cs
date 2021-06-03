@@ -11,8 +11,10 @@ namespace ClashTheCube
     {
         [SerializeField] private DataboxObject databox;
 
-        [SerializeField] private GameObject cubePrefab;
-        [SerializeField] private GameObject bombPrefab;
+        [SerializeField] private CubeController cubePrefab;
+        [SerializeField] private BombController bombPrefab;
+
+        [SerializeField] private FloatReference spawnTimeDelta;
 
         [SerializeField] private IntReference maxPowNumberForCube;
         [SerializeField] private IntReference nextCubeNumber;
@@ -57,7 +59,7 @@ namespace ClashTheCube
             var entries = databox.GetEntriesFromTable(DataBaseController.Cubes_Table);
             foreach (var entry in entries)
             {
-                var cube = Instantiate(cubePrefab, transform.position, Quaternion.identity).GetComponent<CubeController>();
+                var cube = Instantiate(cubePrefab, transform.position, Quaternion.identity);
                 cube.MetaLoad(entry.Key);
 
                 if (cube.State == CubeState.Initial)
@@ -78,16 +80,15 @@ namespace ClashTheCube
 
         public void Spawn()
         {
-            CancelInvoke("_Spawn");
+            CancelInvoke(nameof(_Spawn));
 
-            Invoke("_Spawn", 0.7f);
+            Invoke(nameof(_Spawn), spawnTimeDelta);
         }
 
         private void _Spawn()
         {
-            var cube = Instantiate(cubePrefab, transform.position, Quaternion.identity).GetComponent<CubeController>();
+            var cube = Instantiate(cubePrefab, transform.position, Quaternion.identity);
             cube.InitNew(GenerateCubeNumber());
-            // cube.InitNew((int)Mathf.Pow(2, 12));
         }
 
         public void SpawnMerge()
@@ -98,7 +99,7 @@ namespace ClashTheCube
             var quaternion = Quaternion.identity;
             // var force = Vector3.up;
             var force = Vector3.zero;
-            var torque = -(new Vector3(Random.Range(-cubeMergeAngle, cubeMergeAngle), 0f, Random.Range(-cubeMergeAngle, cubeMergeAngle))).normalized;
+            var torque = GenerateNormalizedTorque();
 
             var nearestCube = GetNearestMatchingCube();
             if (nearestCube != null)
@@ -111,24 +112,23 @@ namespace ClashTheCube
                 force = Vector3.up * cubeMergeUpForceMultiplier;
             }
 
-            var cube = Instantiate(cubePrefab, nextCubePosition.Value, quaternion).GetComponent<CubeController>();
+            var cube = Instantiate(cubePrefab, nextCubePosition.Value, quaternion);
             cube.InitMerged(nextCubeNumber.Value);
 
             cube.Body.AddForce(force * Random.Range(cubeMergeForceMin, cubeMergeForceMax));
-            // cube.Body.AddTorque(Vector.Vector3RandomNormal() * cubeMergeTorque, ForceMode.Impulse);
             cube.Body.AddTorque(torque * Random.Range(cubeMergeTorqueMin, cubeMergeTorqueMax), ForceMode.Impulse);
         }
 
         public void SpawnBomb()
         {
-            CancelInvoke("_SpawnBomb");
+            CancelInvoke(nameof(_SpawnBomb));
 
-            Invoke("_SpawnBomb", 0.7f);
+            Invoke(nameof(_SpawnBomb), spawnTimeDelta);
         }
 
         private void _SpawnBomb()
         {
-            Instantiate(bombPrefab, transform.position, Quaternion.identity).GetComponent<CubeController>();
+            Instantiate(bombPrefab, transform.position, Quaternion.identity);
         }
 
         public void ActivateSuperMagnete()
@@ -168,7 +168,7 @@ namespace ClashTheCube
 
                 foreach (var cube in pair.Value)
                 {
-                    var torque = -(new Vector3(Random.Range(-cubeMergeAngle, cubeMergeAngle), 0f, Random.Range(-cubeMergeAngle, cubeMergeAngle))).normalized;
+                    var torque = GenerateNormalizedTorque();
 
                     var direction = (midpoint - cube.transform.position).normalized;
                     var force = direction + Vector3.up * cubeMergeUpForceMultiplier;
@@ -193,6 +193,14 @@ namespace ClashTheCube
 
                 cube.Discharge();
             }
+        }
+
+        private Vector3 GenerateNormalizedTorque()
+        {
+            var randomX = Random.Range(-cubeMergeAngle, cubeMergeAngle);
+            var randomZ = Random.Range(-cubeMergeAngle, cubeMergeAngle);
+
+            return -(new Vector3(randomX, 0f, randomZ)).normalized;
         }
 
         private CubeController GetNearestMatchingCube()
