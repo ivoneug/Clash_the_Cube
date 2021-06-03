@@ -9,24 +9,10 @@ using Databox;
 
 namespace ClashTheCube
 {
-    public enum CubeState
-    {
-        Initial,
-        Transition,
-        Final
-    }
-
     [RequireComponent(typeof(BoxCollider))]
-    [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(Renderer))]
-    public class CubeController : MonoBehaviour
+    public class CubeController : FieldObjectBase
     {
-        [SerializeField] private Vector2Variable swipeDelta;
-        [SerializeField] private FloatReference swipeDeltaMultiplier;
-        [SerializeField] private FloatReference swipeDeltaMultiplierDesktop;
-        [SerializeField] private FloatReference xConstraint;
-        [SerializeField] private FloatReference velocity;
-        [SerializeField] private FloatReference force;
         [SerializeField] private FloatReference backZVelocityThreshold;
         [SerializeField] private GameEvent cubeMergeEvent;
         [SerializeField] private GameEvent cubeCrossedRedLineEvent;
@@ -35,34 +21,29 @@ namespace ClashTheCube
         [SerializeField] private TextMeshPro[] labels;
 
         [SerializeField] private Color[] colors;
-        [SerializeField] private GameObject directionLine;
 
         [SerializeField] private IntVariable nextCubeNumber;
         [SerializeField] private Vector3Variable nextCubePosition;
 
-        public CubeState State { get; private set; }
-        public Rigidbody Body { get; private set; }
         private BoxCollider boxCollider;
         private Renderer boxRenderer;
-        private Vector3 destPosition;
 
         public int Number { get; private set; }
 
         [SerializeField] private DataboxObject databox;
 
         private int identifier;
-        private bool sleeping;
         private int redLineCrossCount;
         private bool redLineHitActive;
 
-        private void Awake()
+        private new void Awake()
         {
+            base.Awake();
+
             boxRenderer = GetComponent<Renderer>();
             boxCollider = GetComponent<BoxCollider>();
-            Body = GetComponent<Rigidbody>();
 
             identifier = GetInstanceID();
-            sleeping = true;
             redLineHitActive = false;
         }
 
@@ -71,19 +52,7 @@ namespace ClashTheCube
             destPosition = transform.position;
         }
 
-        private void Update()
-        {
-            UpdateDirectionLine();
-
-            if (State != CubeState.Initial)
-            {
-                return;
-            }
-
-            transform.position = Vector3.Lerp(transform.position, destPosition, velocity * Time.deltaTime);
-        }
-
-        private void FixedUpdate()
+        private new void FixedUpdate()
         {
             if (Body.velocity.z < backZVelocityThreshold)
             {
@@ -262,53 +231,6 @@ namespace ClashTheCube
 
             MetaRemove();
             Destroy(gameObject);
-        }
-
-        public void MoveLeft()
-        {
-            destPosition.x += swipeDelta.Value.x * GetDeltaMultiplier();
-            if (destPosition.x < -xConstraint)
-            {
-                destPosition = new Vector3(-xConstraint, destPosition.y, destPosition.z);
-            }
-        }
-
-        public void MoveRight()
-        {
-            destPosition.x += swipeDelta.Value.x * GetDeltaMultiplier();
-            if (destPosition.x > xConstraint)
-            {
-                destPosition = new Vector3(xConstraint, destPosition.y, destPosition.z);
-            }
-        }
-
-        public void Accelerate()
-        {
-            if (State != CubeState.Initial)
-            {
-                return;
-            }
-
-            // accelerate here
-            Body.isKinematic = false;
-            Body.AddForce(Vector3.forward * force);
-
-            State = CubeState.Transition;
-        }
-
-        private void UpdateDirectionLine()
-        {
-            var active = State == CubeState.Initial;
-
-            if (directionLine.activeInHierarchy != active)
-            {
-                directionLine.SetActive(active);
-            }
-        }
-
-        private float GetDeltaMultiplier()
-        {
-            return Platform.IsMobilePlatform() ? swipeDeltaMultiplier : swipeDeltaMultiplierDesktop;
         }
 
         #region Database
