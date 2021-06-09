@@ -27,6 +27,7 @@ namespace ClashTheCube
 
         private BoxCollider boxCollider;
         private Renderer boxRenderer;
+        private MaterialPropertyBlock materialBlock;
 
         public int Number { get; private set; }
 
@@ -42,6 +43,7 @@ namespace ClashTheCube
 
             boxRenderer = GetComponent<Renderer>();
             boxCollider = GetComponent<BoxCollider>();
+            materialBlock = new MaterialPropertyBlock();
 
             identifier = GetInstanceID();
             redLineHitActive = false;
@@ -219,7 +221,9 @@ namespace ClashTheCube
             {
                 index -= (index / colors.Length) * colors.Length;
             }
-            boxRenderer.material.SetColor("_TintColorA", colors[index - 1]);
+
+            materialBlock.SetColor("_TintColorA", colors[index - 1]);
+            boxRenderer.SetPropertyBlock(materialBlock);
         }
 
         public void SetFinalState()

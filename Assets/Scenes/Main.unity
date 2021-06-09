@@ -12931,6 +12931,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1776082172}
     m_Modifications:
+    - target: {fileID: 1435467742513656, guid: 9b6eba5dea9e77a4abd8f45df1ffffb6, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 4945391837379990, guid: 9b6eba5dea9e77a4abd8f45df1ffffb6, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -100404,6 +100408,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LowPoly - Grass A (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1435467742513656, guid: 9b6eba5dea9e77a4abd8f45df1ffffb6, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 4945391837379990, guid: 9b6eba5dea9e77a4abd8f45df1ffffb6, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -139674,7 +139682,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1852046790}
   m_LocalRotation: {x: -0.43051103, y: -0, z: -0, w: 0.9025853}
-  m_LocalPosition: {x: 0, y: 1090.9375, z: 254.19855}
+  m_LocalPosition: {x: 0, y: 965.0735, z: 409.62775}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1086257288}

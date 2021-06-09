@@ -30,8 +30,11 @@
         half _Glossiness;
         half _Metallic;
         fixed4 _Color;
-        fixed4 _TintColorA;
-        fixed4 _TintColorB;
+
+        UNITY_INSTANCING_BUFFER_START(Props)
+            UNITY_DEFINE_INSTANCED_PROP(fixed4, _TintColorA)
+            UNITY_DEFINE_INSTANCED_PROP(fixed4, _TintColorB)
+        UNITY_INSTANCING_BUFFER_END(Props)
 
         void surf (Input IN, inout SurfaceOutputStandard o) {
             // Albedo comes from a texture tinted by color
@@ -42,8 +45,8 @@
             fixed maskA = mask.r; // red channel is the first mask
             fixed maskB = mask.g; // green channel is the second mask
             fixed3 tint = fixed3(1.0, 1.0, 1.0);
-            tint = lerp(tint, _TintColorB, maskB);
-            tint = lerp(tint, _TintColorA, maskA);
+            tint = lerp(tint, UNITY_ACCESS_INSTANCED_PROP(Props, _TintColorB), maskB);
+            tint = lerp(tint, UNITY_ACCESS_INSTANCED_PROP(Props, _TintColorA), maskA);
             albedo.rgb *= tint;
 
 
