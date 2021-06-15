@@ -4,14 +4,6 @@ using UnityEngine;
 
 namespace ClashTheCube
 {
-    public enum AbilityType
-    {
-        None,
-        SwitchCube,
-        DropBomb,
-        SuperMagnete
-    }
-
     [CreateAssetMenu]
     public class AbilityTypeInfo : ScriptableObject
     {
