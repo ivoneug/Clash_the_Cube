@@ -258,8 +258,6 @@ namespace ClashTheCube
 
             if (Random.Range(0f, 1f) <= randomNumberGenerationChance || nearestCubesCountToGenerateNumber == 0)
             {
-                // Debug.Log("Random Chance, generated: " + random);
-
                 previousGeneratedNumber = random;
                 return random;
             }
@@ -284,8 +282,6 @@ namespace ClashTheCube
             // check that we have enough cubes
             if (objects.Count < nearestCubesCountToGenerateNumber)
             {
-                // Debug.Log("Not enough cubes, generated: " + random);
-
                 previousGeneratedNumber = random;
                 return random;
             }
@@ -308,25 +304,14 @@ namespace ClashTheCube
             }
 
             Shuffle.List<CubeController>(objects);
-            // bool found = false;
             foreach (var cube in objects)
             {
                 if (cube.Number != previousGeneratedNumber)
                 {
                     random = cube.Number;
-                    // found = true;
                     break;
                 }
             }
-
-            // if (found)
-            // {
-            //     Debug.Log("Cubes count: " + objects.Count + ", generated: " + random);
-            // }
-            // else
-            // {
-            //     Debug.Log("Cubes count: " + objects.Count + ", but all the same as previous, generated: " + random);
-            // }
 
             previousGeneratedNumber = random;
             return random;
