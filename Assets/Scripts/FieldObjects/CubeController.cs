@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Framework.Variables;
 using Framework.Events;
 using Framework.Utils;
@@ -36,6 +37,7 @@ namespace ClashTheCube
         private int identifier;
         private int redLineCrossCount;
         private bool redLineHitActive;
+        private static readonly int TintColorA = Shader.PropertyToID("_TintColorA");
 
         private new void Awake()
         {
@@ -58,23 +60,22 @@ namespace ClashTheCube
         {
             if (Body.velocity.z < backZVelocityThreshold)
             {
-                Body.velocity = new Vector3(Body.velocity.x, Body.velocity.y, backZVelocityThreshold);
+                var objectVelocity = Body.velocity;
+                Body.velocity = new Vector3(objectVelocity.x, objectVelocity.y, backZVelocityThreshold);
             }
 
-            bool sleeping = Body.velocity.magnitude < 0.1f;
-            if (this.sleeping == sleeping)
+            if (!CheckSleepingChanged())
             {
                 return;
-            }
-
-            this.sleeping = sleeping;
+            }          
+            
             MetaSave();
             CheckRedLine();
         }
 
         private void OnTriggerEnter(Collider collider)
         {
-            if (collider.gameObject.tag != "Red Line")
+            if (!collider.gameObject.CompareTag("Red Line"))
             {
                 return;
             }
@@ -87,7 +88,7 @@ namespace ClashTheCube
 
         private void OnTriggerExit(Collider collider)
         {
-            if (collider.gameObject.tag != "Red Line")
+            if (!collider.gameObject.CompareTag("Red Line"))
             {
                 return;
             }
@@ -95,15 +96,24 @@ namespace ClashTheCube
             redLineHitActive = false;
         }
 
+        private bool CheckSleepingChanged()
+        {
+            var sleepingValue = Body.velocity.magnitude < 0.1f;
+            if (sleeping == sleepingValue)
+            {
+                return false;
+            }
+
+            sleeping = sleepingValue;
+            return true;
+        }
+        
         private void CheckRedLine()
         {
-            if (redLineCrossCount > 1 || (sleeping && redLineHitActive))
+            if (redLineCrossCount <= 1 && (!sleeping || !redLineHitActive)) return;
+            if (cubeCrossedRedLineEvent)
             {
-                Debug.Log("GAME OVER");
-                if (cubeCrossedRedLineEvent)
-                {
-                    cubeCrossedRedLineEvent.Raise();
-                }
+                cubeCrossedRedLineEvent.Raise();
             }
         }
 
@@ -113,7 +123,7 @@ namespace ClashTheCube
             {
                 return;
             }
-            if (State == CubeState.Final)
+            if (State == FieldObjectState.Final)
             {
                 return;
             }
@@ -123,7 +133,7 @@ namespace ClashTheCube
             if (collision.gameObject.CompareTag("Cube"))
             {
                 var cube = collision.gameObject.GetComponent<CubeController>();
-                if (cube.State == CubeState.Final)
+                if (cube.State == FieldObjectState.Final)
                 {
                     return;
                 }
@@ -156,7 +166,7 @@ namespace ClashTheCube
 
         public void Discharge()
         {
-            State = CubeState.Final;
+            State = FieldObjectState.Final;
 
             transform.localScale = Vector3.one;
             transform.DOScale(0f, 0.5f)
@@ -167,7 +177,7 @@ namespace ClashTheCube
 
         public void InitNew(int number)
         {
-            Init(number, CubeState.Initial);
+            Init(number, FieldObjectState.Initial);
 
             transform.localScale = Vector3.zero;
             transform.DOScale(1f, 0.5f).SetEase(Ease.OutQuad).Play();
@@ -175,26 +185,29 @@ namespace ClashTheCube
 
         public void InitMerged(int number)
         {
-            Init(number, CubeState.Transition);
+            Init(number, FieldObjectState.Transition);
         }
 
-        private void Init(int number, CubeState state)
+        private void Init(int number, FieldObjectState state)
         {
             switch (state)
             {
-                case CubeState.Initial:
-                    State = CubeState.Initial;
+                case FieldObjectState.Initial:
+                    State = FieldObjectState.Initial;
                     Body.constraints = RigidbodyConstraints.FreezeRotation;
                     Body.isKinematic = true;
                     redLineCrossCount = 0;
                     break;
 
-                case CubeState.Transition:
-                    State = CubeState.Transition;
+                case FieldObjectState.Transition:
+                    State = FieldObjectState.Transition;
                     Body.constraints = RigidbodyConstraints.None;
                     Body.isKinematic = false;
                     redLineCrossCount = 1;
                     break;
+                
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(state), state, "Unable to init Cube with this value of state");
             }
 
             SetNumber(number);
@@ -204,10 +217,10 @@ namespace ClashTheCube
         {
             Number = number;
 
-            string numberString = number.ToString();
+            var numberString = number.ToString();
             if (number > 8192)
             {
-                numberString = (number / 1000).ToString() + "K";
+                numberString = (number / 1000) + "K";
             }
 
             foreach (var label in labels)
@@ -215,20 +228,20 @@ namespace ClashTheCube
                 label.text = numberString;
             }
 
-            string converted = System.Convert.ToString(number, 2);
-            int index = converted.Length - 1;
+            var converted = System.Convert.ToString(number, 2);
+            var index = converted.Length - 1;
             if (index > colors.Length)
             {
                 index -= (index / colors.Length) * colors.Length;
             }
 
-            materialBlock.SetColor("_TintColorA", colors[index - 1]);
+            materialBlock.SetColor(TintColorA, colors[index - 1]);
             boxRenderer.SetPropertyBlock(materialBlock);
         }
 
         public void SetFinalState()
         {
-            State = CubeState.Final;
+            State = FieldObjectState.Final;
 
             boxCollider.enabled = false;
             Body.velocity = Vector3.zero;
@@ -294,7 +307,7 @@ namespace ClashTheCube
             Vector3Type pos = databox.GetData<Vector3Type>(table, identifier.ToString(), positionField);
             QuaternionType rot = databox.GetData<QuaternionType>(table, identifier.ToString(), rotationField);
 
-            Init(num.Value, (CubeState)state.Value);
+            Init(num.Value, (FieldObjectState)state.Value);
             transform.position = pos.Value;
             transform.rotation = rot.Value;
         }

@@ -26,14 +26,15 @@ namespace ClashTheCube
 
         private void Start()
         {
-            destPosition = transform.position;
+            var objectTransform = transform;
+            destPosition = objectTransform.position;
 
-            State = CubeState.Initial;
+            State = FieldObjectState.Initial;
             Body.constraints = RigidbodyConstraints.FreezeRotation;
             Body.isKinematic = true;
 
-            var initialScale = transform.localScale;
-            transform.localScale = Vector3.zero;
+            var initialScale = objectTransform.localScale;
+            objectTransform.localScale = Vector3.zero;
             transform.DOScale(initialScale, 0.5f).SetEase(Ease.OutQuad).Play();
         }
 
@@ -43,7 +44,7 @@ namespace ClashTheCube
             {
                 return;
             }
-            if (State == CubeState.Final)
+            if (State == FieldObjectState.Final)
             {
                 return;
             }
@@ -56,7 +57,7 @@ namespace ClashTheCube
             if (collision.gameObject.CompareTag("Cube"))
             {
                 var cube = collision.gameObject.GetComponent<CubeController>();
-                if (cube.State == CubeState.Final)
+                if (cube.State == FieldObjectState.Final)
                 {
                     return;
                 }
@@ -66,18 +67,19 @@ namespace ClashTheCube
             }
         }
 
-        public void Discharge()
+        private void Discharge()
         {
-            State = CubeState.Final;
+            Transform objectTransform = transform;
+            State = FieldObjectState.Final;
             boxCollider.enabled = false;
             Body.velocity = Vector3.zero;
 
-            transform.DOScale(0f, 0.5f)
+            objectTransform.DOScale(0f, 0.5f)
                      .SetEase(Ease.OutQuad)
                      .OnComplete(() => Destroy(gameObject))
                      .Play();
 
-            explosionPosition.SetValue(transform.position);
+            explosionPosition.SetValue(objectTransform.position);
             
             if (bombExplosionEvent)
             {

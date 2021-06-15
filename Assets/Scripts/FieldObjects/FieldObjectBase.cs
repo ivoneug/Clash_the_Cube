@@ -6,13 +6,6 @@ using Framework.SystemInfo;
 
 namespace ClashTheCube
 {
-    public enum CubeState
-    {
-        Initial,
-        Transition,
-        Final
-    }
-
     [RequireComponent(typeof(Rigidbody))]
     public abstract class FieldObjectBase : MonoBehaviour
     {
@@ -26,7 +19,7 @@ namespace ClashTheCube
 
         [SerializeField] protected GameObject directionLine;
 
-        public CubeState State { get; protected set; }
+        public FieldObjectState State { get; protected set; }
         public Rigidbody Body { get; private set; }
 
         protected Vector3 destPosition;
@@ -42,7 +35,7 @@ namespace ClashTheCube
         {
             UpdateDirectionLine();
 
-            if (State != CubeState.Initial)
+            if (State != FieldObjectState.Initial)
             {
                 return;
             }
@@ -75,7 +68,7 @@ namespace ClashTheCube
 
         public void Accelerate()
         {
-            if (State != CubeState.Initial)
+            if (State != FieldObjectState.Initial)
             {
                 return;
             }
@@ -84,12 +77,12 @@ namespace ClashTheCube
             Body.isKinematic = false;
             Body.AddForce(Vector3.forward * force);
 
-            State = CubeState.Transition;
+            State = FieldObjectState.Transition;
         }
 
-        protected void UpdateDirectionLine()
+        private void UpdateDirectionLine()
         {
-            var active = State == CubeState.Initial;
+            var active = State == FieldObjectState.Initial;
 
             if (directionLine.activeInHierarchy != active)
             {
