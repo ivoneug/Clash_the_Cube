@@ -909,14 +909,15 @@ MonoBehaviour:
     UseConstant: 1
     ConstantValue: 1.7
     Variable: {fileID: 0}
-  velocity:
-    UseConstant: 1
-    ConstantValue: 16
-    Variable: {fileID: 0}
   force:
     UseConstant: 1
     ConstantValue: 1300
     Variable: {fileID: 0}
+  velocity:
+    UseConstant: 1
+    ConstantValue: 16
+    Variable: {fileID: 0}
+  directionLine: {fileID: 625878744682204382}
   backZVelocityThreshold:
     UseConstant: 1
     ConstantValue: -0.5
@@ -949,10 +950,8 @@ MonoBehaviour:
   - {r: 1, g: 0.4509804, b: 0, a: 0}
   - {r: 0.28235295, g: 0, b: 1, a: 0}
   - {r: 0, g: 0.5, b: 0.032608747, a: 0}
-  directionLine: {fileID: 625878744682204382}
   nextCubeNumber: {fileID: 11400000, guid: 0d0620078eb204bffb130c01055b2168, type: 2}
   nextCubePosition: {fileID: 11400000, guid: 3dc548cf0517d4329a376879ab1980c0, type: 2}
-  databox: {fileID: 11400000, guid: 74695ae3ec05c4ffa93bac3e5d6d9cb8, type: 2}
 --- !u!114 &3753591815582623414
 MonoBehaviour:
   m_ObjectHideFlags: 0

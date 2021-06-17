@@ -136756,6 +136756,7 @@ GameObject:
   - component: {fileID: 1837498928}
   - component: {fileID: 1837498929}
   - component: {fileID: 1837498930}
+  - component: {fileID: 1837498931}
   m_Layer: 0
   m_Name: CubeSpawner
   m_TagString: Untagged
@@ -137110,6 +137111,19 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   Event: {fileID: 11400000, guid: f85cdcf479c7e4ff8ba0f676bbdcf9d3, type: 2}
+--- !u!114 &1837498931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837498919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ae29a3f693247139fb619c57598ed12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  databox: {fileID: 11400000, guid: 74695ae3ec05c4ffa93bac3e5d6d9cb8, type: 2}
 --- !u!1 &1843992244
 GameObject:
   m_ObjectHideFlags: 0
