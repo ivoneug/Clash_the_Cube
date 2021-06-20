@@ -76,7 +76,7 @@ namespace ClashTheCube
 
             objectTransform.DOScale(0f, 0.5f)
                      .SetEase(Ease.OutQuad)
-                     .OnComplete(() => Destroy(gameObject))
+                     .OnComplete(() => objectHolder.RemoveObject(this))
                      .Play();
 
             explosionPosition.SetValue(objectTransform.position);

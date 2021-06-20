@@ -136757,6 +136757,7 @@ GameObject:
   - component: {fileID: 1837498929}
   - component: {fileID: 1837498930}
   - component: {fileID: 1837498931}
+  - component: {fileID: 1837498932}
   m_Layer: 0
   m_Name: CubeSpawner
   m_TagString: Untagged
@@ -136777,8 +136778,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   databox: {fileID: 11400000, guid: 74695ae3ec05c4ffa93bac3e5d6d9cb8, type: 2}
-  cubePrefab: {fileID: 1421377907603511973, guid: 8309ddb9a0f174dc9a6c2746ff462ff9, type: 3}
-  bombPrefab: {fileID: 775569259939943295, guid: fdbbc22cccb504f888533f418615d5fe, type: 3}
   spawnTimeDelta:
     UseConstant: 1
     ConstantValue: 0.7
@@ -137124,6 +137123,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   databox: {fileID: 11400000, guid: 74695ae3ec05c4ffa93bac3e5d6d9cb8, type: 2}
+--- !u!114 &1837498932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837498919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69ab84c2b31e4d5290b8de68e2f1c43d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cubePrefab: {fileID: 1421377907603511973, guid: 8309ddb9a0f174dc9a6c2746ff462ff9, type: 3}
+  bombPrefab: {fileID: 775569259939943295, guid: fdbbc22cccb504f888533f418615d5fe, type: 3}
 --- !u!1 &1843992244
 GameObject:
   m_ObjectHideFlags: 0

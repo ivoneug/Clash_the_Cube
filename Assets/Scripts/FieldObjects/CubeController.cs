@@ -256,7 +256,7 @@ namespace ClashTheCube
             Body.velocity = Vector3.zero;
 
             RemoveSnapshot();
-            Destroy(gameObject);
+            objectHolder.RemoveObject(this);
         }
 
         #region Database

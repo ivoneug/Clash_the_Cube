@@ -24,7 +24,14 @@ namespace ClashTheCube
 
         protected Vector3 destPosition;
         protected bool sleeping;
+        protected IFieldObjectHolder objectHolder;
 
+        public void SetObjectHolder(IFieldObjectHolder holder)
+        {
+            objectHolder = holder;
+            objectHolder.AddObject(this);
+        }
+        
         protected void Awake()
         {
             Body = GetComponent<Rigidbody>();

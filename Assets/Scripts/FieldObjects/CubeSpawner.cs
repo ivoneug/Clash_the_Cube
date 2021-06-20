@@ -10,12 +10,10 @@ using Random = UnityEngine.Random;
 
 namespace ClashTheCube
 {
+    [RequireComponent(typeof(IFieldObjectHolder))]
     public class CubeSpawner : MonoBehaviour
     {
         [SerializeField] private DataboxObject databox;
-
-        [SerializeField] private CubeController cubePrefab;
-        [SerializeField] private BombController bombPrefab;
 
         [SerializeField] private FloatReference spawnTimeDelta;
 
@@ -44,12 +42,12 @@ namespace ClashTheCube
         private int previousGeneratedNumber = -1;
         private Coroutine spawnCubeRoutineHandle;
         private Coroutine spawnBombRoutineHandle;
-
-        private IMetaSerializable serializer;
+        
+        private IFieldObjectHolder objectHolder;
 
         private void Awake()
         {
-            serializer = GetComponent<IMetaSerializable>();
+            objectHolder = GetComponent<IFieldObjectHolder>();
         }
 
         public void LoadSavedFieldState()
@@ -71,7 +69,7 @@ namespace ClashTheCube
             var entries = databox.GetEntriesFromTable(DataBaseController.Cubes_Table);
             foreach (var entry in entries)
             {
-                var cube = CreateCube();
+                var cube = objectHolder.CreateCube();
                 cube.LoadSnapshot(entry.Key);
 
                 if (cube.State == FieldObjectState.Initial)
@@ -104,7 +102,7 @@ namespace ClashTheCube
         {
             yield return new WaitForSeconds(spawnTimeDelta);
 
-            var cube = CreateCube();
+            var cube = objectHolder.CreateCube();
             cube.InitNew(GenerateCubeNumber());
             spawnCubeRoutineHandle = null;
         }
@@ -114,7 +112,7 @@ namespace ClashTheCube
             CheckAchievement();
 
             var quaternion = Quaternion.identity;
-            var force = Vector3.zero;
+            Vector3 force;
             var torque = GenerateNormalizedTorque();
 
             var nearestCube = GetNearestMatchingCube();
@@ -129,7 +127,7 @@ namespace ClashTheCube
                 force = Vector3.up * cubeMergeUpForceMultiplier;
             }
 
-            var cube = CreateCube(nextCubePosition.Value, quaternion);
+            var cube = objectHolder.CreateCube(nextCubePosition.Value, quaternion);
             cube.InitMerged(nextCubeNumber.Value);
 
             cube.Body.AddForce(force * Random.Range(cubeMergeForceMin, cubeMergeForceMax));
@@ -150,18 +148,17 @@ namespace ClashTheCube
         {
             yield return new WaitForSeconds(spawnTimeDelta);
 
-            Instantiate(bombPrefab, transform.position, Quaternion.identity);
+            objectHolder.CreateBomb();
             spawnBombRoutineHandle = null;
         }
 
         public void ActivateSuperMagnete()
         {
             var map = new Dictionary<int, List<CubeController>>();
-            var objects = GameObject.FindGameObjectsWithTag("Cube");
+            var objects = objectHolder.GetCubes();
 
-            foreach (var obj in objects)
+            foreach (var cube in objects)
             {
-                var cube = obj.GetComponent<CubeController>();
                 if (cube.State != FieldObjectState.Transition)
                 {
                     continue;
@@ -206,11 +203,10 @@ namespace ClashTheCube
 
         public void DischargeActiveCube()
         {
-            var objects = GameObject.FindGameObjectsWithTag("Cube");
+            var objects = objectHolder.GetCubes();
 
-            foreach (var obj in objects)
+            foreach (var cube in objects)
             {
-                var cube = obj.GetComponent<CubeController>();
                 if (cube.State != FieldObjectState.Initial)
                 {
                     continue;
@@ -230,12 +226,11 @@ namespace ClashTheCube
 
         private CubeController GetNearestMatchingCube()
         {
-            var objects = GameObject.FindGameObjectsWithTag("Cube");
+            var objects = objectHolder.GetCubes();
             CubeController nearest = null;
 
-            foreach (var obj in objects)
+            foreach (var cube in objects)
             {
-                var cube = obj.GetComponent<CubeController>();
                 if (cube.Number != nextCubeNumber.Value ||
                     cube.State != FieldObjectState.Transition)
                 {
@@ -275,7 +270,7 @@ namespace ClashTheCube
 
         private int GenerateCubeNumber()
         {
-            int random = -1;
+            int random;
             do
             {
                 random = (int) Mathf.Pow(2, Random.Range(1, maxPowNumberForCube + 1));
@@ -290,12 +285,11 @@ namespace ClashTheCube
             var maxNumber = (int) Mathf.Pow(2, maxPowNumberForCube);
 
             // get all cubes and filter out all cubes with inappropreate numbers
-            var objs = GameObject.FindGameObjectsWithTag("Cube");
+            var objs = objectHolder.GetCubes();
             var objects = new List<CubeController>();
 
-            foreach (var obj in objs)
+            foreach (var cube in objs)
             {
-                var cube = obj.GetComponent<CubeController>();
                 if (cube.Number > maxNumber || cube.State != FieldObjectState.Transition)
                 {
                     continue;
@@ -314,7 +308,7 @@ namespace ClashTheCube
             var position = transform.position;
 
             // sort all cubes by distance to spawner
-            objects.Sort((CubeController x, CubeController y) =>
+            objects.Sort((x, y) =>
             {
                 var xDistance = Vector.DistanceTo(position, x.transform.position);
                 var yDistance = Vector.DistanceTo(position, y.transform.position);
@@ -329,14 +323,13 @@ namespace ClashTheCube
                     objects.Count - nearestCubesCountToGenerateNumber);
             }
 
-            Shuffle.List<CubeController>(objects);
+            Shuffle.List(objects);
             foreach (var cube in objects)
             {
-                if (cube.Number != previousGeneratedNumber)
-                {
-                    random = cube.Number;
-                    break;
-                }
+                if (cube.Number == previousGeneratedNumber) continue;
+                
+                random = cube.Number;
+                break;
             }
 
             previousGeneratedNumber = random;
@@ -356,11 +349,10 @@ namespace ClashTheCube
 
         public void ForceContinueGame()
         {
-            var objects = GameObject.FindGameObjectsWithTag("Cube");
+            var objects = objectHolder.GetCubes();
 
-            foreach (var obj in objects)
+            foreach (var cube in objects)
             {
-                var cube = obj.GetComponent<CubeController>();
                 if (cube.State != FieldObjectState.Transition)
                 {
                     continue;
@@ -372,19 +364,6 @@ namespace ClashTheCube
                     cube.SetFinalState();
                 }
             }
-        }
-        
-        private CubeController CreateCube()
-        {
-            return CreateCube(transform.position, Quaternion.identity);
-        }
-
-        private CubeController CreateCube(Vector3 position, Quaternion quaternion)
-        {
-            var cube = Instantiate(cubePrefab, position, quaternion);
-            cube.SetSerializer(serializer);
-
-            return cube;
         }
     }
 }
